@@ -3,32 +3,34 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
 VisualStudioVersion = 12.0.31101.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Recaptcha.Web", "Recaptcha.Web\Recaptcha.Web.csproj", "{47C0DB18-D553-41BE-98F9-6A5C08FAC0C6}"
+Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "Recaptcha.Web", "Recaptcha.Web\Recaptcha.Web.shproj", "{68721A31-5D23-4019-9763-8C65878EE35E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Recaptcha.Web.4.0", "Recaptcha.Web.4.0\Recaptcha.Web.4.0.csproj", "{9DD4627A-D93E-49B8-82BE-285803D1846B}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Recaptcha.Web.4.0", "4.0\Recaptcha.Web.4.0.csproj", "{9DD4627A-D93E-49B8-82BE-285803D1846B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Recaptcha.Web.4.5.1", "Recaptcha.Web.4.5.1\Recaptcha.Web.4.5.1.csproj", "{62CB8C5C-0142-4E17-B57B-485A1423DBF3}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Recaptcha.Web.4.5", "4.5\Recaptcha.Web.4.5.csproj", "{47C0DB18-D553-41BE-98F9-6A5C08FAC0C6}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "v4.5", "v4.5", "{6D1C1413-7257-4DC4-895F-EE1ACBB443F4}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "v4.5.1", "v4.5.1", "{B03B6948-EA38-4878-8DDB-1AB712AFC66F}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "v4.0", "v4.0", "{57953F38-3A5F-4140-9926-0D97D45BEE4F}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Recaptcha.Web.4.5.1", "4.5.1\Recaptcha.Web.4.5.1.csproj", "{62CB8C5C-0142-4E17-B57B-485A1423DBF3}"
 EndProject
 Global
+	GlobalSection(SharedMSBuildProjectFiles) = preSolution
+		Recaptcha.Web\Recaptcha.Web.projitems*{68721a31-5d23-4019-9763-8c65878ee35e}*SharedItemsImports = 13
+		Recaptcha.Web\Recaptcha.Web.projitems*{47c0db18-d553-41be-98f9-6a5c08fac0c6}*SharedItemsImports = 4
+		Recaptcha.Web\Recaptcha.Web.projitems*{62cb8c5c-0142-4e17-b57b-485a1423dbf3}*SharedItemsImports = 4
+		Recaptcha.Web\Recaptcha.Web.projitems*{9dd4627a-d93e-49b8-82be-285803d1846b}*SharedItemsImports = 4
+	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{47C0DB18-D553-41BE-98F9-6A5C08FAC0C6}.Debug|Any CPU.ActiveCfg = Release|Any CPU
-		{47C0DB18-D553-41BE-98F9-6A5C08FAC0C6}.Debug|Any CPU.Build.0 = Release|Any CPU
-		{47C0DB18-D553-41BE-98F9-6A5C08FAC0C6}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{47C0DB18-D553-41BE-98F9-6A5C08FAC0C6}.Release|Any CPU.Build.0 = Release|Any CPU
 		{9DD4627A-D93E-49B8-82BE-285803D1846B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{9DD4627A-D93E-49B8-82BE-285803D1846B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9DD4627A-D93E-49B8-82BE-285803D1846B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9DD4627A-D93E-49B8-82BE-285803D1846B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{47C0DB18-D553-41BE-98F9-6A5C08FAC0C6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{47C0DB18-D553-41BE-98F9-6A5C08FAC0C6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{47C0DB18-D553-41BE-98F9-6A5C08FAC0C6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{47C0DB18-D553-41BE-98F9-6A5C08FAC0C6}.Release|Any CPU.Build.0 = Release|Any CPU
 		{62CB8C5C-0142-4E17-B57B-485A1423DBF3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{62CB8C5C-0142-4E17-B57B-485A1423DBF3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{62CB8C5C-0142-4E17-B57B-485A1423DBF3}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -36,10 +38,5 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
-	EndGlobalSection
-	GlobalSection(NestedProjects) = preSolution
-		{47C0DB18-D553-41BE-98F9-6A5C08FAC0C6} = {6D1C1413-7257-4DC4-895F-EE1ACBB443F4}
-		{9DD4627A-D93E-49B8-82BE-285803D1846B} = {57953F38-3A5F-4140-9926-0D97D45BEE4F}
-		{62CB8C5C-0142-4E17-B57B-485A1423DBF3} = {B03B6948-EA38-4878-8DDB-1AB712AFC66F}
 	EndGlobalSection
 EndGlobal
