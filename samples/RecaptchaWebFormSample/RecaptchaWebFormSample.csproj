@@ -120,9 +120,9 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\src\Recaptcha.Web\Recaptcha.Web.csproj">
+    <ProjectReference Include="..\..\Source\4.5\Recaptcha.Web.4.5.csproj">
       <Project>{47c0db18-d553-41be-98f9-6a5c08fac0c6}</Project>
-      <Name>Recaptcha.Web</Name>
+      <Name>Recaptcha.Web.4.5</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
@@ -130,7 +130,7 @@
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
   </PropertyGroup>
   <PropertyGroup>
-    <SignAssembly>true</SignAssembly>
+    <SignAssembly>false</SignAssembly>
   </PropertyGroup>
   <PropertyGroup>
     <AssemblyOriginatorKeyFile>
