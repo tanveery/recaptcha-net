@@ -4,289 +4,98 @@
  * =========================================================================================================================== */
 
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Net;
-using System.IO;
 using System.Threading.Tasks;
 
 namespace Recaptcha.Web
 {
     /// <summary>
-    /// Represents the functionality for verifying user's response to the recpatcha challenge.
+    /// Represents the functionality for verifying reCAPTCHA client-side API response with request to the server-side reCAPTCHA API.
+    /// <para/> Used for backward compatibility only.
     /// </summary>
-    public class RecaptchaVerificationHelper
+    [Obsolete("Use Verifier class instead.")]
+    public class RecaptchaVerificationHelper : Verifier
     {
-        private string _Challenge = null;
-
-        private RecaptchaVerificationHelper()
-        { }
-
         /// <summary>
         /// Creates an instance of the <see cref="RecaptchaVerificationHelper"/> class.
         /// </summary>
-        /// <param name="privateKey">Sets the private key of the recaptcha verification request.</param>
+        /// <param name="privateKey">Sets the private key (Secret key) to be part of the reCAPTCHA verification request.</param>
         internal RecaptchaVerificationHelper(string privateKey)
-        {
-            if (String.IsNullOrEmpty(privateKey))
-            {
-                throw new InvalidOperationException("Private key cannot be null or empty.");
-            }
-
-            if (HttpContext.Current == null || HttpContext.Current.Request == null)
-            {
-                throw new InvalidOperationException("Http request context does not exist.");
-            }
-
-            HttpRequest request = HttpContext.Current.Request;
-
-            this.UseSsl = request.IsSecureConnection;
-
-            this.PrivateKey = privateKey;
-            this.UserHostAddress = request.UserHostAddress;
-
-            if (!string.IsNullOrEmpty(request.Form["recaptcha_challenge_field"]))
-            {
-                this._Challenge = request.Form["recaptcha_challenge_field"];
-                this.Response = request.Form["recaptcha_response_field"];
-            }
-            else
-            {
-                this._Challenge = request.Params["recaptcha_challenge_field"];
-                this.Response = request.Params["recaptcha_response_field"];
-            }
-        }
+            : base(privateKey) { }
 
         /// <summary>
-        /// Determines if HTTPS intead of HTTP is to be used in Recaptcha verification API calls.
+        /// Determines if HTTPS intead of HTTP is to be used in reCAPTCHA API requests.
         /// </summary>
+        [Obsolete("Current version of API does not allow to use HTTP.")]
         public bool UseSsl
         {
-            get;
-            private set;
+            get { return true; }
         }
 
         /// <summary>
-        /// Gets the privae key of the recaptcha verification request.
+        /// Gets the user's host address used to make the reCAPTCHA verification request.
         /// </summary>
-        public string PrivateKey
-        {
-            get;
-            private set;
-        }
-
-        /// <summary>
-        /// Gets the user's host address of the recaptcha verification request.
-        /// </summary>
+        [Obsolete("Current version of API does not use host address or IP.")]
         public string UserHostAddress
         {
-            get;
-            private set;
+            get { return null; }
         }
 
         /// <summary>
-        /// Gets the user's response to the recaptcha challenge of the recaptcha verification request.
+        /// Gets the user's response to the reCAPTCHA challenge, which should be passed to the verification request.
         /// </summary>
+        [Obsolete("Current version of API does not provide raw user's response.")]
         public string Response
         {
-            get;
-            private set;
+            // Return some non-empty string, otherwise current callers logic, which tries to check the Response first, might be broken.
+            get { return Boolean.FalseString; }
         }
 
         /// <summary>
-        /// Verifies whether the user's response to the recaptcha request is correct.
+        /// Verifies whether the CAPTCHA is solved correctly by the end user.
         /// </summary>
         /// <returns>Returns the result as a value of the <see cref="RecaptchaVerificationResult"/> enum.</returns>
+        [Obsolete("Use VerifyIfSolvedAsync method instead.")]
         public RecaptchaVerificationResult VerifyRecaptchaResponse()
         {
-            if(string.IsNullOrEmpty(_Challenge))
+            var result = Task.Factory.StartNew(async () => await GetErrorCodeAsync().ConfigureAwait(false)).Unwrap().Result;
+            return ConvertErrorCode(result);
+        }
+
+        /// <summary>
+        /// Verifies whether the CAPTCHA is solved correctly by the end user.
+        /// </summary>
+        /// <returns>Returns the result as a value of the <see cref="RecaptchaVerificationResult"/> enum.</returns>
+        [Obsolete("Use VerifyIfSolvedAsync method instead.")]
+        public async Task<RecaptchaVerificationResult> VerifyRecaptchaResponseTaskAsync()
+        {
+            var result = await GetErrorCodeAsync();
+            return ConvertErrorCode(result);
+        }
+
+        private static RecaptchaVerificationResult ConvertErrorCode(ErrorCode source)
+        {
+            if (source == ErrorCode.NoError)
             {
-                return RecaptchaVerificationResult.ChallengeNotProvided;
+                return RecaptchaVerificationResult.Success;
             }
 
-            if(string.IsNullOrEmpty(Response))
+            if (source.HasFlag(ErrorCode.MissingInputSecret)
+                || source.HasFlag(ErrorCode.InvalidInputSecret))
+            {
+                return RecaptchaVerificationResult.InvalidPrivateKey;
+            }
+
+            if (source.HasFlag(ErrorCode.MissingInputResponse))
             {
                 return RecaptchaVerificationResult.NullOrEmptyCaptchaSolution;
             }
 
-            string privateKey = RecaptchaKeyHelper.ParseKey(PrivateKey);
-
-            string postData = String.Format("privatekey={0}&remoteip={1}&challenge={2}&response={3}", privateKey, this.UserHostAddress, this._Challenge, this.Response);
-
-            byte[] postDataBuffer = System.Text.Encoding.ASCII.GetBytes(postData);
-
-            Uri verifyUri = null;
-
-            if (!UseSsl)
+            if (source.HasFlag(ErrorCode.InvalidInputResponse))
             {
-                verifyUri = new Uri("http://www.google.com/recaptcha/api/verify", UriKind.Absolute);
-            }
-            else
-            {
-                verifyUri = new Uri("https://www.google.com/recaptcha/api/verify", UriKind.Absolute);
+                return RecaptchaVerificationResult.IncorrectCaptchaSolution;
             }
 
-            try
-            {
-                HttpWebRequest webRequest = (HttpWebRequest)WebRequest.Create(verifyUri);
-                webRequest.ContentType = "application/x-www-form-urlencoded";
-                webRequest.ContentLength = postDataBuffer.Length;
-                webRequest.Method = "POST";
-
-                IWebProxy proxy = WebRequest.GetSystemWebProxy();
-                proxy.Credentials = CredentialCache.DefaultCredentials;
-
-                webRequest.Proxy = proxy;
-
-                using (Stream requestStream = webRequest.GetRequestStream())
-                {
-                    requestStream.Write(postDataBuffer, 0, postDataBuffer.Length);
-                }
-
-                HttpWebResponse webResponse = (HttpWebResponse)webRequest.GetResponse();
-
-                string[] responseTokens = null;
-                using (StreamReader sr = new StreamReader(webResponse.GetResponseStream()))
-                {
-                    responseTokens = sr.ReadToEnd().Split('\n');
-                }
-
-                if (responseTokens.Length == 2)
-                {
-                    Boolean success = responseTokens[0].Equals("true", StringComparison.CurrentCulture);
-
-                    if (success)
-                    {
-                        return RecaptchaVerificationResult.Success;
-                    }
-                    else
-                    {
-                        if (responseTokens[1].Equals("incorrect-captcha-sol", StringComparison.CurrentCulture))
-                        {
-                            return RecaptchaVerificationResult.IncorrectCaptchaSolution;
-                        }
-                        else if (responseTokens[1].Equals("invalid-site-private-key", StringComparison.CurrentCulture))
-                        {
-                            return RecaptchaVerificationResult.InvalidPrivateKey;
-                        }
-                        else if (responseTokens[1].Equals("invalid-request-cookie", StringComparison.CurrentCulture))
-                        {
-                            return RecaptchaVerificationResult.InvalidCookieParameters;
-                        }
-                    }
-                }
-
-                return RecaptchaVerificationResult.UnknownError;
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-        }
-
-        /// <summary>
-        /// Verifies whether the user's response to the recaptcha request is correct.
-        /// </summary>
-        /// <returns>Returns the result as a value of the <see cref="RecaptchaVerificationResult"/> enum.</returns>
-        public Task<RecaptchaVerificationResult> VerifyRecaptchaResponseTaskAsync()
-        {
-            if (string.IsNullOrEmpty(_Challenge))
-            {
-                return FromTaskResult<RecaptchaVerificationResult>(RecaptchaVerificationResult.ChallengeNotProvided);
-            }
-
-            if (string.IsNullOrEmpty(Response))
-            {
-                return FromTaskResult<RecaptchaVerificationResult>(RecaptchaVerificationResult.NullOrEmptyCaptchaSolution);
-            }
-
-            Task<RecaptchaVerificationResult> result = Task<RecaptchaVerificationResult>.Factory.StartNew(() =>
-            {
-                string privateKey = RecaptchaKeyHelper.ParseKey(PrivateKey);
-
-                string postData = String.Format("privatekey={0}&remoteip={1}&challenge={2}&response={3}", privateKey, this.UserHostAddress, this._Challenge, this.Response);
-
-                byte[] postDataBuffer = System.Text.Encoding.ASCII.GetBytes(postData);
-
-                Uri verifyUri = null;
-
-                if (!UseSsl)
-                {
-                    verifyUri = new Uri("http://www.google.com/recaptcha/api/verify", UriKind.Absolute);
-                }
-                else
-                {
-                    verifyUri = new Uri("https://www.google.com/recaptcha/api/verify", UriKind.Absolute);
-                }
-
-                try
-                {
-                    HttpWebRequest webRequest = (HttpWebRequest)WebRequest.Create(verifyUri);
-                    webRequest.ContentType = "application/x-www-form-urlencoded";
-                    webRequest.ContentLength = postDataBuffer.Length;
-                    webRequest.Method = "POST";
-
-                    IWebProxy proxy = WebRequest.GetSystemWebProxy();
-                    proxy.Credentials = CredentialCache.DefaultCredentials;
-
-                    webRequest.Proxy = proxy;
-
-                    Stream requestStream = webRequest.GetRequestStream();
-                    requestStream.Write(postDataBuffer, 0, postDataBuffer.Length);
-
-                    HttpWebResponse webResponse = (HttpWebResponse)webRequest.GetResponse();
-
-                    string[] responseTokens = null;
-                    using (StreamReader sr = new StreamReader(webResponse.GetResponseStream()))
-                    {
-                        responseTokens = sr.ReadToEnd().Split('\n');
-                    }
-
-                    if (responseTokens.Length == 2)
-                    {
-                        Boolean success = responseTokens[0].Equals("true", StringComparison.CurrentCulture);
-
-                        if (success)
-                        {
-                            return RecaptchaVerificationResult.Success;
-                        }
-                        else
-                        {
-                            if (responseTokens[1].Equals("incorrect-captcha-sol", StringComparison.CurrentCulture))
-                            {
-                                return RecaptchaVerificationResult.IncorrectCaptchaSolution;
-                            }
-                            else if (responseTokens[1].Equals("invalid-site-private-key", StringComparison.CurrentCulture))
-                            {
-                                return RecaptchaVerificationResult.InvalidPrivateKey;
-                            }
-                            else if (responseTokens[1].Equals("invalid-request-cookie", StringComparison.CurrentCulture))
-                            {
-                                return RecaptchaVerificationResult.InvalidCookieParameters;
-                            }
-                        }
-                    }
-
-                    return RecaptchaVerificationResult.UnknownError;
-                }
-                catch (Exception ex)
-                {
-                    throw ex;
-                }
-            });
-
-            return result;
-        }
-
-        // Added this method to support backward compatibility with
-        // .NET Framework 4.0 since Task.FromResult<T> is available
-        // only in 4.5+.
-        private Task<TValue> FromTaskResult<TValue>(TValue value)
-        {
-            var tcs = new TaskCompletionSource<TValue>();
-            tcs.SetResult(value);
-            return tcs.Task;
+            return RecaptchaVerificationResult.UnknownError;
         }
     }
 }

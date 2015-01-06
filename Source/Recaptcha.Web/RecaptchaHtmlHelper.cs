@@ -5,134 +5,211 @@
 
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
-using System.Web;
+using System.Web.UI;
 
 namespace Recaptcha.Web
 {
     /// <summary>
-    /// Represents the functionality to generate recaptcha HTML.
+    /// Represents the functionality to generate reCAPTCHA HTML.
     /// </summary>
     public class RecaptchaHtmlHelper
     {
         /// <summary>
+        /// List of supported language codes as defined at https://developers.google.com/recaptcha/docs/language.
+        /// </summary>
+        private static readonly HashSet<string> SupportedLanguages =
+            new HashSet<string>
+            {
+                "ar",
+                "bg",
+                "ca",
+                "zh-CN",
+                "zh-TW",
+                "hr",
+                "cs",
+                "da",
+                "nl",
+                "en-GB",
+                "en",
+                "fil",
+                "fi",
+                "fr",
+                "fr-CA",
+                "De",
+                "de-AT",
+                "de-CH",
+                "el",
+                "iw",
+                "hi",
+                "hu",
+                "id",
+                "it",
+                "ja",
+                "ko",
+                "lv",
+                "lt",
+                "no",
+                "fa",
+                "pl",
+                "pt",
+                "pt-BR",
+                "pt-PT",
+                "ro",
+                "ru",
+                "sr",
+                "sk",
+                "sl",
+                "es",
+                "es-419",
+                "sv",
+                "th",
+                "tr",
+                "uk",
+                "vi"
+            };
+
+        private readonly string publicKey;
+        private ColorTheme? colorTheme;
+        private string language;
+#pragma warning disable 618
+        private RecaptchaTheme theme;
+#pragma warning restore 618
+
+        /// <summary>
         /// Creates an instance of the <see cref="RecaptchaHtmlHelper"/> class.
         /// </summary>
-        /// <param name="publicKey">Sets the public key to be part of the recaptcha HTML.</param>
+        /// <param name="publicKey">Sets the public key (Site key) used to render the reCAPTCHA HTML.</param>
         public RecaptchaHtmlHelper(string publicKey)
         {
             if (String.IsNullOrEmpty(publicKey))
             {
-                throw new InvalidOperationException("Public key cannot be null or empty.");
+                throw new ArgumentNullException("publicKey", "Public key cannot be null or empty.");
             }
 
-            this.PublicKey = RecaptchaKeyHelper.ParseKey(publicKey);
-            UseSsl = HttpContext.Current.Request.IsSecureConnection;
+            this.publicKey = KeyHelper.LoadKey(publicKey);
         }
 
         /// <summary>
         /// Creates an instance of the <see cref="RecaptchaHtmlHelper"/> class.
         /// </summary>
-        /// <param name="publicKey">Sets the public key of the recaptcha HTML.</param>
-        /// <param name="theme">Sets the theme of the recaptcha HTML.</param>
-        /// <param name="language">Sets the language of the recaptcha HTML.</param>
-        /// <param name="tabIndex">Sets the tab index of the recaptcha HTML.</param>    
+        /// <param name="publicKey">Sets the public key (Site key) used to render the reCAPTCHA HTML.</param>
+        /// <param name="theme">Sets the theme used to render the reCAPTCHA HTML.</param>
+        /// <param name="language">Sets the language used to render the reCAPTCHA HTML.</param>
+        /// <param name="tabIndex">Sets the tab index used to render the reCAPTCHA HTML.</param>
+        [Obsolete("This constructor sets some obsolete properties. Use a constructor with single parameters and set other properties manually.")]
         public RecaptchaHtmlHelper(string publicKey, RecaptchaTheme theme, string language, int tabIndex)
+            : this(publicKey)
         {
-            this.PublicKey = RecaptchaKeyHelper.ParseKey(publicKey);
-
-            if (String.IsNullOrEmpty(this.PublicKey))
-            {
-                throw new InvalidOperationException("Public key cannot be null or empty.");
-            }
-
-            this.Theme = theme;
             this.Language = language;
+#pragma warning disable 618
             this.TabIndex = tabIndex;
-
-            UseSsl = HttpContext.Current.Request.IsSecureConnection;
+            this.Theme = theme;
+#pragma warning restore 618
         }
 
         /// <summary>
-        /// Gets the public key of the recaptcha HTML.
+        /// Gets the public key (Site key) used to render the reCAPTCHA HTML.
         /// </summary>
         public string PublicKey
         {
-            get;
-            private set;
+            get { return publicKey; }
         }
 
         /// <summary>
-        /// Determines if HTTPS intead of HTTP is to be used in Recaptcha API calls.
+        /// Determines if HTTPS intead of HTTP is to be used in reCAPTCHA API calls.
         /// </summary>
+        [Obsolete("Current version of API does not allow to use HTTP.")]
         public bool UseSsl
         {
-            get;
-            private set;
+            get { return true; }
         }
 
         /// <summary>
-        /// Gets or sets the theme of the recaptcha HTML.
+        /// Gets or sets the theme used to render the reCAPTCHA HTML.
         /// </summary>
+        [Obsolete("Use ColorTheme property to set a color theme, which is supported by the current version of API.")]
         public RecaptchaTheme Theme
         {
-            get;
-            set;
+            get { return theme; }
+            set
+            {
+                if (theme != value || colorTheme.HasValue == false)
+                {
+                    theme = value;
+                    switch (value)
+                    {
+#pragma warning disable 618
+                        case RecaptchaTheme.Red:
+                        case RecaptchaTheme.Blackglass:
+#pragma warning restore 618
+                            colorTheme = ColorTheme.Dark;
+                            break;
+                        default:
+                            colorTheme = ColorTheme.Light;
+                            break;
+                    }
+                }
+            }
         }
 
         /// <summary>
-        /// Gets or sets the language of the recaptcha HTML.
+        /// Gets or sets the color theme used to render the reCAPTCHA HTML.
+        /// </summary>
+        public ColorTheme ColorTheme
+        {
+            get { return colorTheme.GetValueOrDefault(ColorTheme.Light); }
+            set { colorTheme = value; }
+        }
+
+        /// <summary>
+        /// Gets or sets the language used to render the reCAPTCHA HTML.
         /// </summary>
         public string Language
         {
-            get;
-            set;
-        }
-
-        /// <summary>
-        /// Gets or sets the tab index of the recaptcha HTML.
-        /// </summary>
-        public int TabIndex
-        {
-            get;
-            set;
+            get { return language; }
+            set
+            {
+                if (language != value
+                    && String.IsNullOrWhiteSpace(value) == false
+                    && SupportedLanguages.Contains(value))
+                {
+                    language = value;
+                }
+            }
         }      
 
         /// <summary>
-        /// Gets the recaptcha's HTML that needs to be rendered in an HTML page.
+        /// Gets or sets the tab index used to render the reCAPTCHA HTML.
         /// </summary>
-        /// <returns>Returns the HTML as an instance of the <see cref="String"/> type.</returns>
-        public override string ToString()
+        [Obsolete("Current version of API does not allow to set tab index.")]
+        public int TabIndex { get; set; }
+
+        /// <summary>
+        /// Renders the reCAPTCHA's HTML to the provided writer.
+        /// </summary>
+        internal void Render(HtmlTextWriter writer)
         {
-            StringBuilder sb = new StringBuilder();
-
-            sb.Append("<script type=\"text/javascript\">\nvar RecaptchaOptions = {");
-
-            string language = this.Language;
-
-            if (String.IsNullOrEmpty(language))
+            var uriBulder = new UriBuilder("https://www.google.com/recaptcha/api.js");
+            if (String.IsNullOrEmpty(language) == false)
             {
-                language = Thread.CurrentThread.CurrentUICulture.TwoLetterISOLanguageName;
+                uriBulder.Query = "hl=" + language;
             }
 
-            sb.Append(String.Format("\ntheme : '{0}',\nlang : '{1}',\ntabindex : {2}\n", Theme.ToString().ToLower(), language, TabIndex));
-            sb.Append("};\n</script>");
+            writer.AddAttribute(HtmlTextWriterAttribute.Src, uriBulder.Uri.ToString());
+            writer.AddAttribute("async", null);
+            writer.AddAttribute("defer", null);
+            writer.RenderBeginTag(HtmlTextWriterTag.Script);
+            writer.RenderEndTag();
+            writer.AddAttribute(HtmlTextWriterAttribute.Class, "g-recaptcha");
+            writer.AddAttribute("data-sitekey", publicKey);
 
-            if (!UseSsl)
+            if (colorTheme.HasValue)
             {
-                sb.Append(String.Format("<script type=\"text/javascript\" src=\"http://www.google.com/recaptcha/api/challenge?k={0}&lang={1}\">", PublicKey, Language));
-            }
-            else
-            {
-                sb.Append(String.Format("<script type=\"text/javascript\" src=\"https://www.google.com/recaptcha/api/challenge?k={0}&lang={1}\">", PublicKey, Language));
+                writer.AddAttribute("data-theme", colorTheme.Value.ToString().ToLower());
             }
 
-            sb.Append("</script>");
-
-            return sb.ToString();
+            writer.RenderBeginTag(HtmlTextWriterTag.Div);
+            writer.RenderEndTag();
         }
     }
 }

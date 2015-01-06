@@ -4,14 +4,9 @@
  * =========================================================================================================================== */
 
 using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
-using System.Web.Mvc.Html;
 using System.Web.UI;
 
 namespace Recaptcha.Web.Mvc
@@ -22,50 +17,100 @@ namespace Recaptcha.Web.Mvc
     public static class RecaptchaMvcExtensions
     {
         /// <summary>
-        /// Renders the recaptcha HTML in an MVC view. It is an extension method to the <see cref="System.Web.Mvc.HtmlHelper"/> class.
+        /// Renders the reCAPTCHA HTML in an MVC view.
         /// </summary>
         /// <param name="htmlHelper">The <see cref="System.Web.Mvc.HtmlHelper"/> object to which the extension is added.</param>
-        /// <param name="publicKey">Sets the public key of recaptcha.</param>
-        /// <param name="theme">Sets the theme of recaptcha.</param>
-        /// <param name="language">Sets the language of recaptcha. If no language is specified, the language of the current UI culture will be used.</param>
-        /// <param name="tabIndex">Sets the tab index of recaptcha.</param>
+        /// <param name="publicKey">Sets the public key (Site key) used to render the reCAPTCHA HTML.</param>
+        /// <param name="theme">Sets the theme used to render the reCAPTCHA HTML.</param>
+        /// <param name="language">Sets the language used to render the reCAPTCHA HTML.
+        /// <para/> If null, no language will be specified and the language should be detected by the reCAPTCHA API.</param>
+        /// <param name="tabIndex">Sets the tab index used to render the reCAPTCHA HTML.</param>
         /// <param name="useSsl">Sets the value to the UseSsl property.</param>
-        /// <returns>Returns an instance of the IHtmlString type.</returns>
+        /// <returns>Returns rendered reCAPTCHA HTML as <see cref="IHtmlString"/>.</returns>
+        [Obsolete("Use RecaptchaWidget method instead.")]
         public static IHtmlString Recaptcha(
             this HtmlHelper htmlHelper,
             string publicKey = "{recaptchaPublicKey}",
+#pragma warning disable 618
             RecaptchaTheme theme = RecaptchaTheme.Red,
+#pragma warning restore 618
             string language = null,
             int tabIndex = 0,
             bool useSsl = false)
-        {            
-            RecaptchaHtmlHelper rHtmlHelper = new RecaptchaHtmlHelper(publicKey, theme, language, tabIndex);
+        {
+            var recaptchaHtmlHelper = new RecaptchaHtmlHelper(publicKey, theme, language, tabIndex);
+            using (var stringWriter = new StringWriter())
+            {
+                using (var htmlWriter = new HtmlTextWriter(stringWriter))
+                {
+                    recaptchaHtmlHelper.Render(htmlWriter);
+                }
 
-            HtmlTextWriter writer = new HtmlTextWriter(new StringWriter());
-            writer.Write(rHtmlHelper.ToString());
-
-            return htmlHelper.Raw(writer.InnerWriter.ToString());
+                return new MvcHtmlString(stringWriter.ToString());
+            }
         }
 
         /// <summary>
-        /// Gets an instance of the <see cref="RecaptchaVerificationHelper"/> class that can be used to verify user's response to the recaptcha's challenge. 
+        /// Renders the reCAPTCHA HTML in an MVC view.
+        /// </summary>
+        /// <param name="htmlHelper">The <see cref="System.Web.Mvc.HtmlHelper"/> object to which the extension is added.</param>
+        /// <param name="publicKey">Sets the public key (Site key) used to render the reCAPTCHA HTML.</param>
+        /// <param name="colorTheme">Sets the color theme used to render the reCAPTCHA HTML.
+        /// <para/> If null, no color theme will be specified and light theme should be used by the reCAPTCHA API.</param>
+        /// <param name="language">Sets the language used to render the reCAPTCHA HTML.
+        /// <para/> If null, no language will be specified and the language should be detected by the reCAPTCHA API.</param>
+        /// <returns>Returns rendered reCAPTCHA HTML as <see cref="IHtmlString"/>.</returns>
+        public static IHtmlString RecaptchaWidget(
+            this HtmlHelper htmlHelper,
+            string publicKey = "{recaptchaPublicKey}",
+            ColorTheme? colorTheme = null,
+            string language = null)
+        {
+            var recaptchaHtmlHelper = new RecaptchaHtmlHelper(publicKey);
+            if (colorTheme.HasValue)
+            {
+                recaptchaHtmlHelper.ColorTheme = colorTheme.Value;
+            }
+
+            if (String.IsNullOrEmpty(language) == false)
+            {
+                recaptchaHtmlHelper.Language = language;
+            }
+
+            using (var stringWriter = new StringWriter())
+            {
+                using (var htmlWriter = new HtmlTextWriter(stringWriter))
+                {
+                    recaptchaHtmlHelper.Render(htmlWriter);
+                }
+
+                return new MvcHtmlString(stringWriter.ToString());
+            }
+        }
+
+        /// <summary>
+        /// Gets an instance of the <see cref="Verifier"/> class
+        /// that can be used to verify reCAPTCHA client-side API response with request to the server-side reCAPTCHA API.
         /// </summary>
         /// <param name="controller">The <see cref="System.Web.Mvc.Controller"/> object to which the extension method is added to.</param>
-        /// <param name="privateKey">The private key required for making the recaptcha verification request.</param>
+        /// <param name="privateKey">The private key (Secret key) required to be part of the reCAPTCHA verification request.</param>
+        /// <returns>Returns an instance of the <see cref="Verifier"/> class.</returns>
+        public static Verifier GetRecaptchaVerifier(this Controller controller, string privateKey = "{recaptchaPrivateKey}")
+        {
+            return new Verifier(privateKey);
+        }
+
+        /// <summary>
+        /// Gets an instance of the <see cref="RecaptchaVerificationHelper"/> class
+        /// that can be used to verify reCAPTCHA client-side API response with request to the server-side reCAPTCHA API.
+        /// </summary>
+        /// <param name="controller">The <see cref="System.Web.Mvc.Controller"/> object to which the extension method is added to.</param>
+        /// <param name="privateKey">The private key (Secret key) required to be part of the reCAPTCHA verification request.</param>
         /// <returns>Returns an instance of the <see cref="RecaptchaVerificationHelper"/> class.</returns>
-        public static RecaptchaVerificationHelper GetRecaptchaVerificationHelper(this System.Web.Mvc.Controller controller, string privateKey)
+        [Obsolete("Use GetRecaptchaVerifier method instead.")]
+        public static RecaptchaVerificationHelper GetRecaptchaVerificationHelper(this Controller controller, string privateKey = "{recaptchaPrivateKey}")
         {
             return new RecaptchaVerificationHelper(privateKey);
-        }
-
-        /// <summary>
-        /// Gets an instance of the <see cref="RecaptchaVerificationHelper"/> class that can be used to verify user's response to the recaptcha's challenge. 
-        /// </summary>
-        /// <param name="controller">The <see cref="System.Web.Mvc.Controller"/> object to which the extension method is added to.</param>
-        /// <returns>Returns an instance of the <see cref="RecaptchaVerificationHelper"/> class.</returns>
-        public static RecaptchaVerificationHelper GetRecaptchaVerificationHelper(this System.Web.Mvc.Controller controller)
-        {
-            return new RecaptchaVerificationHelper("{recaptchaPrivateKey}");
         }
     }
 }

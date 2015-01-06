@@ -4,29 +4,31 @@
  * =========================================================================================================================== */
 
 using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading;
 using System.Threading.Tasks;
-using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
 namespace Recaptcha.Web.UI.Controls
 {
     /// <summary>
-    /// An ASP.NET control that wraps Google's recaptcha control.
+    /// An ASP.NET control that wraps Google's reCAPTCHA control.
     /// </summary>
     [DefaultProperty("PublicKey")]
     [ToolboxData("<{0}:Recaptcha runat=server></{0}:Recaptcha>")]
     public class Recaptcha : WebControl
     {
-        private RecaptchaVerificationHelper _VerificationHelper = null;
+#pragma warning disable 618
+        private readonly Lazy<RecaptchaVerificationHelper> verificationHelper;
+
+        public Recaptcha()
+        {
+            verificationHelper = new Lazy<RecaptchaVerificationHelper>(CreateVerificationHelper);
+        }
+#pragma warning restore 618
 
         /// <summary>
-        /// Gets or sets the public key of the recaptcha control.
+        /// Gets or sets the public key of the reCAPTCHA control.
         /// </summary>
         /// <remarks>The value of the <see cref="PublicKey"/> property is required. If the key is not set, a runtime exception will be thrown. The key can be set either directly as a literal value or as an appSettings key from the application configuration file. An appSettings key needs to be specified within {} curly braces.</remarks>
         [Bindable(true)]
@@ -48,7 +50,7 @@ namespace Recaptcha.Web.UI.Controls
         }
 
         /// <summary>
-        /// Gets or sets the private key of the recaptcha control.
+        /// Gets or sets the private key of the reCAPTCHA control.
         /// </summary>
         /// <remarks>The value of the <see cref="PrivateKey"/> property is required. If the key is not set, a runtime exception will be thrown. The key can be set either directly as a literal value or as an appSettings key from the application configuration file. An appSettings key needs to be specified within {} curly braces.</remarks>
         [Bindable(true)]
@@ -69,18 +71,23 @@ namespace Recaptcha.Web.UI.Controls
         }
 
         /// <summary>
-        /// Gets or sets the theme of the recaptcha control.
+        /// Gets or sets the theme of the reCAPTCHA control.
         /// </summary>
         [Bindable(true)]
         [Category("Appearance")]
+#pragma warning disable 618
         [DefaultValue(RecaptchaTheme.Red)]
+#pragma warning restore 618
         [Localizable(false)]
+        [Obsolete("Use ColorTheme property to set a color theme, which is supported by the current version of API.")]
         public RecaptchaTheme Theme
         {
             get
             {
                 object t = ViewState["RecaptchaTheme"];
+#pragma warning disable 618
                 return ((t == null) ? RecaptchaTheme.Red : (RecaptchaTheme)t);
+#pragma warning restore 618
             }
 
             set
@@ -90,9 +97,25 @@ namespace Recaptcha.Web.UI.Controls
         }
 
         /// <summary>
-        /// Gets or sets the language of the recaptcha control.
+        /// Gets or sets the color theme of the reCAPTCHA control.
         /// </summary>
-        /// <remarks>If the property is not set then the language of the current UI culture will be used.</remarks>
+        [Bindable(true)]
+        [Category("Appearance")]
+        [DefaultValue(ColorTheme.Light)]
+        [Localizable(false)]
+        public ColorTheme ColorTheme
+        {
+            get
+            {
+                var value = ViewState["RecaptchaColorTheme"];
+                return value is ColorTheme ? (ColorTheme)value : ColorTheme.Light;
+            }
+            set { ViewState["RecaptchaTheme"] = value; }
+        }
+
+        /// <summary>
+        /// Gets or sets the language of the reCAPTCHA control.
+        /// </summary>
         [Bindable(true)]
         [Category("Appearance")]
         [Localizable(false)]
@@ -110,86 +133,79 @@ namespace Recaptcha.Web.UI.Controls
         }
 
         /// <summary>
-        /// Gets the user's response to the recaptcha challenge.
+        /// Gets the user's response to the reCAPTCHA challenge.
         /// </summary>
         [Bindable(true)]
         [Category("Appearance")]
         [Localizable(false)]
+        [Obsolete("Current version of API does not provide raw user's response.")]
         public string Response
         {
-            get
-            {
-                if (_VerificationHelper != null)
-                {
-                    return _VerificationHelper.Response;
-                }
-
-                return String.Empty;
-            }
+            // Return some non-empty string, otherwise current callers logic, which tries to check the Response first, might be broken.
+            get { return Boolean.FalseString; }
         }
 
         /// <summary>
-        /// Calls the OnLoad method of the parent class <see cref="System.Web.UI.WebControls.WebControl"/> and initializes the internal state of the <see cref="Recaptcha"/> control for verification of the user's response to the recaptcha challenge.
+        /// Renders the reCAPTCHA control HTML. This method is automatically called by ASP.NET during the rendering process.
         /// </summary>
-        /// <param name="e">The <see cref="EventArgs"/> object passed to the Load event of the control.</param>
-        protected override void OnLoad(EventArgs e)
-        {
-            base.OnLoad(e);
-
-            if (this.Page.IsPostBack)
-            {
-                _VerificationHelper = new RecaptchaVerificationHelper(this.PrivateKey);
-            }
-        }
-
-        /// <summary>
-        /// Redners the HTML output. This method is automatically called by ASP.NET during the rendering process.
-        /// </summary>
-        /// <param name="output">The output object to which the method will write HTML to.</param>
-        /// <exception cref="InvalidOperationException">The exception is thrown if the public key is not set.</exception>
+        /// <param name="output">The output writer, the HTML will writen to.</param>
         protected override void RenderContents(HtmlTextWriter output)
         {
             if (this.DesignMode)
             {
-                output.Write("<p>Recaptcha Control</p>");
+                output.RenderBeginTag(HtmlTextWriterTag.P);
+                output.Write("Recaptcha Control");
+                output.RenderEndTag();
             }
             else
             {
-                RecaptchaHtmlHelper htmlHelper = new RecaptchaHtmlHelper(this.PublicKey, this.Theme, this.Language, this.TabIndex);
-                output.Write(htmlHelper.ToString());
+                var htmlHelper = new RecaptchaHtmlHelper(this.PublicKey)
+                {
+                    ColorTheme = ColorTheme,
+                    Language = Language
+                };
+                htmlHelper.Render(output);
             }
         }
 
         /// <summary>
-        /// Verifies the user's answer to the recaptcha challenge.
+        /// Verifies if the CAPTCHA is solved correctly by the end user.
         /// </summary>
-        /// <returns>Returns the verification result as <see cref="RecaptchaVerificationResult"/> enum value.</returns>
-        ///<exception cref="InvalidOperationException">The private key is null or empty.</exception>
-        ///<exception cref="System.Net.WebException">The time-out period for the recaptcha verification request expired.</exception>
+        /// <returns>True if the CAPTCHA is solved correctly and no error was found, otherwise returns false.</returns>
+        public Task<bool> VerifyIfSolvedAsync()
+        {
+            return verificationHelper.Value.VerifyIfSolvedAsync();
+        }
+
+        /// <summary>
+        /// Verifies whether the CAPTCHA is solved correctly by the end user.
+        /// </summary>
+        /// <returns>Returns the result as a value of the <see cref="RecaptchaVerificationResult"/> enum.</returns>
+        [Obsolete("Use VerifyIfSolvedAsync method instead.")]
         public RecaptchaVerificationResult Verify()
         {
-            if (_VerificationHelper == null)
-            {
-                _VerificationHelper = new RecaptchaVerificationHelper(this.PrivateKey);
-            }
-
-            return _VerificationHelper.VerifyRecaptchaResponse();
+#pragma warning disable 618
+            return verificationHelper.Value.VerifyRecaptchaResponse();
+#pragma warning restore 618
         }
 
         /// <summary>
-        /// Verifies the user's answer to the recaptcha challenge.
+        /// Verifies whether the CAPTCHA is solved correctly by the end user.
         /// </summary>
-        /// <returns>Returns the verification result as <see cref="RecaptchaVerificationResult"/> enum value.</returns>
-        ///<exception cref="InvalidOperationException">The private key is null or empty.</exception>
-        ///<exception cref="System.Net.WebException">The time-out period for the recaptcha verification request expired.</exception>
+        /// <returns>Returns the result as a value of the <see cref="RecaptchaVerificationResult"/> enum.</returns>
+        [Obsolete("Use VerifyIfSolvedAsync method instead.")]
         public Task<RecaptchaVerificationResult> VerifyTaskAsync()
         {
-            if (_VerificationHelper == null)
-            {
-                _VerificationHelper = new RecaptchaVerificationHelper(this.PrivateKey);
-            }
-
-            return _VerificationHelper.VerifyRecaptchaResponseTaskAsync();
+#pragma warning disable 618
+            return verificationHelper.Value.VerifyRecaptchaResponseTaskAsync();
+#pragma warning restore 618
         }
+
+#pragma warning disable 618
+        private RecaptchaVerificationHelper CreateVerificationHelper()
+        {
+            return new RecaptchaVerificationHelper(this.PrivateKey);
+        }
+#pragma warning restore 618
     }
 }

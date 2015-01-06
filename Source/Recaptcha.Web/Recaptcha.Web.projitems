@@ -12,9 +12,12 @@
     <Compile Include="$(MSBuildThisFileDirectory)Mvc\RecaptchaMvcExtensions.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Properties\AssemblyInfo.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)RecaptchaHtmlHelper.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)RecaptchaKeyHelper.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)KeyHelper.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ColorTheme.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)RecaptchaTheme.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Verifier.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)RecaptchaVerificationHelper.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ErrorCode.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)RecaptchaVerificationResult.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)UI\Controls\Recaptcha.cs" />
   </ItemGroup>

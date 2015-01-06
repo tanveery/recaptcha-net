@@ -4,10 +4,6 @@
  * =========================================================================================================================== */
 
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Recaptcha.Web
 {
@@ -20,29 +16,37 @@ namespace Recaptcha.Web
         /// Verification failed but the exact reason is not known.
         /// </summary>
         UnknownError = 0,
+
         /// <summary>
         /// Verification succeeded.
         /// </summary>
         Success = 1,
+
         /// <summary>
         /// The user's response to recaptcha challenge is incorrect.
         /// </summary>
         IncorrectCaptchaSolution = 2,
+
         /// <summary>
         /// The request parameters in the client-side cookie are invalid.
         /// </summary>
+        [Obsolete("Current version of API does not use cookies.")]
         InvalidCookieParameters = 3,
+
         /// <summary>
         /// The private supplied at the time of verification process is invalid.
         /// </summary>
         InvalidPrivateKey = 4,
+
         /// <summary>
         /// The user's response to the recaptcha challenge is null or empty.
         /// </summary>
         NullOrEmptyCaptchaSolution = 5,
+
         /// <summary>
         /// The recaptcha challenge could not be retrieved.
         /// </summary>
+        [Obsolete("Current version of API does not use challenge.")]
         ChallengeNotProvided = 6
     }
 }

@@ -4,33 +4,18 @@
  * =========================================================================================================================== */
 
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Recaptcha.Web
 {
     /// <summary>
-    /// Represents the theme of an ASP.NET Recaptcha control.
+    /// Represents the themes used to render the reCAPTCHA HTML.
     /// </summary>
+    [Obsolete("Use ColorTheme enumeration to set a color theme, which is supported by the current version of API.")]
     public enum RecaptchaTheme
     {
-        /// <summary>
-        /// Red theme of the control.
-        /// </summary>
         Red = 0,
-        /// <summary>
-        /// Blackglass theme of the control.
-        /// </summary>
         Blackglass = 1,
-        /// <summary>
-        /// White theme of the control.
-        /// </summary>
         White = 2,
-        /// <summary>
-        /// Clean theme of the control.
-        /// </summary>
         Clean = 3
     }
 }
