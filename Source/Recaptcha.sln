@@ -11,6 +11,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Recaptcha.Web.4.5", "4.5\Re
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Recaptcha.Web.4.5.1", "4.5.1\Recaptcha.Web.4.5.1.csproj", "{62CB8C5C-0142-4E17-B57B-485A1423DBF3}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{062DFF05-7EB3-493F-A440-E4542429576A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Recaptcha.Web.Tests", "Recaptcha.Web.Tests\Recaptcha.Web.Tests.csproj", "{94874714-C2F0-477C-9B20-FB541BAD80C9}"
+EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
 		Recaptcha.Web\Recaptcha.Web.projitems*{68721a31-5d23-4019-9763-8c65878ee35e}*SharedItemsImports = 13
@@ -35,8 +39,15 @@ Global
 		{62CB8C5C-0142-4E17-B57B-485A1423DBF3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{62CB8C5C-0142-4E17-B57B-485A1423DBF3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{62CB8C5C-0142-4E17-B57B-485A1423DBF3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{94874714-C2F0-477C-9B20-FB541BAD80C9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{94874714-C2F0-477C-9B20-FB541BAD80C9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{94874714-C2F0-477C-9B20-FB541BAD80C9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{94874714-C2F0-477C-9B20-FB541BAD80C9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{94874714-C2F0-477C-9B20-FB541BAD80C9} = {062DFF05-7EB3-493F-A440-E4542429576A}
 	EndGlobalSection
 EndGlobal
