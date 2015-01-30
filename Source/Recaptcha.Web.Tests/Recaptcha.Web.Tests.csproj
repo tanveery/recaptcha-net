@@ -84,6 +84,7 @@
   </Choose>
   <ItemGroup>
     <Compile Include="Compatibility\CompatibilityTests.cs" />
+    <Compile Include="Compatibility\EnumTests.cs" />
     <Compile Include="Compatibility\RecaptchaVerificationHelperTests.cs" />
     <Compile Include="Compatibility\RecaptchaHtmlHelperTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
