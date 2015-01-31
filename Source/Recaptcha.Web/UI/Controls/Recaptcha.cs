@@ -21,6 +21,9 @@ namespace Recaptcha.Web.UI.Controls
 #pragma warning disable 618
         private readonly Lazy<RecaptchaVerificationHelper> verificationHelper;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Recaptcha"/> class.
+        /// </summary>
         public Recaptcha()
         {
             verificationHelper = new Lazy<RecaptchaVerificationHelper>(CreateVerificationHelper);
