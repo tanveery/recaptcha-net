@@ -34,10 +34,11 @@ namespace Recaptcha.Web
         /// <summary>
         /// Gets the user's host address used to make the reCAPTCHA verification request.
         /// </summary>
-        [Obsolete("Current version of API does not use host address or IP.")]
+        [Obsolete("Current version of API does not use IP host address.")]
         public string UserHostAddress
         {
-            get { return null; }
+            // Return some non-empty string, otherwise backward compatibility might be broken.
+            get { return Boolean.FalseString; }
         }
 
         /// <summary>
