@@ -15,11 +15,8 @@ namespace Recaptcha.Web.Tests.Compatibility
         {
             TestHttpContext = new HttpContext(new StubHttpWorkerRequest
             {
-                GetFilePathTranslated01 = () => @"c:\dir\page.aspx",
-                GetKnownRequestHeaderInt32 = i => "localhost",
                 GetProtocol01 = () => Uri.UriSchemeHttp,
                 GetRawUrl01 = () => "/",
-                GetRemoteAddress01 = () => "127.0.0.1",
                 GetServerName01 = () => "localhost",
                 GetUriPath01 = () => "/"
             });
