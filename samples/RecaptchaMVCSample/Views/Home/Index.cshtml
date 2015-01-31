@@ -27,12 +27,12 @@
         @Html.TextBoxFor(m => m.LastName)
     </p>
     
-    <!-- Render recaptcha control with default properties. -->
-    @Html.Recaptcha()
+    <!-- Render reCAPTCHA widget with default properties. -->
+    @Html.RecaptchaWidget()
 
-    <!-- Render recaptcha control with Clean theme. -->
-    // @Html.Recaptcha(theme: Recaptcha.Web.RecaptchaTheme.Clean)
-    
+    <!-- Render reCAPTCHA widget with Dark theme. -->
+    // @Html.RecaptchaWidget(colorTheme: Recaptcha.Web.ColorTheme.Dark)
+
     <input type="submit" value="Submit" />
 }
 

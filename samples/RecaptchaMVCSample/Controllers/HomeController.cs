@@ -3,15 +3,11 @@
  * LIMITED TO THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE.
  * =========================================================================================================================== */
 
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
-using Recaptcha.Web;
 using Recaptcha.Web.Mvc;
-using System.Threading.Tasks;
 using RecaptchaMVCSample.Models;
+using System;
+using System.Threading.Tasks;
+using System.Web.Mvc;
 
 namespace RecaptchaMVCSample.Controllers
 {
@@ -25,19 +21,10 @@ namespace RecaptchaMVCSample.Controllers
         [HttpPost]
         public async Task<ActionResult> Index(UserRegistrationModel model)
         {
-            var recaptchaHelper = this.GetRecaptchaVerificationHelper();
-
-            if (String.IsNullOrEmpty(recaptchaHelper.Response))
+            var recaptchaVerifier = this.GetRecaptchaVerifier();
+            if (await recaptchaVerifier.VerifyIfSolvedAsync() == false)
             {
-                ModelState.AddModelError("", "Captcha answer cannot be empty.");
-                return View(model);
-            }
-
-            var recaptchaResult = await recaptchaHelper.VerifyRecaptchaResponseTaskAsync();
-
-            if (recaptchaResult != RecaptchaVerificationResult.Success)
-            {
-                ModelState.AddModelError("", "Incorrect captcha answer.");
+                ModelState.AddModelError(String.Empty, "Incorrect CAPTCHA answer.");
             }
 
             if (ModelState.IsValid)
