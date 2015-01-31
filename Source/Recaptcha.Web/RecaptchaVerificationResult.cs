@@ -8,7 +8,7 @@ using System;
 namespace Recaptcha.Web
 {
     /// <summary>
-    /// Represents the result value of recaptcha verification process.
+    /// Represents the result value of reCAPTCHA verification process.
     /// </summary>
     public enum RecaptchaVerificationResult
     {
@@ -23,7 +23,7 @@ namespace Recaptcha.Web
         Success = 1,
 
         /// <summary>
-        /// The user's response to recaptcha challenge is incorrect.
+        /// The user's response to reCAPTCHA challenge is incorrect.
         /// </summary>
         IncorrectCaptchaSolution = 2,
 
@@ -39,12 +39,12 @@ namespace Recaptcha.Web
         InvalidPrivateKey = 4,
 
         /// <summary>
-        /// The user's response to the recaptcha challenge is null or empty.
+        /// The user's response to the reCAPTCHA challenge is null or empty.
         /// </summary>
         NullOrEmptyCaptchaSolution = 5,
 
         /// <summary>
-        /// The recaptcha challenge could not be retrieved.
+        /// The reCAPTCHA challenge could not be retrieved.
         /// </summary>
         [Obsolete("Current version of API does not use challenge.")]
         ChallengeNotProvided = 6

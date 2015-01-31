@@ -35,7 +35,7 @@
         </tr>
         <tr>
             <td colspan="2">
-                <!-- Render recaptcha with the default look and feel. -->
+                <!-- Render reCAPTCHA widget with the default look and feel. -->
                 <cc1:Recaptcha ID="Recaptcha1" runat="server" />
             </td>
         </tr>

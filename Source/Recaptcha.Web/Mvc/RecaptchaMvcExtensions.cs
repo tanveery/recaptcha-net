@@ -12,7 +12,7 @@ using System.Web.UI;
 namespace Recaptcha.Web.Mvc
 {
     /// <summary>
-    /// Represents the Recaptcha method extensions container for the <see cref="System.Web.Mvc.HtmlHelper"/> and <see cref="System.Web.Mvc.Controller"/> classes.
+    /// Represents the reCAPTCHA method extensions container for the <see cref="System.Web.Mvc.HtmlHelper"/> and <see cref="System.Web.Mvc.Controller"/> classes.
     /// </summary>
     public static class RecaptchaMvcExtensions
     {

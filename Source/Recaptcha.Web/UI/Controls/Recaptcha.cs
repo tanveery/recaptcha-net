@@ -12,7 +12,7 @@ using System.Web.UI.WebControls;
 namespace Recaptcha.Web.UI.Controls
 {
     /// <summary>
-    /// An ASP.NET control that wraps Google's reCAPTCHA control.
+    /// An ASP.NET control that wraps Google's reCAPTCHA widget.
     /// </summary>
     [DefaultProperty("PublicKey")]
     [ToolboxData("<{0}:Recaptcha runat=server></{0}:Recaptcha>")]
@@ -31,7 +31,7 @@ namespace Recaptcha.Web.UI.Controls
 #pragma warning restore 618
 
         /// <summary>
-        /// Gets or sets the public key of the reCAPTCHA control.
+        /// Gets or sets the public key of the reCAPTCHA widget.
         /// </summary>
         /// <remarks>The value of the <see cref="PublicKey"/> property is required. If the key is not set, a runtime exception will be thrown. The key can be set either directly as a literal value or as an appSettings key from the application configuration file. An appSettings key needs to be specified within {} curly braces.</remarks>
         [Bindable(true)]
@@ -53,7 +53,7 @@ namespace Recaptcha.Web.UI.Controls
         }
 
         /// <summary>
-        /// Gets or sets the private key of the reCAPTCHA control.
+        /// Gets or sets the private key of the reCAPTCHA widget.
         /// </summary>
         /// <remarks>The value of the <see cref="PrivateKey"/> property is required. If the key is not set, a runtime exception will be thrown. The key can be set either directly as a literal value or as an appSettings key from the application configuration file. An appSettings key needs to be specified within {} curly braces.</remarks>
         [Bindable(true)]
@@ -74,7 +74,7 @@ namespace Recaptcha.Web.UI.Controls
         }
 
         /// <summary>
-        /// Gets or sets the theme of the reCAPTCHA control.
+        /// Gets or sets the theme of the reCAPTCHA widget.
         /// </summary>
         [Bindable(true)]
         [Category("Appearance")]
@@ -100,7 +100,7 @@ namespace Recaptcha.Web.UI.Controls
         }
 
         /// <summary>
-        /// Gets or sets the color theme of the reCAPTCHA control.
+        /// Gets or sets the color theme of the reCAPTCHA widget.
         /// </summary>
         [Bindable(true)]
         [Category("Appearance")]
@@ -117,7 +117,7 @@ namespace Recaptcha.Web.UI.Controls
         }
 
         /// <summary>
-        /// Gets or sets the language of the reCAPTCHA control.
+        /// Gets or sets the language of the reCAPTCHA widget.
         /// </summary>
         [Bindable(true)]
         [Category("Appearance")]
@@ -149,7 +149,7 @@ namespace Recaptcha.Web.UI.Controls
         }
 
         /// <summary>
-        /// Renders the reCAPTCHA control HTML. This method is automatically called by ASP.NET during the rendering process.
+        /// Renders the reCAPTCHA widget HTML. This method is automatically called by ASP.NET during the rendering process.
         /// </summary>
         /// <param name="output">The output writer, the HTML will writen to.</param>
         protected override void RenderContents(HtmlTextWriter output)
@@ -157,7 +157,7 @@ namespace Recaptcha.Web.UI.Controls
             if (this.DesignMode)
             {
                 output.RenderBeginTag(HtmlTextWriterTag.P);
-                output.Write("Recaptcha Control");
+                output.Write("reCAPTCHA widget");
                 output.RenderEndTag();
             }
             else
