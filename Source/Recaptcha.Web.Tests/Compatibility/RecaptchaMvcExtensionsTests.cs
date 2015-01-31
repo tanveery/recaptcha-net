@@ -7,6 +7,7 @@ using System.Web.Mvc;
 
 namespace Recaptcha.Web.Tests.Compatibility
 {
+#pragma warning disable 618
     [TestClass]
     public class RecaptchaMvcExtensionsTests
     {

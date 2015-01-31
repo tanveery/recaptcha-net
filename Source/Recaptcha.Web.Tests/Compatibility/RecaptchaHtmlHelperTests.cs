@@ -5,6 +5,7 @@ using System.Web.Fakes;
 
 namespace Recaptcha.Web.Tests.Compatibility
 {
+#pragma warning disable 618
     [TestClass]
     public class RecaptchaHtmlHelperTests
     {

@@ -8,6 +8,7 @@ using RecaptchaControl = Recaptcha.Web.UI.Controls.Recaptcha;
 
 namespace Recaptcha.Web.Tests.Compatibility
 {
+#pragma warning disable 618
     [TestClass]
     public class RecaptchaTests
     {
