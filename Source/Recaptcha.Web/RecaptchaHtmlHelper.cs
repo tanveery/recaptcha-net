@@ -176,7 +176,7 @@ namespace Recaptcha.Web
                     language = value;
                 }
             }
-        }      
+        }
 
         /// <summary>
         /// Gets or sets the tab index used to render the reCAPTCHA HTML.
