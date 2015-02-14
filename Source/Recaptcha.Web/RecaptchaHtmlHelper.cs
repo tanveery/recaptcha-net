@@ -17,6 +17,8 @@ namespace Recaptcha.Web
     /// </summary>
     public class RecaptchaHtmlHelper
     {
+        private const string RecaptchaEndpoint = "https://www.google.com/recaptcha/api";
+
         /// <summary>
         /// List of supported language codes as defined at https://developers.google.com/recaptcha/docs/language.
         /// </summary>
@@ -90,6 +92,7 @@ namespace Recaptcha.Web
             }
 
             this.publicKey = KeyHelper.LoadKey(publicKey);
+            RenderNoscript = true;
         }
 
         /// <summary>
@@ -188,7 +191,7 @@ namespace Recaptcha.Web
         public int TabIndex { get; set; }
 
         /// <summary>
-        /// Checks if Fallback parameter should be passed into rendered HTML.
+        /// Gets a value that specifies whether Fallback parameter should be passed into rendered HTML.
         /// <para />If the Fallback parameter is passed, then alternative view of the reCAPTCHA widget is forced, see https://developers.google.com/recaptcha/docs/faq#no_checkbox for details.
         /// <para /> This might be useful, when default widget does not work on the end user's environment and reCAPTCHA API fails to determine that case.
         /// </summary>
@@ -198,11 +201,19 @@ namespace Recaptcha.Web
         }
 
         /// <summary>
+        /// Gets or sets a value that specifies whether &lt;noscript&gt; HTML should be included in the rendered HTML.
+        /// <para /> This allows to support users that don't have JavaScript enabled.
+        /// The HTML is rendered as defined at https://developers.google.com/recaptcha/docs/faq#no_js.
+        /// <para /> The default is true.
+        /// </summary>
+        private bool RenderNoscript { get; set; }
+
+        /// <summary>
         /// Renders the reCAPTCHA's HTML to the provided writer.
         /// </summary>
         internal void Render(HtmlTextWriter writer)
         {
-            var uriBulder = new UriBuilder("https://www.google.com/recaptcha/api.js");
+            var uriBulder = new UriBuilder(RecaptchaEndpoint + ".js");
             var query = new NameValueCollection();
             if (String.IsNullOrEmpty(language) == false)
             {
@@ -234,6 +245,62 @@ namespace Recaptcha.Web
 
             writer.RenderBeginTag(HtmlTextWriterTag.Div);
             writer.RenderEndTag();
+
+            if (RenderNoscript)
+            {
+                uriBulder = new UriBuilder(RecaptchaEndpoint + "/fallback");
+                uriBulder.Query = "k=" + publicKey;
+
+                writer.RenderBeginTag(HtmlTextWriterTag.Noscript);
+                writer.AddStyleAttribute(HtmlTextWriterStyle.Width, "302px");
+                writer.AddStyleAttribute(HtmlTextWriterStyle.Height, "352px");
+                writer.RenderBeginTag(HtmlTextWriterTag.Div);
+                writer.AddStyleAttribute(HtmlTextWriterStyle.Width, "302px");
+                writer.AddStyleAttribute(HtmlTextWriterStyle.Height, "352px");
+                writer.AddStyleAttribute(HtmlTextWriterStyle.Position, "relative");
+                writer.RenderBeginTag(HtmlTextWriterTag.Div);
+                writer.AddStyleAttribute(HtmlTextWriterStyle.Width, "302px");
+                writer.AddStyleAttribute(HtmlTextWriterStyle.Height, "352px");
+                writer.AddStyleAttribute(HtmlTextWriterStyle.Position, "absolute");
+                writer.RenderBeginTag(HtmlTextWriterTag.Div);
+                writer.AddAttribute(HtmlTextWriterAttribute.Src, uriBulder.Uri.ToString());
+                writer.AddAttribute("frameborder", "0");
+                writer.AddAttribute("scrolling", "no");
+                writer.AddStyleAttribute(HtmlTextWriterStyle.Width, "302px");
+                writer.AddStyleAttribute(HtmlTextWriterStyle.Height, "352px");
+                writer.AddStyleAttribute(HtmlTextWriterStyle.BorderStyle, "none");
+                writer.RenderBeginTag(HtmlTextWriterTag.Iframe);
+                writer.RenderEndTag();      // iframe
+                writer.RenderEndTag();      // div
+
+                writer.AddStyleAttribute(HtmlTextWriterStyle.Width, "250px");
+                writer.AddStyleAttribute(HtmlTextWriterStyle.Height, "80px");
+                writer.AddStyleAttribute(HtmlTextWriterStyle.Position, "absolute");
+                writer.AddStyleAttribute(HtmlTextWriterStyle.BorderStyle, "none");
+                writer.AddStyleAttribute("bottom", "21px");
+                writer.AddStyleAttribute(HtmlTextWriterStyle.Left, "25px");
+                writer.AddStyleAttribute(HtmlTextWriterStyle.Margin, "0px");
+                writer.AddStyleAttribute(HtmlTextWriterStyle.Padding, "0px");
+                writer.AddStyleAttribute("right", "25px");
+                writer.RenderBeginTag(HtmlTextWriterTag.Div);
+                const string TextAreaId = "g-recaptcha-response";
+                writer.AddAttribute(HtmlTextWriterAttribute.Id, TextAreaId);
+                writer.AddAttribute(HtmlTextWriterAttribute.Name, TextAreaId);
+                writer.AddAttribute(HtmlTextWriterAttribute.Class, TextAreaId);
+                writer.AddStyleAttribute(HtmlTextWriterStyle.Width, "250px");
+                writer.AddStyleAttribute(HtmlTextWriterStyle.Height, "80px");
+                writer.AddStyleAttribute("border", "1px solid #c1c1c1");
+                writer.AddStyleAttribute(HtmlTextWriterStyle.Margin, "0px");
+                writer.AddStyleAttribute(HtmlTextWriterStyle.Padding, "0px");
+                writer.AddStyleAttribute("resize", "none");
+                writer.AddAttribute(HtmlTextWriterAttribute.Value, string.Empty);
+                writer.RenderBeginTag(HtmlTextWriterTag.Textarea);
+                writer.RenderEndTag();      // textarea
+                writer.RenderEndTag();      // div
+                writer.RenderEndTag();      // div
+                writer.RenderEndTag();      // div
+                writer.RenderEndTag();      // noscript
+            }
         }
     }
 }
