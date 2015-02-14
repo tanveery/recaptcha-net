@@ -97,7 +97,7 @@ namespace Recaptcha.Web
                     return ErrorCode.NoError;
                 }
 
-                return ParseErrorCodes(resultObject.Value<IEnumerable<string>>("error-codes"));
+                return ParseErrorCodes(resultObject.Value<JToken>("error-codes").Values<string>());
             }
         }
 
