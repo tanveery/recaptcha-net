@@ -5,6 +5,9 @@
 
 using System;
 using System.Collections.Generic;
+using System.Collections.Specialized;
+using System.Linq;
+using System.Web;
 using System.Web.UI;
 
 namespace Recaptcha.Web
@@ -185,14 +188,35 @@ namespace Recaptcha.Web
         public int TabIndex { get; set; }
 
         /// <summary>
+        /// Checks if Fallback parameter should be passed into rendered HTML.
+        /// <para />If the Fallback parameter is passed, then alternative view of the reCAPTCHA widget is forced, see https://developers.google.com/recaptcha/docs/faq#no_checkbox for details.
+        /// <para /> This might be useful, when default widget does not work on the end user's environment and reCAPTCHA API fails to determine that case.
+        /// </summary>
+        protected virtual bool IsFallback
+        {
+            get { return false; }
+        }
+
+        /// <summary>
         /// Renders the reCAPTCHA's HTML to the provided writer.
         /// </summary>
         internal void Render(HtmlTextWriter writer)
         {
             var uriBulder = new UriBuilder("https://www.google.com/recaptcha/api.js");
+            var query = new NameValueCollection();
             if (String.IsNullOrEmpty(language) == false)
             {
-                uriBulder.Query = "hl=" + language;
+                query.Add("hl", language);
+            }
+
+            if (IsFallback)
+            {
+                query.Add("fallback", Boolean.TrueString.ToLower());
+            }
+
+            if (query.Count > 0)
+            {
+                uriBulder.Query = String.Join("&", query.AllKeys.Select(k => k +'=' + HttpUtility.UrlEncode(query[k])));
             }
 
             writer.AddAttribute(HtmlTextWriterAttribute.Src, uriBulder.Uri.ToString());
