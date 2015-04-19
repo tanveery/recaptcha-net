@@ -147,8 +147,7 @@ Add the following line at the top of your view (a .cshtml file):
 Then at the desired line in the same file call the reCAPTCHA extension method of the HtmlHelper class as follows:
 
 ```
-@Html.Recaptcha(publicKey:"6LdkfdwSAAAAABL1099CPTr6473FQFXNLR_04Bb5",
-privateKey:"6LdkfdwSAAAAAFC8jtUY44wuhC9lmDlFrL6qMAAh")
+@Html.Recaptcha(publicKey:"Your site key", privateKey:"Your secret key")
 ```
 
 Rather than setting the recaptcha key through the PublicKey and PrivateKey properties of the HtmlHelper's recaptcha extension, you can set them in your web.config file instead:
