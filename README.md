@@ -6,4 +6,4 @@ To get started, go to <a href="http://recaptcha-net.mtd226.com">http://recaptcha
 
 <h3>Bugs</h3>
 
-If you find a bug in the library, please try to search in the existing list of <a href="https://github.com/tanveery/recaptcha-net/issues">issues</a>. If the bug is not addressed, <a href="https://github.com/tanveery/recaptcha-net/issues/new">open a new issue</a>. 
+If you find a bug in the library, please try to search in the existing list of <a href="https://github.com/tanveery/recaptcha-net/issues">issues</a>. If the bug is not listed and addressed there, please <a href="https://github.com/tanveery/recaptcha-net/issues/new">open a new issue</a>. 
