@@ -219,10 +219,12 @@ As you may have already seen, you can directly assign public and private keys to
 
 In the appSettings section of your web.config file, add the keys as follows:
 
+```
 <appSettings>
 <add name="recaptchaPublicKey" value="Your site key" />
 <add name="recaptchaPrivateKey" value="Your secret key" />
 </appSettings>
+```
 
 Note: The appSettings keys are automatically added to your web.config file if you install Recaptcha for .NET through Nuget. However, you would still need to provide your own public and private keys in the web.config file of your project.
 
