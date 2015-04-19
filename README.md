@@ -13,6 +13,9 @@ The primary features of the library are:
 <li>Supports ASP.NET Web Forms and ASP.NET MVC.</li>
 </ul>
 
+<h2>API Support</h2>
+The library supports Google's reCATPCAH API version 1. Support for API version 2 is coming soon while the support for version 1 will remain in tact as long as Google does the same.
+
 <h2>Creating a reCAPTCHA Keys</h2>
 Before you can use reCAPTCHA in your web application, you must first create a reCAPTCHA key (a pair of public and private keys). Creating reCAPTCHA key is very straight-forward. The following are the steps:
 <ol>
