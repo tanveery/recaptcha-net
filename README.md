@@ -38,17 +38,21 @@ If the Package Manager Console is not visible in your Microsoft Visual Studio ID
 Add the following line just under the Page directive in your .aspx or .ascx file:
 
 ```
-<%@ Register Assembly="Recaptcha.Web" Namespace="Recaptcha.Web.UI.Controls" TagPrefix="cc1" %>
+<%@ Register Assembly="Recaptcha.Web" Namespace="Recaptcha.Web.UI.Controls"
+TagPrefix="cc1" %>
 ```
 
 Then at the desired line in the same file add the Recaptcha control as follows:
 
 ```
-<cc1:Recaptcha ID="Recaptcha1" PublicKey="6LdkfdwSAAAAABL1099CPTr6473FQFXNLR_04Bb5"
-PrivateKey="6LdkfdwSAAAAAFC8jtUY44wuhC9lmDlFrL6qMAAh" runat="server" />
+<cc1:Recaptcha ID="Recaptcha1" PublicKey="Your site key"
+PrivateKey="Your secret key" runat="server" />
 ```
 
 Rather than setting the recaptcha key of the control through its PublicKey and PrivateKey properties, you can set them in your web.config file instead:
+
+<a href="#keyInWebConfig">How to Set Recpatcha Key in Web.config File</a>
+
 <h3>How to Set Recpatcha Key in Web.config File</h3>
 After you set the private and public keys in your web.config file, all you need in your web form is this following piece of code:
 
@@ -145,7 +149,9 @@ privateKey:"6LdkfdwSAAAAAFC8jtUY44wuhC9lmDlFrL6qMAAh")
 ```
 
 Rather than setting the recaptcha key through the PublicKey and PrivateKey properties of the HtmlHelper's recaptcha extension, you can set them in your web.config file instead:
-How to Set Recpatcha Key in Web.config File
+
+<a href="#keyInWebConfig">How to Set Recpatcha Key in Web.config File</a>
+
 After you set the private and public keys in your web.config file, all you need in your view is this following piece of code:
 
 ```
@@ -206,5 +212,18 @@ if (recaptchaResult != RecaptchaVerificationResult.Success)
     ModelState.AddModelError("", "Incorrect captcha answer.");
 }
 ```
+
+<h2 id="keyInWebConfig">How to Set reCAPTCHA Key in Web.config File</h2>
+
+As you may have already seen, you can directly assign public and private keys to the respective properties of Recpatcha ASP.NET control or Recaptcha MVC HTML extension. However, a better way is to store these keys in your web.config file. The obvious benefit is that you can change these keys anytime you want without requiring you to modify your code and perhaps most important benefit is that you the keys you define in your web.config are global in your web project.
+
+In the appSettings section of your web.config file, add the keys as follows:
+
+<appSettings>
+<add name="recaptchaPublicKey" value="Your site key" />
+<add name="recaptchaPrivateKey" value="Your secret key" />
+</appSettings>
+
+Note: The appSettings keys are automatically added to your web.config file if you install Recaptcha for .NET through Nuget. However, you would still need to provide your own public and private keys in the web.config file of your project.
 
 <strong>Note</strong>: The <strong>GetRecaptchaVerificationHelper()</strong> is an extension method to the MVC's built-in <strong>Controller</strong> class. This means you must import the <strong>Recaptcha.Web.Mvc</strong> namespace explicitly at the top of the controller file otherwise the code will not compile.
