@@ -44,7 +44,8 @@ Add the following line just under the Page directive in your .aspx or .ascx file
 Then at the desired line in the same file add the Recaptcha control as follows:
 
 ```
-<cc1:Recaptcha ID="Recaptcha1" PublicKey="6LdkfdwSAAAAABL1099CPTr6473FQFXNLR_04Bb5" PrivateKey="6LdkfdwSAAAAAFC8jtUY44wuhC9lmDlFrL6qMAAh" runat="server" />
+<cc1:Recaptcha ID="Recaptcha1" PublicKey="6LdkfdwSAAAAABL1099CPTr6473FQFXNLR_04Bb5"
+PrivateKey="6LdkfdwSAAAAAFC8jtUY44wuhC9lmDlFrL6qMAAh" runat="server" />
 ```
 
 Rather than setting the recaptcha key of the control through its PublicKey and PrivateKey properties, you can set them in your web.config file instead:
@@ -69,13 +70,13 @@ Instead of writing the above code manually, you can easily drag and drop the sam
 
 When your end-user submits the form that contains the Recaptcha control, you obviously would want to verify whether the user's answer was valid based on what was displayed in the recaptcha image. It is very easy to do with one or two lines.
 
-First of all as expected, import the namespace Recaptcha.Web in your code-behind file:
+First of all as expected, import the namespace <strong>Recaptcha.Web</strong> in your code-behind file:
 
 ```
 using Recaptcha.Web;
 ```
 
-To verify whether the user's answer is correct, call the control's Verify() method which returns RecaptchaVerificationResult. You can also use the control's Response property to check what the actual answer is. Generally, you would want to use the Response property to check if the user provided a blank response which of course is always wrong:
+To verify whether the user's answer is correct, call the control's <strong>Verify()</strong> method which returns RecaptchaVerificationResult. You can also use the control's <strong>Response</strong> property to check what the actual answer is. Generally, you would want to use the Response property to check if the user provided a blank response which of course is always wrong:
 
 ```
 if (String.IsNullOrEmpty(Recaptcha1.Response))
@@ -101,7 +102,7 @@ else
 }
 ```
 
-Instead of calling the Verify() method, you can call the VerifyTaskAsync() method to verify the user's response asynchronously which at the same time can be used along with the new await keyword:
+Instead of calling the <strong>Verify()</strong> method, you can call the <strong>VerifyTaskAsync()</strong> method to verify the user's response asynchronously which at the same time can be used along with the new await keyword:
 
 ```
 if (String.IsNullOrEmpty(Recaptcha1.Response))
@@ -126,6 +127,84 @@ else
     }
 }
 ```
+<h2>How to Use Recaptcha in an ASP.NET MVC Web Application</h2>
 
+<h4>Add the Recaptcha Control to Your MVC View</h4>
 
+Add the following line at the top of your view (a .cshtml file):
 
+```
+@using Recaptcha.Web.Mvc;
+```
+
+Then at the desired line in the same file call the Recaptcha extension method of the HtmlHelper class as follows:
+
+```
+@Html.Recaptcha(publicKey:"6LdkfdwSAAAAABL1099CPTr6473FQFXNLR_04Bb5",
+privateKey:"6LdkfdwSAAAAAFC8jtUY44wuhC9lmDlFrL6qMAAh")
+```
+
+Rather than setting the recaptcha key through the PublicKey and PrivateKey properties of the HtmlHelper's recaptcha extension, you can set them in your web.config file instead:
+How to Set Recpatcha Key in Web.config File
+After you set the private and public keys in your web.config file, all you need in your view is this following piece of code:
+
+```
+@Html.Recaptcha()
+```
+
+By default, the theme of recaptcha is Red. However, you can change this default theme to one of the other three themes if you like. Those themes are: Blackglass, White, and Clean. Theme can be set by using the RecaptchaTheme enum. The following is an example:
+
+```
+@Html.Recaptcha(theme:Recaptcha.Web.RecaptchaTheme.Clean);
+```
+
+<h3>Verify User's Response to Recaptcha Challenge</h3>
+
+When your end-user submits the form that contains the Recaptcha control, you obviously would want to verify whether the user's answer was valid based on what was displayed in the recaptcha image. It is very easy to do with few lines.
+
+First of all as expected, import the namespaces <strong>Recaptcha.Web</strong> and <strong>Recaptcha.Web.Mvc</strong> in your controller file:
+
+```
+using Recaptcha.Web;
+using Recaptcha.Web.Mvc;
+```
+
+To verify whether the user's answer is correct, you need to create an instance of the <strong>RecaptchaVerificationHelper</strong> class by calling the extension method <strong>GetRecaptchaVerificationHelper()</strong> of the controller. You can then call the <strong>RecaptchaVerificationHelper</strong> object's <strong>VerifyRecaptchaResponse()</strong> method which returns a <strong>RecaptchaVerificationResult</strong> enum. You can also use the helper object's <strong>Response</strong> property to check what the actual answer of the user is. Generally, you would want to use the Response property to check if the user provided a blank response which of course is always wrong:
+
+```
+RecaptchaVerificationHelper recaptchaHelper = this.GetRecaptchaVerificationHelper();
+
+if (String.IsNullOrEmpty(recaptchaHelper.Response))
+{
+    ModelState.AddModelError("", "Captcha answer cannot be empty.");
+    return View(model);
+}
+
+RecaptchaVerificationResult recaptchaResult = await recaptchaHelper.VerifyRecaptchaResponse();
+
+if (recaptchaResult != RecaptchaVerificationResult.Success)
+{
+    ModelState.AddModelError("", "Incorrect captcha answer.");
+}
+```
+
+Instead of calling the <strong>VerifyRecaptchaResponse()</strong> method, you can call the <strong>VerifyRecaptchaResponseTaskAsync()</strong> method to verify the user's response asynchronously which at the same time can be used along with the new await keyword:
+
+```
+RecaptchaVerificationHelper recaptchaHelper = this.GetRecaptchaVerificationHelper();
+
+if (String.IsNullOrEmpty(recaptchaHelper.Response))
+{
+    ModelState.AddModelError("", "Captcha answer cannot be empty.");
+    return View(model);
+}
+
+RecaptchaVerificationResult recaptchaResult = await recaptchaHelper.VerifyRecaptchaResponseTaskAsync();
+
+if (recaptchaResult != RecaptchaVerificationResult.Success)
+{
+    ModelState.AddModelError("", "Incorrect captcha answer.");
+}
+```
+
+<strong>Note</strong>: The <strong>GetRecaptchaVerificationHelper()</strong> is an extension method to the MVC's built-in <strong>Controller</strong> class. This means you must import the <strong>Recaptcha.Web.Mvc</strong> namespace explicitly at the top of the controller file otherwise the code will not compile.
