@@ -4,6 +4,6 @@ reCAPTCHA for .NET is one of the most popular and well-documented reCAPTCHA libr
 
 To get started, go to <a href="http://recaptcha-net.mtd226.com">http://recaptcha-net.mtd226.com</a>.
 
-<h3>Bugs</h3>
+<h3>Issues</h3>
 
-If you find a bug in the library, please try to search in the existing list of <a href="https://github.com/tanveery/recaptcha-net/issues">issues</a>. If the bug is not listed and addressed there, please <a href="https://github.com/tanveery/recaptcha-net/issues/new">open a new issue</a>. 
+If you find a bug in the library or you have an idea about a new feature, please try to search in the existing list of <a href="https://github.com/tanveery/recaptcha-net/issues">issues</a>. If the bug or idea is not listed and addressed there, please <a href="https://github.com/tanveery/recaptcha-net/issues/new">open a new issue</a>. 
