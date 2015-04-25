@@ -120,7 +120,7 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\Source\4.5\Recaptcha.Web.4.5.csproj">
+    <ProjectReference Include="..\..\src\4.5\Recaptcha.Web.4.5.csproj">
       <Project>{47c0db18-d553-41be-98f9-6a5c08fac0c6}</Project>
       <Name>Recaptcha.Web.4.5</Name>
     </ProjectReference>
