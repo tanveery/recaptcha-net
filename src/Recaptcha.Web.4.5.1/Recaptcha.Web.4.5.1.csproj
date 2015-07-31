@@ -100,6 +100,9 @@
     <Compile Include="..\Recaptcha.Web\RecaptchaVerificationResult.cs">
       <Link>RecaptchaVerificationResult.cs</Link>
     </Compile>
+    <Compile Include="..\Recaptcha.Web\SslBehavior.cs">
+      <Link>SslBehavior.cs</Link>
+    </Compile>
     <Compile Include="..\Recaptcha.Web\UI\Controls\Recaptcha.cs">
       <Link>UI\Controls\Recaptcha.cs</Link>
     </Compile>

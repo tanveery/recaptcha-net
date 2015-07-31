@@ -30,7 +30,6 @@ namespace Recaptcha.Web
             }
 
             this.PublicKey = RecaptchaKeyHelper.ParseKey(publicKey);
-            UseSsl = HttpContext.Current.Request.IsSecureConnection;
         }
 
         /// <summary>
@@ -52,8 +51,30 @@ namespace Recaptcha.Web
             this.Theme = theme;
             this.Language = language;
             this.TabIndex = tabIndex;
+        }
 
-            UseSsl = HttpContext.Current.Request.IsSecureConnection;
+        /// <summary>
+        /// Creates an instance of the <see cref="RecaptchaHtmlHelper"/> class.
+        /// </summary>
+        /// <param name="publicKey">Sets the public key of the recaptcha HTML.</param>
+        /// <param name="theme">Sets the theme of the recaptcha HTML.</param>
+        /// <param name="language">Sets the language of the recaptcha HTML.</param>
+        /// <param name="tabIndex">Sets the tab index of the recaptcha HTML.</param>    
+        /// <param name="useSsl">Determines whether to use SSL in reCAPTCHA API URLs.</param>
+        public RecaptchaHtmlHelper(string publicKey, RecaptchaTheme theme, string language, int tabIndex, SslBehavior useSsl)
+        {
+            this.PublicKey = RecaptchaKeyHelper.ParseKey(publicKey);
+
+            if (String.IsNullOrEmpty(this.PublicKey))
+            {
+                throw new InvalidOperationException("Public key cannot be null or empty.");
+            }
+
+            this.Theme = theme;
+            this.Language = language;
+            this.TabIndex = tabIndex;
+
+            UseSsl = useSsl;
         }
 
         /// <summary>
@@ -66,16 +87,16 @@ namespace Recaptcha.Web
         }
 
         /// <summary>
-        /// Determines if HTTPS intead of HTTP is to be used in Recaptcha API calls.
+        /// Determines if HTTPS intead of HTTP is to be used in reCAPTCHA API calls.
         /// </summary>
-        public bool UseSsl
+        public SslBehavior UseSsl
         {
             get;
             private set;
         }
 
         /// <summary>
-        /// Gets or sets the theme of the recaptcha HTML.
+        /// Gets or sets the theme of the reCAPTCHA HTML.
         /// </summary>
         public RecaptchaTheme Theme
         {
@@ -121,7 +142,22 @@ namespace Recaptcha.Web
             sb.Append(String.Format("\ntheme : '{0}',\nlang : '{1}',\ntabindex : {2}\n", Theme.ToString().ToLower(), language, TabIndex));
             sb.Append("};\n</script>");
 
-            if (!UseSsl)
+            bool doUseSsl = false;
+
+            if(UseSsl == SslBehavior.DoNotUseSsl)
+            {
+                doUseSsl = false;
+            }
+            else if(UseSsl == SslBehavior.AlwaysUseSsl)
+            {
+                doUseSsl = true;
+            }
+            else if(UseSsl == SslBehavior.SameAsRequestUrl)
+            {
+                doUseSsl = HttpContext.Current.Request.IsSecureConnection;
+            }
+
+            if (!doUseSsl)
             {
                 sb.Append(String.Format("<script type=\"text/javascript\" src=\"http://www.google.com/recaptcha/api/challenge?k={0}&lang={1}\">", PublicKey, Language));
             }

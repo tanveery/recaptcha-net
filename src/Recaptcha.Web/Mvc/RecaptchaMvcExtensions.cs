@@ -37,9 +37,9 @@ namespace Recaptcha.Web.Mvc
             RecaptchaTheme theme = RecaptchaTheme.Red,
             string language = null,
             int tabIndex = 0,
-            bool useSsl = false)
+            SslBehavior useSsl = SslBehavior.SameAsRequestUrl)
         {            
-            RecaptchaHtmlHelper rHtmlHelper = new RecaptchaHtmlHelper(publicKey, theme, language, tabIndex);
+            RecaptchaHtmlHelper rHtmlHelper = new RecaptchaHtmlHelper(publicKey, theme, language, tabIndex, useSsl);
 
             HtmlTextWriter writer = new HtmlTextWriter(new StringWriter());
             writer.Write(rHtmlHelper.ToString());

@@ -110,6 +110,32 @@ namespace Recaptcha.Web.UI.Controls
         }
 
         /// <summary>
+        /// Determines whether to use SSL in reCAPTCHA URLs.
+        /// </summary>
+        /// <remarks>The default value is <see cref="SslBehavior.SameAsRequestUrl"/>.</remarks>
+        [Bindable(true)]
+        [Category("Behavior")]
+        [DefaultValue(false)]
+        [Localizable(false)]
+        public SslBehavior UseSsl
+        {
+            get
+            {
+                if(ViewState["UseSsl"] == null)
+                {
+                    ViewState["UseSsl"] = SslBehavior.SameAsRequestUrl.ToString();
+                }
+
+                return (SslBehavior) Enum.Parse(typeof(SslBehavior), ViewState["UseSsl"].ToString());
+            }
+
+            set
+            {
+                ViewState["UseSsl"] = value;
+            }
+        }
+
+        /// <summary>
         /// Gets the user's response to the recaptcha challenge.
         /// </summary>
         [Bindable(true)]
@@ -155,7 +181,7 @@ namespace Recaptcha.Web.UI.Controls
             }
             else
             {
-                RecaptchaHtmlHelper htmlHelper = new RecaptchaHtmlHelper(this.PublicKey, this.Theme, this.Language, this.TabIndex);
+                RecaptchaHtmlHelper htmlHelper = new RecaptchaHtmlHelper(this.PublicKey, this.Theme, this.Language, this.TabIndex, this.UseSsl);
                 output.Write(htmlHelper.ToString());
             }
         }
