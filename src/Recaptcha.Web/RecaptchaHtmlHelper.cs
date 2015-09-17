@@ -16,7 +16,7 @@ namespace Recaptcha.Web
     /// <summary>
     /// Represents the functionality to generate recaptcha HTML.
     /// </summary>
-    public class RecaptchaHtmlHelper
+    public class RecaptchaHtmlHelper : IRecaptchaHtmlHelper
     {
         /// <summary>
         /// Creates an instance of the <see cref="RecaptchaHtmlHelper"/> class.

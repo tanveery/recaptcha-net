@@ -16,7 +16,7 @@ namespace Recaptcha.Web
     /// <summary>
     /// Represents the functionality for verifying user's response to the recpatcha challenge.
     /// </summary>
-    public class RecaptchaVerificationHelper
+    public class RecaptchaVerificationHelper : IRecaptchaVerificationHelper
     {
         private string _Challenge = null;
 

@@ -86,6 +86,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="IRecaptchaHtmlHelper.cs" />
+    <Compile Include="IRecaptchaVerificationHelper.cs" />
     <Compile Include="Mvc\RecaptchaMvcExtensions.cs" />
     <Compile Include="RecaptchaHtmlHelper.cs" />
     <Compile Include="RecaptchaKeyHelper.cs" />

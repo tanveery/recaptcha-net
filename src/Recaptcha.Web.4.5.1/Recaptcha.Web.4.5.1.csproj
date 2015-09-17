@@ -82,6 +82,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="..\Recaptcha.Web\IRecaptchaHtmlHelper.cs">
+      <Link>IRecaptchaHtmlHelper.cs</Link>
+    </Compile>
+    <Compile Include="..\Recaptcha.Web\IRecaptchaVerificationHelper.cs">
+      <Link>IRecaptchaVerificationHelper.cs</Link>
+    </Compile>
     <Compile Include="..\Recaptcha.Web\Mvc\RecaptchaMvcExtensions.cs">
       <Link>Mvc\RecaptchaMvcExtensions.cs</Link>
     </Compile>
