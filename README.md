@@ -10,14 +10,15 @@ reCAPTCHA for .NET is one of the most popular and well-documented reCAPTCHA libr
     <li>One of the most well-documented reCAPTCHA libraries in the open source community.</li>
 </ul>
 <h2>API Support</h2>
-<p>The library supports Google's reCATPCAH API version 1 and version 2 in a seamless fashion. To switch between the two APIs, all you need is to set 1 or 2 as a value to the recaptchaApiVersion app settings key..</p>
-<h2>Creating a reCAPTCHA Key</h2>
-<p>Before you can use reCAPTCHA in your web application, you must first create a reCAPTCHA key (a pair of public and private keys). Creating reCAPTCHA key is very straight-forward. The following are the steps:</p>
+<p>The library supports Google's reCATPCAH API version 1 and version 2 in a seamless fashion. To switch between the two APIs, all you need is to set <code>1</code> or <code>2</code> as a value to the <code>recaptchaApiVersion</code> app settings key.</p>
+<h2>Creating a reCAPTCHA API Key</h2>
+<p>Before you can use reCAPTCHA in your web application, you must first create a reCAPTCHA API key (a pair of public and private keys). Creating reCAPTCHA API key is very straight-forward. The following are the steps:</p>
 <ol>
     <li>Go to the Google's <a href="https://www.google.com/recaptcha" target="_blank">reCAPTCHA</a> site.</li>
     <li>Click on the <strong>Get reCAPTCHA</strong> button. You will be required to login with your Google account.</li>
-    <li>Enter a label for this reCAPTCHA and the domain of your web application. You can enter more than one domain if you want to.</li>
-    <li>Expand <strong>Keys</strong> under the <strong>Adding reCAPTCHA to your site</strong> section. Note down your <strong>Site Key</strong> and <strong>Secret Key</strong>.</li>
+    <li>Under the <strong>Register a new site</strong> section, enter a label and the domain of your web application. You can enter more than one domain if you want to. Optionally, you can add one more owners of this new reCAPTCHA API key.</li>
+    <li>Click on the <strong>Register</strong> button.
+    <li>Under the <strong>Adding reCAPTCHA to your site</strong> section, take note of your <strong>Site Key</strong> and <strong>Secret Key</strong> which you would need to specify in your application's web.config file.</li>
 </ol>
 <h2>Installation</h2>
 <h3>reCAPTCHA Nuget Package</h3>
