@@ -16,21 +16,16 @@ namespace Recaptcha.Web
     /// <summary>
     /// Represents the functionality to generate recaptcha HTML.
     /// </summary>
-    public class RecaptchaHtmlHelper
+    public class RecaptchaHtmlHelper : RecaptchaHtmlHelperBase
     {
-        /// <summary>
+        #region Constructors
+
         /// Creates an instance of the <see cref="RecaptchaHtmlHelper"/> class.
         /// </summary>
         /// <param name="publicKey">Sets the public key to be part of the recaptcha HTML.</param>
         public RecaptchaHtmlHelper(string publicKey)
-        {
-            if (String.IsNullOrEmpty(publicKey))
-            {
-                throw new InvalidOperationException("Public key cannot be null or empty.");
-            }
-
-            this.PublicKey = RecaptchaKeyHelper.ParseKey(publicKey);
-        }
+            : base(publicKey)
+        { }
 
         /// <summary>
         /// Creates an instance of the <see cref="RecaptchaHtmlHelper"/> class.
@@ -38,20 +33,10 @@ namespace Recaptcha.Web
         /// <param name="publicKey">Sets the public key of the recaptcha HTML.</param>
         /// <param name="theme">Sets the theme of the recaptcha HTML.</param>
         /// <param name="language">Sets the language of the recaptcha HTML.</param>
-        /// <param name="tabIndex">Sets the tab index of the recaptcha HTML.</param>    
+        /// <param name="tabIndex">Sets the tab index of the recaptcha HTML.</param>   
         public RecaptchaHtmlHelper(string publicKey, RecaptchaTheme theme, string language, int tabIndex)
-        {
-            this.PublicKey = RecaptchaKeyHelper.ParseKey(publicKey);
-
-            if (String.IsNullOrEmpty(this.PublicKey))
-            {
-                throw new InvalidOperationException("Public key cannot be null or empty.");
-            }
-
-            this.Theme = theme;
-            this.Language = language;
-            this.TabIndex = tabIndex;
-        }
+            : base(publicKey, theme, language, tabIndex)
+        { }
 
         /// <summary>
         /// Creates an instance of the <see cref="RecaptchaHtmlHelper"/> class.
@@ -62,65 +47,12 @@ namespace Recaptcha.Web
         /// <param name="tabIndex">Sets the tab index of the recaptcha HTML.</param>    
         /// <param name="useSsl">Determines whether to use SSL in reCAPTCHA API URLs.</param>
         public RecaptchaHtmlHelper(string publicKey, RecaptchaTheme theme, string language, int tabIndex, SslBehavior useSsl)
-        {
-            this.PublicKey = RecaptchaKeyHelper.ParseKey(publicKey);
+            : base(publicKey, theme, language, tabIndex, useSsl)
+        { }
 
-            if (String.IsNullOrEmpty(this.PublicKey))
-            {
-                throw new InvalidOperationException("Public key cannot be null or empty.");
-            }
+        #endregion Constructors
 
-            this.Theme = theme;
-            this.Language = language;
-            this.TabIndex = tabIndex;
-
-            UseSsl = useSsl;
-        }
-
-        /// <summary>
-        /// Gets the public key of the recaptcha HTML.
-        /// </summary>
-        public string PublicKey
-        {
-            get;
-            private set;
-        }
-
-        /// <summary>
-        /// Determines if HTTPS intead of HTTP is to be used in reCAPTCHA API calls.
-        /// </summary>
-        public SslBehavior UseSsl
-        {
-            get;
-            private set;
-        }
-
-        /// <summary>
-        /// Gets or sets the theme of the reCAPTCHA HTML.
-        /// </summary>
-        public RecaptchaTheme Theme
-        {
-            get;
-            set;
-        }
-
-        /// <summary>
-        /// Gets or sets the language of the recaptcha HTML.
-        /// </summary>
-        public string Language
-        {
-            get;
-            set;
-        }
-
-        /// <summary>
-        /// Gets or sets the tab index of the recaptcha HTML.
-        /// </summary>
-        public int TabIndex
-        {
-            get;
-            set;
-        }      
+        #region Public Methods
 
         /// <summary>
         /// Gets the recaptcha's HTML that needs to be rendered in an HTML page.
@@ -157,18 +89,19 @@ namespace Recaptcha.Web
                 doUseSsl = HttpContext.Current.Request.IsSecureConnection;
             }
 
+            var protocol = "https://";
+
             if (!doUseSsl)
             {
-                sb.Append(String.Format("<script type=\"text/javascript\" src=\"http://www.google.com/recaptcha/api/challenge?k={0}&lang={1}\">", PublicKey, Language));
-            }
-            else
-            {
-                sb.Append(String.Format("<script type=\"text/javascript\" src=\"https://www.google.com/recaptcha/api/challenge?k={0}&lang={1}\">", PublicKey, Language));
+                protocol = "http://";
             }
 
+            sb.Append(String.Format("<script type=\"text/javascript\" src=\"{0}www.google.com/recaptcha/api/challenge?k={1}&lang={2}\">", protocol, PublicKey, Language));
             sb.Append("</script>");
 
             return sb.ToString();
         }
+
+        #endregion Public Methods
     }
 }

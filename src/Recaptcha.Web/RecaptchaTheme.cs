@@ -16,21 +16,41 @@ namespace Recaptcha.Web
     /// </summary>
     public enum RecaptchaTheme
     {
+        #region Common value for reCAPTCHA v1 and v2.
         /// <summary>
-        /// Red theme of the control.
+        /// Default theme. No theme will be specified in the rendered HTML / JavaScript of the reCAPTCHA control.
         /// </summary>
-        Red = 0,
+        Default = 0,
+        #endregion Common values for reCAPTCHA v1 and v2.
+
+        #region Values for reCAPTCHA v1
         /// <summary>
-        /// Blackglass theme of the control.
+        /// Red theme. Applicable for reCAPTCHA v1.
         /// </summary>
-        Blackglass = 1,
+        Red = 1,
         /// <summary>
-        /// White theme of the control.
+        /// Blackglass theme. Applicable for reCAPTCHA v1.
         /// </summary>
-        White = 2,
+        Blackglass = 2,
         /// <summary>
-        /// Clean theme of the control.
+        /// White theme. Applicable for reCAPTCHA v1.
         /// </summary>
-        Clean = 3
+        White = 3,
+        /// <summary>
+        /// Clean theme. Applicable for reCAPTCHA v1.
+        /// </summary>
+        Clean = 4,
+        #endregion Values for reCAPTCHA v1
+
+        #region Values for reCAPTCHA v2
+        /// <summary>
+        /// Light theme. Applicable for reCAPTCHA v2.
+        /// </summary>
+        Light = 50,
+        /// <summary>
+        /// Dark theme. Applicable for reCAPTCHA v2.
+        /// </summary>
+        Dark = 51
+        #endregion Values for reCAPTCHA v2
     }
 }

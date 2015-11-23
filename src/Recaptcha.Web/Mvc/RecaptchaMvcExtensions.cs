@@ -21,6 +21,8 @@ namespace Recaptcha.Web.Mvc
     /// </summary>
     public static class RecaptchaMvcExtensions
     {
+        #region Public Methods
+
         /// <summary>
         /// Renders the recaptcha HTML in an MVC view. It is an extension method to the <see cref="System.Web.Mvc.HtmlHelper"/> class.
         /// </summary>
@@ -30,6 +32,7 @@ namespace Recaptcha.Web.Mvc
         /// <param name="language">Sets the language of recaptcha. If no language is specified, the language of the current UI culture will be used.</param>
         /// <param name="tabIndex">Sets the tab index of recaptcha.</param>
         /// <param name="useSsl">Sets the value to the UseSsl property.</param>
+        /// <param name="apiVersion">Determines the version of the reCAPTCHA API.</param>
         /// <returns>Returns an instance of the IHtmlString type.</returns>
         public static IHtmlString Recaptcha(
             this HtmlHelper htmlHelper,
@@ -37,11 +40,23 @@ namespace Recaptcha.Web.Mvc
             RecaptchaTheme theme = RecaptchaTheme.Red,
             string language = null,
             int tabIndex = 0,
-            SslBehavior useSsl = SslBehavior.SameAsRequestUrl)
-        {            
-            RecaptchaHtmlHelper rHtmlHelper = new RecaptchaHtmlHelper(publicKey, theme, language, tabIndex, useSsl);
+            SslBehavior useSsl = SslBehavior.SameAsRequestUrl,
+            string apiVersion = "{recaptchaApiVersion}")
+        {
+            IRecaptchaHtmlHelper rHtmlHelper = null;
 
-            HtmlTextWriter writer = new HtmlTextWriter(new StringWriter());
+            string version = RecaptchaKeyHelper.ParseKey(apiVersion);
+
+            if (version != "2")
+            {
+                rHtmlHelper = new RecaptchaHtmlHelper(publicKey, theme, language, tabIndex, useSsl);
+            }
+            else
+            {
+                rHtmlHelper = new Recaptcha2HtmlHelper(publicKey, theme, language, tabIndex, useSsl);
+            }
+
+            var writer = new HtmlTextWriter(new StringWriter());
             writer.Write(rHtmlHelper.ToString());
 
             return htmlHelper.Raw(writer.InnerWriter.ToString());
@@ -67,5 +82,7 @@ namespace Recaptcha.Web.Mvc
         {
             return new RecaptchaVerificationHelper("{recaptchaPrivateKey}");
         }
+
+        #endregion Public Methods
     }
 }

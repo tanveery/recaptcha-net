@@ -20,7 +20,7 @@ namespace RecaptchaWebFormSample
 
         }
 
-        protected async void btnSubmit_Click(object sender, EventArgs e)
+        protected void btnSubmit_Click(object sender, EventArgs e)
         {
             if (String.IsNullOrEmpty(Recaptcha1.Response))
             {
@@ -28,7 +28,7 @@ namespace RecaptchaWebFormSample
             }
             else
             {
-                RecaptchaVerificationResult result = await Recaptcha1.VerifyTaskAsync();
+                RecaptchaVerificationResult result = Recaptcha1.Verify();
 
                 if (result == RecaptchaVerificationResult.Success)
                 {

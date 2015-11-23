@@ -23,7 +23,7 @@ namespace RecaptchaMVCSample.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult> Index(UserRegistrationModel model)
+        public ActionResult Index(UserRegistrationModel model)
         {
             var recaptchaHelper = this.GetRecaptchaVerificationHelper();
 
@@ -33,7 +33,7 @@ namespace RecaptchaMVCSample.Controllers
                 return View(model);
             }
 
-            var recaptchaResult = await recaptchaHelper.VerifyRecaptchaResponseTaskAsync();
+            var recaptchaResult = recaptchaHelper.VerifyRecaptchaResponse();
 
             if (recaptchaResult != RecaptchaVerificationResult.Success)
             {

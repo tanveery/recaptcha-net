@@ -23,7 +23,35 @@ namespace Recaptcha.Web.UI.Controls
     [ToolboxData("<{0}:Recaptcha runat=server></{0}:Recaptcha>")]
     public class Recaptcha : WebControl
     {
-        private RecaptchaVerificationHelper _VerificationHelper = null;
+        #region Fields
+
+        private RecaptchaVerificationHelper _verificationHelper = null;
+
+        #endregion Fields
+
+        #region Properties
+
+        /// <summary>
+        /// Gets or sets the API version of the recaptcha control.
+        /// </summary>
+        /// <remarks>The value of the <see cref="ApiVersion"/> property is optional. If the value is not set, version 1 is automatically assumed.</remarks>
+        [Bindable(true)]
+        [Category("Behavior")]
+        [DefaultValue("{recaptchaApiVersion}")]
+        [Localizable(false)]
+        public string ApiVersion
+        {
+            get
+            {
+                String s = (String)ViewState["ApiVersion"];
+                return ((s == null) ? "{recaptchaApiVersion}" : s);
+            }
+
+            set
+            {
+                ViewState["ApiVersion"] = value;
+            }
+        }
 
         /// <summary>
         /// Gets or sets the public key of the recaptcha control.
@@ -145,14 +173,18 @@ namespace Recaptcha.Web.UI.Controls
         {
             get
             {
-                if (_VerificationHelper != null)
+                if (_verificationHelper != null)
                 {
-                    return _VerificationHelper.Response;
+                    return _verificationHelper.Response;
                 }
 
                 return String.Empty;
             }
         }
+
+        #endregion Properties
+
+        #region Control Events
 
         /// <summary>
         /// Calls the OnLoad method of the parent class <see cref="System.Web.UI.WebControls.WebControl"/> and initializes the internal state of the <see cref="Recaptcha"/> control for verification of the user's response to the recaptcha challenge.
@@ -164,7 +196,7 @@ namespace Recaptcha.Web.UI.Controls
 
             if (this.Page.IsPostBack)
             {
-                _VerificationHelper = new RecaptchaVerificationHelper(this.PrivateKey);
+                _verificationHelper = new RecaptchaVerificationHelper(this.PrivateKey);
             }
         }
 
@@ -181,10 +213,26 @@ namespace Recaptcha.Web.UI.Controls
             }
             else
             {
-                RecaptchaHtmlHelper htmlHelper = new RecaptchaHtmlHelper(this.PublicKey, this.Theme, this.Language, this.TabIndex, this.UseSsl);
+                IRecaptchaHtmlHelper htmlHelper = null;
+
+                string apiVersion = RecaptchaKeyHelper.ParseKey(ApiVersion);
+
+                if (apiVersion != "2")
+                {
+                    htmlHelper = new RecaptchaHtmlHelper(this.PublicKey, this.Theme, this.Language, this.TabIndex, this.UseSsl);
+                }
+                else
+                {
+                    htmlHelper = new Recaptcha2HtmlHelper(this.PublicKey, this.Theme, this.Language, this.TabIndex, this.UseSsl);
+                }
+                
                 output.Write(htmlHelper.ToString());
             }
         }
+
+        #endregion Control Events
+
+        #region Public Methods
 
         /// <summary>
         /// Verifies the user's answer to the recaptcha challenge.
@@ -194,12 +242,12 @@ namespace Recaptcha.Web.UI.Controls
         ///<exception cref="System.Net.WebException">The time-out period for the recaptcha verification request expired.</exception>
         public RecaptchaVerificationResult Verify()
         {
-            if (_VerificationHelper == null)
+            if (_verificationHelper == null)
             {
-                _VerificationHelper = new RecaptchaVerificationHelper(this.PrivateKey);
+                _verificationHelper = new RecaptchaVerificationHelper(this.PrivateKey);
             }
 
-            return _VerificationHelper.VerifyRecaptchaResponse();
+            return _verificationHelper.VerifyRecaptchaResponse();
         }
 
         /// <summary>
@@ -210,12 +258,14 @@ namespace Recaptcha.Web.UI.Controls
         ///<exception cref="System.Net.WebException">The time-out period for the recaptcha verification request expired.</exception>
         public Task<RecaptchaVerificationResult> VerifyTaskAsync()
         {
-            if (_VerificationHelper == null)
+            if (_verificationHelper == null)
             {
-                _VerificationHelper = new RecaptchaVerificationHelper(this.PrivateKey);
+                _verificationHelper = new RecaptchaVerificationHelper(this.PrivateKey);
             }
 
-            return _VerificationHelper.VerifyRecaptchaResponseTaskAsync();
+            return _verificationHelper.VerifyRecaptchaResponseTaskAsync();
         }
+
+        #endregion Public Methods
     }
 }
