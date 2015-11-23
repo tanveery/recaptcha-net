@@ -147,8 +147,8 @@ if (recaptchaResult != RecaptchaVerificationResult.Success)
 <p>As you may have already seen, you can directly assign public and private keys to the respective properties of Recpatcha ASP.NET control or reCAPTCHA MVC HTML extension. However, a better way is to store these keys in your web.config file. The obvious benefit is that you can change these keys anytime you want without requiring you to modify your code and perhaps most important benefit is that you the keys you define in your web.config are global in your web project.</p>
 <p>In the appSettings section of your web.config file, add the keys as follows:</p>
 <pre><code>&lt;appSettings&gt;
-&lt;add name="recaptchaPublicKey" value="Your site key" /&gt;
-&lt;add name="recaptchaPrivateKey" value="Your secret key" /&gt;
+&lt;add key="recaptchaPublicKey" value="Your site key" /&gt;
+&lt;add key="recaptchaPrivateKey" value="Your secret key" /&gt;
 &lt;add key="recaptchaApiVersion" value="2" /&gt;
 &lt;/appSettings&gt;
 </code></pre>
