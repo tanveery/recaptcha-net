@@ -196,20 +196,25 @@ namespace Recaptcha.Web
         /// <returns>Returns the result as a value of the <see cref="RecaptchaVerificationResult"/> enum.</returns>
         public Task<RecaptchaVerificationResult> VerifyRecaptchaResponseTaskAsync()
         {
-            if (string.IsNullOrEmpty(_challenge))
-            {
-                return FromTaskResult<RecaptchaVerificationResult>(RecaptchaVerificationResult.ChallengeNotProvided);
-            }
-
             if (string.IsNullOrEmpty(Response))
             {
                 return FromTaskResult<RecaptchaVerificationResult>(RecaptchaVerificationResult.NullOrEmptyCaptchaSolution);
             }
 
+            string privateKey = RecaptchaKeyHelper.ParseKey(PrivateKey);
+
+            if (_isVersion2)
+            {
+                return VerifyRecpatcha2ResponseTaskAsync(privateKey);
+            }
+
+            if (string.IsNullOrEmpty(_challenge))
+            {
+                return FromTaskResult<RecaptchaVerificationResult>(RecaptchaVerificationResult.ChallengeNotProvided);
+            }
+
             Task<RecaptchaVerificationResult> result = Task<RecaptchaVerificationResult>.Factory.StartNew(() =>
             {
-                string privateKey = RecaptchaKeyHelper.ParseKey(PrivateKey);
-
                 string postData = String.Format("privatekey={0}&remoteip={1}&challenge={2}&response={3}", privateKey, this.UserHostAddress, this._challenge, this.Response);
 
                 byte[] postDataBuffer = System.Text.Encoding.ASCII.GetBytes(postData);
