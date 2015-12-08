@@ -92,6 +92,8 @@
     <Compile Include="Mvc\RecaptchaMvcExtensions.cs" />
     <Compile Include="Recaptcha2HtmlHelper.cs" />
     <Compile Include="Recaptcha2VerificationResult.cs" />
+    <Compile Include="RecaptchaDataSize.cs" />
+    <Compile Include="RecaptchaDataType.cs" />
     <Compile Include="RecaptchaHtmlHelper.cs" />
     <Compile Include="RecaptchaHtmlHelperBase.cs" />
     <Compile Include="RecaptchaKeyHelper.cs" />

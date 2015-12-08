@@ -96,6 +96,12 @@
     <Compile Include="..\Recaptcha.Web\Recaptcha2VerificationResult.cs">
       <Link>Recaptcha2VerificationResult.cs</Link>
     </Compile>
+    <Compile Include="..\Recaptcha.Web\RecaptchaDataSize.cs">
+      <Link>RecaptchaDataSize.cs</Link>
+    </Compile>
+    <Compile Include="..\Recaptcha.Web\RecaptchaDataType.cs">
+      <Link>RecaptchaDataType.cs</Link>
+    </Compile>
     <Compile Include="..\Recaptcha.Web\RecaptchaHtmlHelper.cs">
       <Link>RecaptchaHtmlHelper.cs</Link>
     </Compile>

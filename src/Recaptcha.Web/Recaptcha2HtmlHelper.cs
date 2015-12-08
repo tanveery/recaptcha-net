@@ -20,12 +20,16 @@ namespace Recaptcha.Web
     {
         #region Constructors
 
+        /// <summary>
         /// Creates an instance of the <see cref="Recaptcha2HtmlHelper"/> class.
         /// </summary>
         /// <param name="publicKey">Sets the public key to be part of the recaptcha HTML.</param>
         public Recaptcha2HtmlHelper(string publicKey)
             : base(publicKey)
-        { }
+        {
+            DataType = null;
+            DataSize = null;
+        }
 
         /// <summary>
         /// Creates an instance of the <see cref="Recaptcha2HtmlHelper"/> class.
@@ -36,7 +40,10 @@ namespace Recaptcha.Web
         /// <param name="tabIndex">Sets the tab index of the recaptcha HTML.</param>   
         public Recaptcha2HtmlHelper(string publicKey, RecaptchaTheme theme, string language, int tabIndex)
             : base(publicKey, theme, language, tabIndex)
-        { }
+        {
+            DataType = null;
+            DataSize = null;
+        }
 
         /// <summary>
         /// Creates an instance of the <see cref="Recaptcha2HtmlHelper"/> class.
@@ -48,9 +55,51 @@ namespace Recaptcha.Web
         /// <param name="useSsl">Determines whether to use SSL in reCAPTCHA API URLs.</param>
         public Recaptcha2HtmlHelper(string publicKey, RecaptchaTheme theme, string language, int tabIndex, SslBehavior useSsl)
             : base(publicKey, theme, language, tabIndex, useSsl)
-        { }
+        {
+            DataType = null;
+            DataSize = null;
+        }
+
+        /// <summary>
+        /// Creates an instance of the <see cref="Recaptcha2HtmlHelper"/> class.
+        /// </summary>
+        /// <param name="publicKey">Sets the public key of the recaptcha HTML.</param>
+        /// <param name="theme">Sets the theme of the recaptcha HTML.</param>
+        /// <param name="language">Sets the language of the recaptcha HTML.</param>
+        /// <param name="tabIndex">Sets the tab index of the recaptcha HTML.</param>    
+        /// <param name="dataType">Sets the type of the recaptcha HTML.</param>
+        /// <param name="dataSize">Sets the size for the recpatcha HTML.</param>
+        /// <param name="useSsl">Determines whether to use SSL in reCAPTCHA API URLs.</param>
+        public Recaptcha2HtmlHelper(string publicKey, RecaptchaTheme theme, string language, int tabIndex, RecaptchaDataType? dataType, RecaptchaDataSize? dataSize, SslBehavior useSsl)
+            : base(publicKey, theme, language, tabIndex, useSsl)
+        {
+            DataType = dataType;
+            DataSize = dataSize;
+        }
 
         #endregion Constructors
+
+        #region Properties
+
+        /// <summary>
+        /// Gets or sets the size of the reCAPTCHA control.
+        /// </summary>
+        public RecaptchaDataSize? DataSize
+        {
+            get;
+            set;
+        }
+
+        /// <summary>
+        /// Gets or sets they type of the reCAPTCHA control.
+        /// </summary>
+        public RecaptchaDataType? DataType
+        {
+            get;
+            set;
+        }
+
+        #endregion Properties
 
         #region Public Methods
 
@@ -109,6 +158,40 @@ namespace Recaptcha.Web
             if(TabIndex != 0)
             {
                 sb.Append(string.Format(" data-tabindex=\"{0}\"", TabIndex));
+            }
+
+            if (DataSize != null)
+            {
+                string dataSize = null;
+
+                switch(DataSize)
+                {
+                    case RecaptchaDataSize.Compact:
+                        dataSize = "compact";
+                        break;
+                    default:
+                        dataSize = "normal";
+                        break;
+                }
+
+                sb.Append(string.Format(" data-size=\"{0}\"", dataSize));
+            }
+
+            if (DataType != null)
+            {
+                string dataType = null;
+
+                switch (DataType)
+                {
+                    case RecaptchaDataType.Audio:
+                        dataType = "audio";
+                        break;
+                    default:
+                        dataType = "image";
+                        break;
+                }
+
+                sb.Append(string.Format(" data-type=\"{0}\"", dataType));
             }
 
             sb.Append("></div>");

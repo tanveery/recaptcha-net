@@ -19,7 +19,7 @@ namespace Recaptcha.Web
     public class RecaptchaHtmlHelper : RecaptchaHtmlHelperBase
     {
         #region Constructors
-
+        /// <summary>
         /// Creates an instance of the <see cref="RecaptchaHtmlHelper"/> class.
         /// </summary>
         /// <param name="publicKey">Sets the public key to be part of the recaptcha HTML.</param>

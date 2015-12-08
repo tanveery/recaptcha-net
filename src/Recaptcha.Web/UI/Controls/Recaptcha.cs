@@ -182,6 +182,50 @@ namespace Recaptcha.Web.UI.Controls
             }
         }
 
+        /// <summary>
+        /// Gets or sets the data size of the recaptcha control.
+        /// </summary>
+        /// <remarks>This property is only relevant for v2 API. It has no effect if you are using v1 API.</remarks>
+        [Bindable(true)]
+        [Category("Appearance")]
+        [DefaultValue(RecaptchaDataSize.Normal)]
+        [Localizable(false)]
+        public RecaptchaDataSize DataSize
+        {
+            get
+            {
+                object t = ViewState["RecaptchaDataSize"];
+                return ((t == null) ? RecaptchaDataSize.Normal : (RecaptchaDataSize)t);
+            }
+
+            set
+            {
+                ViewState["RecaptchaDataSize"] = value;
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the data size of the recaptcha control.
+        /// </summary>
+        /// <remarks>This property is only relevant for v2 API. It has no effect if you are using v1 API.</remarks>
+        [Bindable(true)]
+        [Category("Appearance")]
+        [DefaultValue(RecaptchaDataType.Image)]
+        [Localizable(false)]
+        public RecaptchaDataType DataType
+        {
+            get
+            {
+                object t = ViewState["RecaptchaDataType"];
+                return ((t == null) ? RecaptchaDataType.Image : (RecaptchaDataType)t);
+            }
+
+            set
+            {
+                ViewState["RecaptchaDataType"] = value;
+            }
+        }
+
         #endregion Properties
 
         #region Control Events
@@ -223,7 +267,7 @@ namespace Recaptcha.Web.UI.Controls
                 }
                 else
                 {
-                    htmlHelper = new Recaptcha2HtmlHelper(this.PublicKey, this.Theme, this.Language, this.TabIndex, this.UseSsl);
+                    htmlHelper = new Recaptcha2HtmlHelper(this.PublicKey, this.Theme, this.Language, this.TabIndex, this.DataType, this.DataSize, this.UseSsl);
                 }
                 
                 output.Write(htmlHelper.ToString());

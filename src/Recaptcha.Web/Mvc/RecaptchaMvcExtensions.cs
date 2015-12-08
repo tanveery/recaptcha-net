@@ -31,6 +31,8 @@ namespace Recaptcha.Web.Mvc
         /// <param name="theme">Sets the theme of recaptcha.</param>
         /// <param name="language">Sets the language of recaptcha. If no language is specified, the language of the current UI culture will be used.</param>
         /// <param name="tabIndex">Sets the tab index of recaptcha.</param>
+        /// <param name="dataType">Sets the data type of recaptcha.</param>
+        /// <param name="dataSize">Sets the size of recaptcha.</param>
         /// <param name="useSsl">Sets the value to the UseSsl property.</param>
         /// <param name="apiVersion">Determines the version of the reCAPTCHA API.</param>
         /// <returns>Returns an instance of the IHtmlString type.</returns>
@@ -40,6 +42,8 @@ namespace Recaptcha.Web.Mvc
             RecaptchaTheme theme = RecaptchaTheme.Red,
             string language = null,
             int tabIndex = 0,
+            RecaptchaDataType? dataType = null,
+            RecaptchaDataSize? dataSize = null,
             SslBehavior useSsl = SslBehavior.SameAsRequestUrl,
             string apiVersion = "{recaptchaApiVersion}")
         {
@@ -53,7 +57,7 @@ namespace Recaptcha.Web.Mvc
             }
             else
             {
-                rHtmlHelper = new Recaptcha2HtmlHelper(publicKey, theme, language, tabIndex, useSsl);
+                rHtmlHelper = new Recaptcha2HtmlHelper(publicKey, theme, language, tabIndex, dataType, dataSize, useSsl);
             }
 
             var writer = new HtmlTextWriter(new StringWriter());
