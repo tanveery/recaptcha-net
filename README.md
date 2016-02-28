@@ -55,7 +55,7 @@ PrivateKey="Your secret key" runat="server" /&gt;
 <pre><code>using Recaptcha.Web;
 </code></pre>
 <p>To verify whether the user's answer is correct, call the control's <strong>Verify()</strong> method which returns RecaptchaVerificationResult. You can also use the control's <strong>Response</strong> property to check what the actual answer is. Generally, you would want to use the Response property to check if the user provided a blank response which of course is always wrong:</p>
-<pre><code>if (String.IsNullOrEmpty(Recaptcha1.Response))
+<pre><code class="language-cs">if (String.IsNullOrEmpty(Recaptcha1.Response))
 {
     lblMessage.Text = "Captcha cannot be empty.";
 }
