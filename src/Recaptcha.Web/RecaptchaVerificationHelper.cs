@@ -400,7 +400,12 @@ namespace Recaptcha.Web
                 return RecaptchaVerificationResult.Success;
             }
 
-            switch (result.ErrorCodes[0])
+			if (result.ErrorCodes == null || result.ErrorCodes.Length == 0)
+			{
+				return RecaptchaVerificationResult.UnknownError;
+			}
+
+			switch (result.ErrorCodes[0])
             {
                 case "missing-input-secret":
                     return RecaptchaVerificationResult.InvalidPrivateKey;
