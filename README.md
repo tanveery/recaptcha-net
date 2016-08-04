@@ -38,6 +38,21 @@ TagPrefix="cc1" %&gt;
 <pre><code>&lt;cc1:Recaptcha ID="Recaptcha1" PublicKey="Your site key"
 PrivateKey="Your secret key" runat="server" /&gt;
 </code></pre>
+<p>If you are using reCaptcha in UpdatePanel or wish to reinit it yourself, you can add it with parameter WithCallback:</p>
+<pre><code>&lt;cc1:Recaptcha ID="Recaptcha1" PublicKey="Your site key"
+PrivateKey="Your secret key" runat="server"  WithCallback="True" /&gt;
+</code></pre>
+<p>In this case, reCaptchaCallback() Javascript function will be added to markup, and you can hook on it in Postback:</p>
+<pre><code>
+protected void Page_Load(object sender, EventArgs e)
+{
+	if (this.IsPostBack)
+	{
+		ScriptManager.RegisterStartupScript(this, this.GetType(),"callbackRecaptcha","reCaptchaCallback();",true);
+		return;
+	}
+}
+</code></pre>
 <p>Rather than setting the recaptcha key of the control through its PublicKey and PrivateKey properties, you can set them in your web.config file instead:</p>
 <p><a href="#keyInWebConfig">How to Set Recpatcha Key in Web.config File</a></p>
 <h3>How to Set Recpatcha Key in Web.config File</h3>
