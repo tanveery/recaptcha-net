@@ -141,17 +141,16 @@ namespace Recaptcha.Web
 
             bool doUseSsl = false;
 
-            if (UseSsl == SslBehavior.DoNotUseSsl)
+            switch (this.UseSsl)
             {
-                doUseSsl = false;
-            }
-            else if (UseSsl == SslBehavior.AlwaysUseSsl)
-            {
-                doUseSsl = true;
-            }
-            else if (UseSsl == SslBehavior.SameAsRequestUrl)
-            {
-                doUseSsl = HttpContext.Current.Request.IsSecureConnection;
+                case SslBehavior.DoNotUseSsl:
+                    break;
+                case SslBehavior.AlwaysUseSsl:
+                    doUseSsl = true;
+                    break;
+                case SslBehavior.SameAsRequestUrl:
+                    doUseSsl = HttpContext.Current.Request.IsSecureConnection;
+                    break;
             }
 
             var protocol = "https://";
