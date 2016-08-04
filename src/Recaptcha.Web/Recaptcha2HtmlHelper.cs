@@ -77,6 +77,24 @@ namespace Recaptcha.Web
             DataSize = dataSize;
         }
 
+        /// <summary>
+        /// Creates an instance of the <see cref="Recaptcha2HtmlHelper"/> class.
+        /// </summary>
+        /// <param name="publicKey">Sets the public key of the recaptcha HTML.</param>
+        /// <param name="theme">Sets the theme of the recaptcha HTML.</param>
+        /// <param name="language">Sets the language of the recaptcha HTML.</param>
+        /// <param name="tabIndex">Sets the tab index of the recaptcha HTML.</param>    
+        /// <param name="dataType">Sets the type of the recaptcha HTML.</param>
+        /// <param name="dataSize">Sets the size for the recpatcha HTML.</param>
+        /// <param name="useSsl">Determines whether to use SSL in reCAPTCHA API URLs.</param>
+        /// <param name="withCallback">Determines if we need a callback for our reCaptcha</param>
+        public Recaptcha2HtmlHelper(string publicKey, RecaptchaTheme theme, string language, int tabIndex, RecaptchaDataType? dataType, RecaptchaDataSize? dataSize, SslBehavior useSsl, bool withCallback)
+            : base(publicKey, theme, language, tabIndex, useSsl, withCallback)
+        {
+            DataType = dataType;
+            DataSize = dataSize;
+        }
+
         #endregion Constructors
 
         #region Properties
@@ -113,9 +131,12 @@ namespace Recaptcha.Web
 
             string lang = "";
 
+            var callbackString = WithCallback ? "?onload=reCaptchaCallback&render=explicit" : "";
+
             if (!String.IsNullOrEmpty(Language))
             {
-                lang = string.Format("?hl={0}", Language);
+                var chardata = WithCallback ? '&' : '?';
+                lang = string.Format("{0}hl={1}", chardata, Language);
             }
 
             bool doUseSsl = false;
@@ -139,9 +160,9 @@ namespace Recaptcha.Web
             {
                 protocol = "http://";
             }
-
-            sb.Append(string.Format("<script src=\"{0}www.google.com/recaptcha/api.js{1}\" async defer></script>", protocol, lang));
-            sb.Append(string.Format("<div class=\"g-recaptcha\" data-sitekey=\"{0}\"", PublicKey));
+            var reCaptchaId = string.Concat("recaptcha-", Guid.NewGuid());
+            sb.Append(string.Format("<script src=\"{0}www.google.com/recaptcha/api.js{1}{2}\" async defer ></script>", protocol, callbackString, lang));
+            sb.Append(string.Format("<div class=\"g-recaptcha\" data-sitekey=\"{0}\"  id=\"{1}\"", PublicKey, reCaptchaId));
 
             if (Theme != RecaptchaTheme.Default)
             {
@@ -195,6 +216,25 @@ namespace Recaptcha.Web
             }
 
             sb.Append("></div>");
+            if (WithCallback)
+            {
+                var reCapthcaRenderScript =
+@"<script>
+    var siteKey =  'replaceMeWithAKey';
+    var reCaptchaCallback = function() {
+        var elements = document.getElementsByClassName('g-recaptcha');
+        for (var i = 0; i < elements.length; i++) {
+            var id = elements[i].getAttribute('id');
+            grecaptcha.render(id, {
+                'sitekey' : siteKey
+            });
+        }
+    };
+</script>";
+                reCapthcaRenderScript = reCapthcaRenderScript.Replace("replaceMeWithAKey", PublicKey);
+
+                sb.Append(reCapthcaRenderScript);
+            }
 
             return sb.ToString();
         }
