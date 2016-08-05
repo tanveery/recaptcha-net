@@ -226,6 +226,48 @@ namespace Recaptcha.Web.UI.Controls
             }
         }
 
+        /// <summary>
+        /// Gets or sets the callback behaviour
+        /// </summary>
+        /// <remarks>This property is only relevant for v2 API. It has no effect if you are using v1 API.</remarks>
+        [Bindable(true)]
+        [Category("Behavior")]
+        [DefaultValue(false)]
+        [Localizable(false)]
+        public bool WithCallback
+        {
+            get
+            {
+                object t = ViewState["RecaptchaCallback"];
+                return (bool?)t ?? false;
+            }
+
+            set
+            {
+                ViewState["RecaptchaCallback"] = value;
+            }
+        }
+
+        /// <summary>
+        /// Returns a name of a callback to be reused with ScriptHandler
+        /// </summary>
+        [Bindable(true)]
+        [Category("Behavior")]
+        [DefaultValue("base")]
+        [Localizable(false)]
+        public string CallBackName
+        {
+            get
+            {
+                return ViewState["CallBackName"] as string;
+            }
+
+            set
+            {
+                ViewState["CallBackName"] = value;
+            }
+        }
+
         #endregion Properties
 
         #region Control Events
@@ -267,7 +309,7 @@ namespace Recaptcha.Web.UI.Controls
                 }
                 else
                 {
-                    htmlHelper = new Recaptcha2HtmlHelper(this.PublicKey, this.Theme, this.Language, this.TabIndex, this.DataType, this.DataSize, this.UseSsl);
+                    htmlHelper = new Recaptcha2HtmlHelper(this.PublicKey, this.Theme, this.Language, this.TabIndex, this.DataType, this.DataSize, this.UseSsl, this.WithCallback, this.CallBackName);
                 }
                 
                 output.Write(htmlHelper.ToString());

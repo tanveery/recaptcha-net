@@ -72,6 +72,32 @@ namespace Recaptcha.Web
             UseSsl = useSsl;
         }
 
+        /// <summary>
+        /// Creates an instance of the <see cref="RecaptchaHtmlHelperBase"/> class.
+        /// </summary>
+        /// <param name="publicKey">Sets the public key of the recaptcha HTML.</param>
+        /// <param name="theme">Sets the theme of the recaptcha HTML.</param>
+        /// <param name="language">Sets the language of the recaptcha HTML.</param>
+        /// <param name="tabIndex">Sets the tab index of the recaptcha HTML.</param>    
+        /// <param name="useSsl">Determines whether to use SSL in reCAPTCHA API URLs.</param>
+        /// <param name="withCallBack">Determines if we need a callback for our reCaptch</param>
+        public RecaptchaHtmlHelperBase(string publicKey, RecaptchaTheme theme, string language, int tabIndex, SslBehavior useSsl, bool withCallBack)
+        {
+            this.PublicKey = RecaptchaKeyHelper.ParseKey(publicKey);
+
+            if (String.IsNullOrEmpty(this.PublicKey))
+            {
+                throw new InvalidOperationException("Public key cannot be null or empty.");
+            }
+
+            this.Theme = theme;
+            this.Language = language;
+            this.TabIndex = tabIndex;
+
+            UseSsl = useSsl;
+            WithCallback = withCallBack;
+        }
+
         #endregion Constructors
 
         #region Properties
@@ -129,6 +155,10 @@ namespace Recaptcha.Web
             get;
             set;
         }
+
+        public bool WithCallback { get; set; }
+
+        public string CallbackName { get; set; }
 
         #endregion Properties
     }

@@ -35,6 +35,8 @@ namespace Recaptcha.Web.Mvc
         /// <param name="dataSize">Sets the size of recaptcha.</param>
         /// <param name="useSsl">Sets the value to the UseSsl property.</param>
         /// <param name="apiVersion">Determines the version of the reCAPTCHA API.</param>
+        /// <param name="withCallback">Determines if we need a callback for our reCaptcha</param>
+        /// <param name="callBackName">Allows to set custom callback</param>
         /// <returns>Returns an instance of the IHtmlString type.</returns>
         public static IHtmlString Recaptcha(
             this HtmlHelper htmlHelper,
@@ -45,7 +47,9 @@ namespace Recaptcha.Web.Mvc
             RecaptchaDataType? dataType = null,
             RecaptchaDataSize? dataSize = null,
             SslBehavior useSsl = SslBehavior.SameAsRequestUrl,
-            string apiVersion = "{recaptchaApiVersion}")
+            string apiVersion = "{recaptchaApiVersion}",
+            bool withCallback = false,
+            string callBackName = "base")
         {
             IRecaptchaHtmlHelper rHtmlHelper = null;
 
@@ -57,7 +61,7 @@ namespace Recaptcha.Web.Mvc
             }
             else
             {
-                rHtmlHelper = new Recaptcha2HtmlHelper(publicKey, theme, language, tabIndex, dataType, dataSize, useSsl);
+                rHtmlHelper = new Recaptcha2HtmlHelper(publicKey, theme, language, tabIndex, dataType, dataSize, useSsl, withCallback, callBackName);
             }
 
             var writer = new HtmlTextWriter(new StringWriter());
