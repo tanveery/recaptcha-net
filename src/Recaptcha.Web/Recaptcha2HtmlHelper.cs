@@ -4,11 +4,7 @@
  * =========================================================================================================================== */
 
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
 using System.Web;
 
 namespace Recaptcha.Web
@@ -88,11 +84,12 @@ namespace Recaptcha.Web
         /// <param name="dataSize">Sets the size for the recpatcha HTML.</param>
         /// <param name="useSsl">Determines whether to use SSL in reCAPTCHA API URLs.</param>
         /// <param name="withCallback">Determines if we need a callback for our reCaptcha</param>
-        public Recaptcha2HtmlHelper(string publicKey, RecaptchaTheme theme, string language, int tabIndex, RecaptchaDataType? dataType, RecaptchaDataSize? dataSize, SslBehavior useSsl, bool withCallback)
+        public Recaptcha2HtmlHelper(string publicKey, RecaptchaTheme theme, string language, int tabIndex, RecaptchaDataType? dataType, RecaptchaDataSize? dataSize, SslBehavior useSsl, bool withCallback, string callBack)
             : base(publicKey, theme, language, tabIndex, useSsl, withCallback)
         {
             DataType = dataType;
             DataSize = dataSize;
+            CallbackName = callBack;
         }
 
         #endregion Constructors
@@ -128,10 +125,9 @@ namespace Recaptcha.Web
         public override string ToString()
         {
             StringBuilder sb = new StringBuilder();
-
             string lang = "";
 
-            var callbackString = WithCallback ? "?onload=reCaptchaCallback&render=explicit" : "";
+            var callbackString = WithCallback ? string.Format("?onload={0}&render=explicit", CallbackName) : "";
 
             if (!String.IsNullOrEmpty(Language))
             {
@@ -159,10 +155,10 @@ namespace Recaptcha.Web
             {
                 protocol = "http://";
             }
-            var reCaptchaId = string.Concat("recaptcha-", Guid.NewGuid());
-            sb.Append(string.Format("<script src=\"{0}www.google.com/recaptcha/api.js{1}{2}\" async defer ></script>", protocol, callbackString, lang));
-            sb.Append(string.Format("<div class=\"g-recaptcha\" data-sitekey=\"{0}\"  id=\"{1}\"", PublicKey, reCaptchaId));
 
+            var reCaptchaId = string.Concat("recaptcha-", CallbackName);
+            sb.Append(string.Format("<script src=\"{0}www.google.com/recaptcha/api.js{1}{2}\" async defer ></script>", protocol, callbackString, lang));
+            sb.Append(string.Format("<div class=\"g-recaptcha\" data-sitekey=\"{0}\"  id=\"{1}\"",  PublicKey, reCaptchaId));
             if (Theme != RecaptchaTheme.Default)
             {
                 var theme = "light";
@@ -215,26 +211,28 @@ namespace Recaptcha.Web
             }
 
             sb.Append("></div>");
-            if (WithCallback)
+            if (this.WithCallback)
             {
                 var reCapthcaRenderScript =
-@"<script>
-    var siteKey =  'replaceMeWithAKey';
-    var reCaptchaCallback = function() {
-        var elements = document.getElementsByClassName('g-recaptcha');
-        for (var i = 0; i < elements.length; i++) {
-            var id = elements[i].getAttribute('id');
-            grecaptcha.render(id, {
-                'sitekey' : siteKey
-            });
-        }
-    };
-</script>";
-                reCapthcaRenderScript = reCapthcaRenderScript.Replace("replaceMeWithAKey", PublicKey);
+                    @"<script type='text/javascript'>
+                    var siteKey =  'replaceMeWithAKey';
+                    var reCaptchaCallback = function() {
+                    var elements = document.getElementsByClassName('g-recaptcha');
+                    for (var i = 0; i < elements.length; i++) {
+                        var id = elements[i].getAttribute('id');
+	                    if (document.getElementById(id).innerHTML === '') {
+		                    grecaptcha.render(id, {
+			                    'sitekey' : siteKey
+		                    });
+	                    }
+                    }
+                    };
+                    </script>";
+                reCapthcaRenderScript = reCapthcaRenderScript.Replace("replaceMeWithAKey", this.PublicKey);
+                reCapthcaRenderScript = reCapthcaRenderScript.Replace("reCaptchaCallback", CallbackName);
 
                 sb.Append(reCapthcaRenderScript);
             }
-
             return sb.ToString();
         }
 

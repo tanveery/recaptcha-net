@@ -44,11 +44,17 @@ PrivateKey="Your secret key" runat="server"  WithCallback="True" /&gt;
 </code></pre>
 <p>In this case, reCaptchaCallback() Javascript function will be added to markup, and you can hook on it in Postback:</p>
 <pre><code>
+protected override void OnLoad(EventArgs e)
+{
+	base.OnInit(e);
+	this.reCaptcha.CallBackName = "someStaticString";
+}
+
 protected void Page_Load(object sender, EventArgs e)
 {
 	if (this.IsPostBack)
 	{
-		ScriptManager.RegisterStartupScript(this, this.GetType(),"callbackRecaptcha","reCaptchaCallback();",true);
+		ScriptManager.RegisterStartupScript(this, this.GetType(),"callbackRecaptcha",string.Concat(this.reCaptcha.CallBackName, "();"),true);
 		return;
 	}
 }

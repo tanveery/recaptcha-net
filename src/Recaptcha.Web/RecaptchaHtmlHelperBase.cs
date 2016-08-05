@@ -158,6 +158,8 @@ namespace Recaptcha.Web
 
         public bool WithCallback { get; set; }
 
+        public string CallbackName { get; set; }
+
         #endregion Properties
     }
 }

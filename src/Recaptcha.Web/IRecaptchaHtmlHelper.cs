@@ -78,6 +78,8 @@ namespace Recaptcha.Web
             set;
         }
 
+        string CallbackName { get; set; }
+
         #endregion Properties
 
         #region Methods
