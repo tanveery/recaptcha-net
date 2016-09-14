@@ -19,17 +19,6 @@ namespace Recaptcha.Web
   public class RecaptchaHtmlHelper : RecaptchaHtmlHelperBase
   {
     #region Constructors
-
-    /// <summary>
-    /// Creates an instance of the <see cref="RecaptchaHtmlHelper"/> class.
-    /// </summary>
-    /// <param name="dataCallback">Sets the data-callback property of the recaptcha HTML.</param>    
-    /// <param name="dataExpiredCallback">Sets the data-expired-callback property of the recaptcha HTML.</param>
-    public RecaptchaHtmlHelper(string dataCallback, string dataCallbackExpired)
-        : base(dataCallback, dataCallbackExpired)
-    { }
-
-
     /// <summary>
     /// Creates an instance of the <see cref="RecaptchaHtmlHelper"/> class.
     /// </summary>
@@ -61,21 +50,6 @@ namespace Recaptcha.Web
         : base(publicKey, theme, language, tabIndex, useSsl)
     { }
 
-
-    /// <summary>
-    /// Creates an instance of the <see cref="RecaptchaHtmlHelper"/> class.
-    /// </summary>
-    /// <param name="publicKey">Sets the public key of the recaptcha HTML.</param>
-    /// <param name="theme">Sets the theme of the recaptcha HTML.</param>
-    /// <param name="language">Sets the language of the recaptcha HTML.</param>
-    /// <param name="tabIndex">Sets the tab index of the recaptcha HTML.</param>    
-    /// <param name="useSsl">Determines whether to use SSL in reCAPTCHA API URLs.</param>
-    /// <param name="dataCallback">Sets the data-callback property of the recaptcha HTML.</param>    
-    /// <param name="dataExpiredCallback">Sets the data-expired-callback property of the recaptcha HTML.</param>
-    public RecaptchaHtmlHelper(string publicKey, RecaptchaTheme theme, string language, int tabIndex, SslBehavior useSsl, string dataCallback, string dataExpiredCallback)
-        : base(publicKey, theme, language, tabIndex, useSsl, dataCallback, dataExpiredCallback)
-    { }
-
     #endregion Constructors
 
     #region Public Methods
@@ -98,17 +72,6 @@ namespace Recaptcha.Web
       }
 
       sb.Append(String.Format("\ntheme : '{0}',\nlang : '{1}',\ntabindex : {2}\n", Theme.ToString().ToLower(), language, TabIndex));
-
-      if (!String.IsNullOrEmpty(DataCallback))
-      {
-        sb.Append(String.Format("\ndata-callback: {0}\n", DataCallback));
-      }
-
-      if (!String.IsNullOrEmpty(DataExpiredCallback))
-      {
-        sb.Append(String.Format("\ndata-expired-callback: {0}\n", DataExpiredCallback));
-      }
-
       sb.Append("};\n</script>");
 
       bool doUseSsl = false;

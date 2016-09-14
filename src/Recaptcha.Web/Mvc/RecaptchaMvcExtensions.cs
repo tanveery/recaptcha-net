@@ -55,7 +55,7 @@ namespace Recaptcha.Web.Mvc
 
       if (version != "2")
       {
-        rHtmlHelper = new RecaptchaHtmlHelper(publicKey, theme, language, tabIndex, useSsl, dataCallback, dataExpiredCallback);
+        rHtmlHelper = new RecaptchaHtmlHelper(publicKey, theme, language, tabIndex, useSsl);
       }
       else
       {

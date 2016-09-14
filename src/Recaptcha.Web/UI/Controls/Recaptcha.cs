@@ -307,7 +307,7 @@ namespace Recaptcha.Web.UI.Controls
 
         if (apiVersion != "2")
         {
-          htmlHelper = new RecaptchaHtmlHelper(this.PublicKey, this.Theme, this.Language, this.TabIndex, this.UseSsl, this.DataCallback, this.DataExpiredCallback);
+          htmlHelper = new RecaptchaHtmlHelper(this.PublicKey, this.Theme, this.Language, this.TabIndex, this.UseSsl);
         }
         else
         {
