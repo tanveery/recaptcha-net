@@ -61,7 +61,7 @@ PrivateKey="Your secret key" runat="server" /&gt;
 }
 else
 {
-    RecaptchaVerificationResult result = await Recaptcha1.Verify();
+    RecaptchaVerificationResult result = Recaptcha1.Verify();
     if (result == RecaptchaVerificationResult.Success)
     {
         Response.Redirect("Welcome.aspx");
@@ -127,7 +127,7 @@ if (String.IsNullOrEmpty(recaptchaHelper.Response))
     ModelState.AddModelError("", "Captcha answer cannot be empty.");
     return View(model);
 }
-RecaptchaVerificationResult recaptchaResult = await recaptchaHelper.VerifyRecaptchaResponse();
+RecaptchaVerificationResult recaptchaResult = recaptchaHelper.VerifyRecaptchaResponse();
 if (recaptchaResult != RecaptchaVerificationResult.Success)
 {
     ModelState.AddModelError("", "Incorrect captcha answer.");
