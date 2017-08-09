@@ -89,13 +89,14 @@ namespace Recaptcha.Web
     /// <param name="useSsl">Determines whether to use SSL in reCAPTCHA API URLs.</param>
     /// <param name="dataCallback">Sets the data-callback property of the recaptcha HTML.</param>    
     /// <param name="dataExpiredCallback">Sets the data-expired-callback property of the recaptcha HTML.</param>
-    public Recaptcha2HtmlHelper(string publicKey, RecaptchaTheme theme, string language, int tabIndex, RecaptchaDataType? dataType, RecaptchaDataSize? dataSize, SslBehavior useSsl, string dataCallback, string dataExpiredCallback)
+    public Recaptcha2HtmlHelper(string publicKey, RecaptchaTheme theme, string language, int tabIndex, RecaptchaDataType? dataType, RecaptchaDataSize? dataSize, SslBehavior useSsl, string dataCallback, string dataExpiredCallback, bool renderApiScriptTag)
        : base(publicKey, theme, language, tabIndex, useSsl, dataCallback, dataExpiredCallback)
     {
       DataType = dataType;
       DataSize = dataSize;
       DataCallback = dataCallback;
       DataExpiredCallback = dataExpiredCallback;
+      RenderApiScriptTag = renderApiScriptTag;
     }
 
     #endregion Constructors
@@ -161,7 +162,9 @@ namespace Recaptcha.Web
         protocol = "http://";
       }
 
-      sb.Append(string.Format("<script src=\"{0}www.google.com/recaptcha/api.js{1}\" async defer></script>", protocol, lang));
+      if (RenderApiScriptTag) 
+        sb.Append(string.Format("<script src=\"{0}www.google.com/recaptcha/api.js{1}\" async defer></script>", protocol, lang));
+
       sb.Append(string.Format("<div class=\"g-recaptcha\" data-sitekey=\"{0}\"", PublicKey));
 
       if (Theme != RecaptchaTheme.Default)

@@ -47,7 +47,8 @@ namespace Recaptcha.Web.Mvc
         SslBehavior useSsl = SslBehavior.SameAsRequestUrl,
         string apiVersion = "{recaptchaApiVersion}",
         string dataCallback = "",
-        string dataExpiredCallback = "")
+        string dataExpiredCallback = "",
+        bool renderApiScriptTag = true)
     {
       IRecaptchaHtmlHelper rHtmlHelper = null;
 
@@ -59,7 +60,7 @@ namespace Recaptcha.Web.Mvc
       }
       else
       {
-        rHtmlHelper = new Recaptcha2HtmlHelper(publicKey, theme, language, tabIndex, dataType, dataSize, useSsl, dataCallback, dataExpiredCallback);
+        rHtmlHelper = new Recaptcha2HtmlHelper(publicKey, theme, language, tabIndex, dataType, dataSize, useSsl, dataCallback, dataExpiredCallback, renderApiScriptTag);
       }
 
       var writer = new HtmlTextWriter(new StringWriter());

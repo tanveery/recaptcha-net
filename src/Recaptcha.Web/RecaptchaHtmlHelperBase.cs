@@ -187,6 +187,15 @@ namespace Recaptcha.Web
       get;
       set;
     }
+      
+    /// <summary>
+    /// Determines if the script tag should be rendered.
+    /// </summary>
+    public bool RenderApiScriptTag
+    {
+      get;
+      set;
+    }
 
     #endregion Properties
   }

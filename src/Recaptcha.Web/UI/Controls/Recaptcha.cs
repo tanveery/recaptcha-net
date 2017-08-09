@@ -239,7 +239,7 @@ namespace Recaptcha.Web.UI.Controls
       get
       {
         String s = (String)ViewState["DataCallback"];
-        return ((s == null) ? "" : s);
+        return (s ?? "");
       }
 
       set
@@ -261,7 +261,7 @@ namespace Recaptcha.Web.UI.Controls
       get
       {
         String s = (String)ViewState["DataExpiredCallback"];
-        return ((s == null) ? "" : s);
+        return (s ?? "");
       }
 
       set
@@ -269,6 +269,31 @@ namespace Recaptcha.Web.UI.Controls
         ViewState["DataExpiredCallback"] = value;
       }
     }
+
+    /// <summary>
+    /// Determines if the Api Script Tag should be rendered.
+    /// </summary>
+    [Bindable(true)]
+    [Category("Behavior")]
+    [Localizable(false)]
+    public bool RenderApiScriptTag
+    {
+      get
+      {
+          bool? s = (bool?)ViewState["RenderApiScriptTag"];
+          return (s ?? true);
+      }
+
+      set
+      {
+          ViewState["RenderApiScriptTag"] = value;
+      }
+    }
+
+
+
+
+      
 
     #endregion Properties
 
@@ -311,7 +336,7 @@ namespace Recaptcha.Web.UI.Controls
         }
         else
         {
-          htmlHelper = new Recaptcha2HtmlHelper(this.PublicKey, this.Theme, this.Language, this.TabIndex, this.DataType, this.DataSize, this.UseSsl, this.DataCallback, this.DataExpiredCallback);
+            htmlHelper = new Recaptcha2HtmlHelper(this.PublicKey, this.Theme, this.Language, this.TabIndex, this.DataType, this.DataSize, this.UseSsl, this.DataCallback, this.DataExpiredCallback, this.RenderApiScriptTag);
         }
 
         output.Write(htmlHelper.ToString());
