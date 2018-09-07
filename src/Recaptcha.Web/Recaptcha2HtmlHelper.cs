@@ -135,11 +135,12 @@ namespace Recaptcha.Web
                 lang = string.Format("{0}hl={1}", chardata, Language);
             }
 
-            bool doUseSsl = false;
+            bool doUseSsl = true;
 
             switch (this.UseSsl)
             {
                 case SslBehavior.DoNotUseSsl:
+                    doUseSsl = false;
                     break;
                 case SslBehavior.AlwaysUseSsl:
                     doUseSsl = true;
