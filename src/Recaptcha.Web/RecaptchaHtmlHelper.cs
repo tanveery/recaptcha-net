@@ -96,7 +96,7 @@ namespace Recaptcha.Web
         protocol = "http://";
       }
 
-      sb.Append(String.Format("<script type=\"text/javascript\" src=\"{0}www.google.com/recaptcha/api/challenge?k={1}&lang={2}\">", protocol, PublicKey, Language));
+      sb.Append(String.Format("<script type=\"text/javascript\" src=\"{0}www.recaptcha.net/recaptcha/api/challenge?k={1}&lang={2}\">", protocol, PublicKey, Language));
       sb.Append("</script>");
 
       return sb.ToString();

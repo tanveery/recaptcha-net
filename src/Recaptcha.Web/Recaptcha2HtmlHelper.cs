@@ -161,7 +161,7 @@ namespace Recaptcha.Web
         protocol = "http://";
       }
 
-      sb.Append(string.Format("<script src=\"{0}www.google.com/recaptcha/api.js{1}\" async defer></script>", protocol, lang));
+      sb.Append(string.Format("<script src=\"{0}www.recaptcha.net/recaptcha/api.js{1}\" async defer></script>", protocol, lang));
       sb.Append(string.Format("<div class=\"g-recaptcha\" data-sitekey=\"{0}\"", PublicKey));
 
       if (Theme != RecaptchaTheme.Default)

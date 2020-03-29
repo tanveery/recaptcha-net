@@ -150,11 +150,11 @@ namespace Recaptcha.Web
 
             if (!UseSsl)
             {
-                verifyUri = new Uri("http://www.google.com/recaptcha/api/verify", UriKind.Absolute);
+                verifyUri = new Uri("http://www.recaptcha.net/recaptcha/api/verify", UriKind.Absolute);
             }
             else
             {
-                verifyUri = new Uri("https://www.google.com/recaptcha/api/verify", UriKind.Absolute);
+                verifyUri = new Uri("https://www.recaptcha.net/recaptcha/api/verify", UriKind.Absolute);
             }
 
             try
@@ -223,11 +223,11 @@ namespace Recaptcha.Web
 
                 if (!UseSsl)
                 {
-                    verifyUri = new Uri("http://www.google.com/recaptcha/api/verify", UriKind.Absolute);
+                    verifyUri = new Uri("http://www.recaptcha.net/recaptcha/api/verify", UriKind.Absolute);
                 }
                 else
                 {
-                    verifyUri = new Uri("https://www.google.com/recaptcha/api/verify", UriKind.Absolute);
+                    verifyUri = new Uri("https://www.recaptcha.net/recaptcha/api/verify", UriKind.Absolute);
                 }
 
                 try
@@ -278,7 +278,7 @@ namespace Recaptcha.Web
 
                 Uri verifyUri = null;
 
-                verifyUri = new Uri("https://www.google.com/recaptcha/api/siteverify", UriKind.Absolute);
+                verifyUri = new Uri("https://www.recaptcha.net/recaptcha/api/siteverify", UriKind.Absolute);
 
                 try
                 {
@@ -326,7 +326,7 @@ namespace Recaptcha.Web
 
             Uri verifyUri = null;
 
-            verifyUri = new Uri("https://www.google.com/recaptcha/api/siteverify", UriKind.Absolute);
+            verifyUri = new Uri("https://www.recaptcha.net/recaptcha/api/siteverify", UriKind.Absolute);
 
             try
             {
