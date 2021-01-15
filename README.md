@@ -61,18 +61,18 @@ PrivateKey="Your secret key" runat="server" /&gt;
 }
 else
 {
-    RecaptchaVerificationResult result = Recaptcha1.Verify();
-    if (result == RecaptchaVerificationResult.Success)
+    var result = Recaptcha1.Verify();
+    if (result.Success)
     {
         Response.Redirect("Welcome.aspx");
     }
-    if (result == RecaptchaVerificationResult.IncorrectCaptchaSolution)
-    {
-        lblMessage.Text = "Incorrect captcha response.";
-    }
     else
     {
-        lblMessage.Text = "Some other problem with captcha.";
+        lblMessage.Text = "Error(s): ";
+        foreach(var err in result.ErrorCodes)
+        {
+            lblMessage.Text = lblMessage.Text + err;
+        }
     }
 }
 </code></pre>
@@ -83,18 +83,18 @@ else
 }
 else
 {
-    RecaptchaVerificationResult result = await Recaptcha1.VerifyTaskAsync();
-    if (result == RecaptchaVerificationResult.Success)
+    var result = await Recaptcha1.VerifyTaskAsync();
+    if (result.Success)
     {
         Response.Redirect("Welcome.aspx");
     }
-    if (result == RecaptchaVerificationResult.IncorrectCaptchaSolution)
-    {
-        lblMessage.Text = "Incorrect captcha response.";
-    }
     else
     {
-        lblMessage.Text = "Some other problem with captcha.";
+        lblMessage.Text = "Error(s): ";
+        foreach(var err in result.ErrorCodes)
+        {
+            lblMessage.Text = lblMessage.Text + err;
+        }
     }
 }
 </code></pre>
