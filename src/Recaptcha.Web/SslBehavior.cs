@@ -19,14 +19,14 @@ namespace Recaptcha.Web
         /// <summary>
         /// Use SSL if the HttpContext.Current.Request.IsSecureConnection is True.
         /// </summary>
-        SameAsRequestUrl = 0,
+        SameAsRequestUrl = 1,
         /// <summary>
         /// Do not use SSL.
         /// </summary>
-        DoNotUseSsl = 1,
+        DoNotUseSsl = 2,
         /// <summary>
         /// Always use SSL.
         /// </summary>
-        AlwaysUseSsl = 2
+        AlwaysUseSsl = 0
     }
 }

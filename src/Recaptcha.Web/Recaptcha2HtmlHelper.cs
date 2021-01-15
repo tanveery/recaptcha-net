@@ -139,7 +139,7 @@ namespace Recaptcha.Web
         lang = string.Format("?hl={0}", Language);
       }
 
-      bool doUseSsl = false;
+      bool doUseSsl = true;
 
       if (UseSsl == SslBehavior.DoNotUseSsl)
       {
