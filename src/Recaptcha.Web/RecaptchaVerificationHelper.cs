@@ -4,13 +4,12 @@
  * =========================================================================================================================== */
 
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Web;
 using System.Net;
 using System.IO;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
+using Recaptcha.Web.Configuration;
 
 namespace Recaptcha.Web
 {
@@ -44,7 +43,7 @@ namespace Recaptcha.Web
 
             this.UseSsl = request.IsSecureConnection;
 
-            this.PrivateKey = privateKey;
+            this.SecretKey = privateKey;
             this.UserHostAddress = request.UserHostAddress;
 
             Response = request.Form["g-recaptcha-response"];
@@ -66,7 +65,7 @@ namespace Recaptcha.Web
         /// <summary>
         /// Gets the privae key of the recaptcha verification request.
         /// </summary>
-        public string PrivateKey
+        public string SecretKey
         {
             get;
             private set;
@@ -105,8 +104,15 @@ namespace Recaptcha.Web
                 throw new InvalidOperationException("Reponse is emptry.");
             }
 
-            string privateKey = RecaptchaKeyHelper.ParseKey(PrivateKey);
-            return VerifyRecpatcha2Response(privateKey);
+            string secretKey = SecretKey;
+
+            if(string.IsNullOrEmpty(secretKey))
+            {
+                var config = RecaptchaConfigurationManager.GetConfiguration();
+                secretKey = config.SecretKey;
+            }
+
+            return VerifyRecpatcha2Response(secretKey);
         }
 
         /// <summary>
@@ -120,8 +126,15 @@ namespace Recaptcha.Web
                 throw new InvalidOperationException("Reponse is emptry.");
             }
 
-            string privateKey = RecaptchaKeyHelper.ParseKey(PrivateKey);
-            return VerifyRecpatcha2ResponseTaskAsync(privateKey);
+            string secretKey = SecretKey;
+
+            if (string.IsNullOrEmpty(secretKey))
+            {
+                var config = RecaptchaConfigurationManager.GetConfiguration();
+                secretKey = config.SecretKey;
+            }
+
+            return VerifyRecpatcha2ResponseTaskAsync(secretKey);
         }
 
         #endregion Public Methods

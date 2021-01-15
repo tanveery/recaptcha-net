@@ -3,11 +3,6 @@
  * LIMITED TO THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE.
  * =========================================================================================================================== */
 
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
 namespace Recaptcha.Web
 {
     /// <summary>
@@ -16,12 +11,16 @@ namespace Recaptcha.Web
     public enum RecaptchaDataSize
     {
         /// <summary>
+        /// The default size.
+        /// </summary>
+        Default = 0,
+        /// <summary>
         /// Specifies the normal size to be used for reCAPTCHA.
         /// </summary>
-        Normal = 0,
+        Normal = 1,
         /// <summary>
         /// Specifies the compact size to be used for reCAPTCHA.
         /// </summary>
-        Compact = 1
+        Compact = 2
     }
 }

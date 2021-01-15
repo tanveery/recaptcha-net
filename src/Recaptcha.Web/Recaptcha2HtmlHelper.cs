@@ -5,10 +5,7 @@
 
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
 using System.Web;
 
 namespace Recaptcha.Web
@@ -16,7 +13,7 @@ namespace Recaptcha.Web
     /// <summary>
     /// Represents the functionality to generate HTML for Recaptcha API v2.0.
     /// </summary>
-    public class Recaptcha2HtmlHelper : RecaptchaHtmlHelperBase
+    public class Recaptcha2HtmlHelper
     {
         #region Fields
 
@@ -39,72 +36,26 @@ namespace Recaptcha.Web
         /// <summary>
         /// Creates an instance of the <see cref="Recaptcha2HtmlHelper"/> class.
         /// </summary>
-        /// <param name="publicKey">Sets the public key to be part of the recaptcha HTML.</param>
-        public Recaptcha2HtmlHelper(string publicKey)
-        : base(publicKey)
-        {
-            DataSize = null;
-        }
-
-        /// <summary>
-        /// Creates an instance of the <see cref="Recaptcha2HtmlHelper"/> class.
-        /// </summary>
-        /// <param name="publicKey">Sets the public key of the recaptcha HTML.</param>
-        /// <param name="theme">Sets the theme of the recaptcha HTML.</param>
-        /// <param name="language">Sets the language of the recaptcha HTML.</param>
-        /// <param name="tabIndex">Sets the tab index of the recaptcha HTML.</param>   
-        public Recaptcha2HtmlHelper(string publicKey, RecaptchaTheme theme, string language, int tabIndex)
-            : base(publicKey, theme, language, tabIndex)
-        {
-            DataSize = null;
-        }
-
-        /// <summary>
-        /// Creates an instance of the <see cref="Recaptcha2HtmlHelper"/> class.
-        /// </summary>
-        /// <param name="publicKey">Sets the public key of the recaptcha HTML.</param>
-        /// <param name="theme">Sets the theme of the recaptcha HTML.</param>
-        /// <param name="language">Sets the language of the recaptcha HTML.</param>
-        /// <param name="tabIndex">Sets the tab index of the recaptcha HTML.</param>    
-        /// <param name="useSsl">Determines whether to use SSL in reCAPTCHA API URLs.</param>
-        public Recaptcha2HtmlHelper(string publicKey, RecaptchaTheme theme, string language, int tabIndex, SslBehavior useSsl)
-            : base(publicKey, theme, language, tabIndex, useSsl)
-        {
-            DataSize = null;
-        }
-
-        /// <summary>
-        /// Creates an instance of the <see cref="Recaptcha2HtmlHelper"/> class.
-        /// </summary>
-        /// <param name="publicKey">Sets the public key of the recaptcha HTML.</param>
+        /// <param name="siteKey">Sets the public key of the recaptcha HTML.</param>
         /// <param name="theme">Sets the theme of the recaptcha HTML.</param>
         /// <param name="language">Sets the language of the recaptcha HTML.</param>
         /// <param name="tabIndex">Sets the tab index of the recaptcha HTML.</param>    
         /// <param name="dataSize">Sets the size for the recpatcha HTML.</param>
         /// <param name="useSsl">Determines whether to use SSL in reCAPTCHA API URLs.</param>
-        public Recaptcha2HtmlHelper(string publicKey, RecaptchaTheme theme, string language, int tabIndex, RecaptchaDataSize? dataSize, SslBehavior useSsl)
-            : base(publicKey, theme, language, tabIndex, useSsl)
+        public Recaptcha2HtmlHelper(string siteKey, RecaptchaTheme theme, string language, int tabIndex, RecaptchaDataSize dataSize, SslBehavior useSsl)
         {
-            DataSize = dataSize;
-        }
+            if (String.IsNullOrEmpty(siteKey))
+            {
+                throw new InvalidOperationException("Site key cannot be null or empty.");
+            }
 
-        /// <summary>
-        /// Creates an instance of the <see cref="Recaptcha2HtmlHelper"/> class.
-        /// </summary>
-        /// <param name="publicKey">Sets the public key of the recaptcha HTML.</param>
-        /// <param name="theme">Sets the theme of the recaptcha HTML.</param>
-        /// <param name="language">Sets the language of the recaptcha HTML.</param>
-        /// <param name="tabIndex">Sets the tab index of the recaptcha HTML.</param>    
-        /// <param name="dataSize">Sets the size for the recpatcha HTML.</param>
-        /// <param name="useSsl">Determines whether to use SSL in reCAPTCHA API URLs.</param>
-        /// <param name="dataCallback">Sets the data-callback property of the recaptcha HTML.</param>    
-        /// <param name="dataExpiredCallback">Sets the data-expired-callback property of the recaptcha HTML.</param>
-        public Recaptcha2HtmlHelper(string publicKey, RecaptchaTheme theme, string language, int tabIndex, RecaptchaDataSize? dataSize, SslBehavior useSsl, string dataCallback, string dataExpiredCallback)
-           : base(publicKey, theme, language, tabIndex, useSsl, dataCallback, dataExpiredCallback)
-        {
-            DataSize = dataSize;
-            DataCallback = dataCallback;
-            DataExpiredCallback = dataExpiredCallback;
+            this.SiteKey = siteKey;
+            this.Theme = theme;
+            this.Language = language;
+            this.TabIndex = tabIndex;
+
+            UseSsl = useSsl;
+            Size = dataSize;
         }
 
         #endregion Constructors
@@ -112,9 +63,54 @@ namespace Recaptcha.Web
         #region Properties
 
         /// <summary>
+        /// Gets the site key of the recaptcha HTML.
+        /// </summary>
+        public string SiteKey
+        {
+            get;
+            set;
+        }
+
+        /// <summary>
+        /// Determines if HTTPS intead of HTTP is to be used in reCAPTCHA API calls.
+        /// </summary>
+        public SslBehavior UseSsl
+        {
+            get;
+            set;
+        }
+
+        /// <summary>
+        /// Gets or sets the theme of the reCAPTCHA HTML.
+        /// </summary>
+        public RecaptchaTheme Theme
+        {
+            get;
+            set;
+        }
+
+        /// <summary>
+        /// Gets or sets the language of the recaptcha HTML.
+        /// </summary>
+        public string Language
+        {
+            get;
+            set;
+        }
+
+        /// <summary>
+        /// Gets or sets the tab index of the recaptcha HTML.
+        /// </summary>
+        public int TabIndex
+        {
+            get;
+            set;
+        }
+
+        /// <summary>
         /// Gets or sets the size of the reCAPTCHA control.
         /// </summary>
-        public RecaptchaDataSize? DataSize
+        public RecaptchaDataSize Size
         {
             get;
             set;
@@ -130,15 +126,8 @@ namespace Recaptcha.Web
         /// <returns>Returns the HTML as an instance of the <see cref="String"/> type.</returns>
         public override string ToString()
         {
-            StringBuilder sb = new StringBuilder();
-
-            string lang = "";
-
-            if (!String.IsNullOrEmpty(Language))
-            {
-                lang = string.Format("?hl={0}", Language);
-            }
-
+            var dictAttributes = new Dictionary<string, string>();
+            
             bool doUseSsl = true;
 
             if (UseSsl == SslBehavior.DoNotUseSsl)
@@ -161,58 +150,67 @@ namespace Recaptcha.Web
                 protocol = "http://";
             }
 
-            sb.Append(string.Format("<script src=\"{0}www.google.com/recaptcha/api.js{1}\" async defer></script>", protocol, lang));
-            sb.Append(string.Format("<div class=\"g-recaptcha\" data-sitekey=\"{0}\"", PublicKey));
+            dictAttributes.Add("data-" + PARAM_SITEKEY, SiteKey);
 
             if (Theme != RecaptchaTheme.Default)
             {
-                var theme = "light";
-
-                if (Theme == RecaptchaTheme.Dark)
-                {
-                    theme = "dark";
-                }
-
-                sb.Append(string.Format(" data-theme=\"{0}\"", theme));
+                dictAttributes.Add("data-" + PARAM_THEME, Theme.ToString().ToLower());
             }
 
             if (TabIndex != 0)
             {
-                sb.Append(string.Format(" data-tabindex=\"{0}\"", TabIndex));
+                dictAttributes.Add("data-" + PARAM_TABINDEX, TabIndex.ToString());
             }
 
-            if (!String.IsNullOrEmpty(DataCallback))
+            if (Size != RecaptchaDataSize.Default)
             {
-                sb.Append(String.Format(" data-callback=\"{0}\"", DataCallback));
+                dictAttributes.Add("data-" + PARAM_SIZE, Size.ToString().ToLower());
             }
 
-            if (!String.IsNullOrEmpty(DataExpiredCallback))
+            var sbAttributes = new StringBuilder();
+            foreach(var key in dictAttributes.Keys)
             {
-                sb.Append(String.Format(" data-expired-callback=\"{0}\"", DataExpiredCallback));
+                sbAttributes.Append($"{key}=\"{dictAttributes[key]}\" ");
             }
 
-            if (DataSize != null)
-            {
-                string dataSize = null;
+            StringBuilder sbHtml = new StringBuilder();
+            sbHtml.Append(CreateRecaptchaScript(protocol, Language));            
+            sbHtml.Append($"<div class=\"g-recaptcha\" {sbAttributes.ToString()}></div>");
 
-                switch (DataSize)
-                {
-                    case RecaptchaDataSize.Compact:
-                        dataSize = "compact";
-                        break;
-                    default:
-                        dataSize = "normal";
-                        break;
-                }
-
-                sb.Append(string.Format(" data-size=\"{0}\"", dataSize));
-            }
-
-            sb.Append("></div>");
-
-            return sb.ToString();
+            return sbHtml.ToString();
         }
 
         #endregion Public Methods
+
+        #region Private Methods
+
+        private string CreateRecaptchaScript(string protocol, string language)
+        {
+            var dictQS = new Dictionary<string, string>();
+            var url = $"{protocol}www.google.com/recaptcha/api.js";
+
+            if (!string.IsNullOrEmpty(language))
+            {
+                dictQS.Add(PARAM_HL, language);
+            }
+
+            var qs = new StringBuilder();
+
+            foreach (var key in dictQS.Keys)
+            {
+                if (qs.Length <= 0)
+                {
+                    qs.Append($"?{key}={dictQS[key]}");
+                }
+                else
+                {
+                    qs.Append($"&{key}={dictQS[key]}");
+                }
+            }
+
+            return $"<script src=\"{url}{qs.ToString()}\" async defer></script>";
+        }
+
+        #endregion Private Methods
     }
 }
