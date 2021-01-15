@@ -35,7 +35,7 @@ If you find a bug in the library or you have an idea about a new feature, please
 TagPrefix="cc1" %&gt;
 </code></pre>
 <p>Then at the desired line in the same file add the reCAPTCHA control as follows:</p>
-<pre><code>&lt;cc1:Recaptcha ID="Recaptcha1" PublicKey="Your site key"
+<pre><code>&lt;cc1:Recaptcha ID="Recaptcha1" SiteKey="Your site key"
 PrivateKey="Your secret key" runat="server" /&gt;
 </code></pre>
 <p>Rather than setting the recaptcha key of the control through its PublicKey and PrivateKey properties, you can set them in your web.config file instead:</p>
@@ -44,8 +44,8 @@ PrivateKey="Your secret key" runat="server" /&gt;
 <p>After you set the private and public keys in your web.config file, all you need in your web form is this following piece of code:</p>
 <pre><code>&lt;cc1:Recaptcha ID="Recaptcha1" runat="server" /&gt;
 </code></pre>
-<p>By default, the theme of the reCAPTCHA control is Red. However, you can change this default theme to one of the other three themes if you like. Those themes are: Blackglass, White, and Clean. Theme can be set by using the <strong>RecaptchaTheme</strong> enum. The following is an example:</p>
-<pre><code>&lt;cc1:Recaptcha ID="Recaptcha1" Theme="RecaptchaTheme.Clean" runat="server" /&gt;
+<p>By default, the theme of the reCAPTCHA control is Light. However, you can change this default theme to one of the another value like Dark. Theme can be set by using the <strong>RecaptchaTheme</strong> enum. The following is an example:</p>
+<pre><code>&lt;cc1:Recaptcha ID="Recaptcha1" Theme="RecaptchaTheme.Dark" runat="server" /&gt;
 </code></pre>
 <h4>Add the reCAPTCHA Control to the Visual Studio Toolbox</h4>
 <p>Instead of writing the above code manually, you can easily drag and drop the same reCAPTCHA control from the Visual Studio Toolbox onto your page designer just like the way you would do for other standard ASP.NET controls. However, you would need to add the reCAPTCHA control to the Toolbox first. Simply, right click on the Toolbox and select Choose Items... from the context menu and then under the .NET Framework Components tab click on the Browse button and locate the <strong>Recaptcha.Web.dll</strong> assembly.</p>
@@ -148,12 +148,11 @@ if (recaptchaResult != RecaptchaVerificationResult.Success)
 </code></pre>
 <p><strong>Note</strong>: The <strong>GetRecaptchaVerificationHelper()</strong> is an extension method to the MVC's built-in <strong>Controller</strong> class. This means you must import the <strong>Recaptcha.Web.Mvc</strong> namespace explicitly at the top of the controller file otherwise the code will not compile.</p>
 <h3 id="keyInWebConfig">How to Set reCAPTCHA Key in Web.config File</h3>
-<p>As you may have already seen, you can directly assign public and private keys to the respective properties of Recaptcha ASP.NET control or reCAPTCHA MVC HTML extension. However, a better way is to store these keys in your web.config file. The obvious benefit is that you can change these keys anytime you want without requiring you to modify your code and perhaps most important benefit is that you the keys you define in your web.config are global in your web project.</p>
+<p>As you may have already seen, you can directly assign site and secret keys to the respective properties of Recaptcha ASP.NET control or reCAPTCHA MVC HTML extension. However, a better way is to store these keys in your web.config file. The obvious benefit is that you can change these keys anytime you want without requiring you to modify your code and perhaps most important benefit is that you the keys you define in your web.config are global in your web project.</p>
 <p>In the appSettings section of your web.config file, add the keys as follows:</p>
 <pre><code>&lt;appSettings&gt;
-&lt;add key="recaptchaPublicKey" value="Your site key" /&gt;
-&lt;add key="recaptchaPrivateKey" value="Your secret key" /&gt;
-&lt;add key="recaptchaApiVersion" value="2" /&gt;
+&lt;add key="recaptcha:sitekey" value="Your site key" /&gt;
+&lt;add key="recaptcha:secretkey" value="Your secret key" /&gt;
 &lt;/appSettings&gt;
 </code></pre>
-<p><strong>Note</strong>: The <strong>appSettings</strong> keys are automatically added to your web.config file if you install reCAPTCHA for .NET through Nuget. However, you would still need to provide your own public and private keys in the web.config file of your project.</p>
+<p><strong>Note</strong>: The <strong>appSettings</strong> keys are automatically added to your web.config file if you install reCAPTCHA for .NET through Nuget. However, you would still need to provide your own site and secret keys in the web.config file of your project.</p>
