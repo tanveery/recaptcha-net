@@ -1,18 +1,18 @@
 <h1>reCAPTCHA library for .NET</h1>
-reCAPTCHA for .NET is one of the most popular and well-documented reCAPTCHA libraries used by thousands of .NET developers in their ASP.NET web forms and MVC applications. The library is created and maintained by <a href="http://twitter.com/tanveery">@tanveery</a>.
+reCAPTCHA for .NET is one of the most popular and well-documented reCAPTCHA libraries used by thousands of .NET developers in their ASP.NET web applications. The library is created and maintained by <a href="http://twitter.com/tanveery">@tanveery</a>.
 <h2>Features</h2>
 <p>The primary features of the library are:</p>
 <ul>
-    <li>Render recaptcha control (HTML) with appropriate options for pre-defined themes and culture (language).</li>
+    <li>Render recaptcha control (HTML) with appropriate options to customise the widget.</li>
     <li>Verify user's answer to recaptcha's challenge.</li>
-    <li>Supports ASP.NET Web Forms and ASP.NET MVC.</li>
-    <li>Supprts reCAPTCHA version 1 and version 2 in a seamless fashion.</li>
+    <li>Supports ASP.NET Web Forms, ASP.NET MVC, and ASP.NET Core.</li>
+    <li>Supprts reCAPTCHA version 2.</li>
     <li>One of the most well-documented reCAPTCHA libraries in the open source community.</li>
 </ul>
 <h2>API Support</h2>
-<p>The library supports Google's reCATPCAH API version 1 and version 2 in a seamless fashion. To switch between the two APIs, all you need is to set <code>1</code> or <code>2</code> as a value to the <code>recaptchaApiVersion</code> app settings key.</p>
+<p>The library supports Google's reCATPCAH API version 2. The support for API version has been removed since Google no longer supports it.</p>
 <h2>Creating a reCAPTCHA API Key</h2>
-<p>Before you can use reCAPTCHA in your web application, you must first create a reCAPTCHA API key (a pair of public and private keys). Creating reCAPTCHA API key is very straight-forward. The following are the steps:</p>
+<p>Before you can use reCAPTCHA in your web application, you must first create a reCAPTCHA API key (a pair of site and secret keys). Creating reCAPTCHA API key is very straight-forward. The following are the steps:</p>
 <ol>
     <li>Go to the Google's <a href="https://www.google.com/recaptcha" target="_blank">reCAPTCHA</a> site.</li>
     <li>Click on the <strong>Get reCAPTCHA</strong> button. You will be required to login with your Google account.</li>
