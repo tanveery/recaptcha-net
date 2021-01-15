@@ -35,12 +35,14 @@ namespace RecaptchaMVCSample.Controllers
 
             var recaptchaResult = recaptchaHelper.VerifyRecaptchaResponse();
 
-            if (recaptchaResult != RecaptchaVerificationResult.Success)
+            if (!recaptchaResult.Success)
             {
-                ModelState.AddModelError("", "Incorrect captcha answer.");
+                foreach (var err in recaptchaResult.ErrorCodes)
+                {
+                    ModelState.AddModelError("", err);
+                }
             }
-
-            if (ModelState.IsValid)
+            else
             {
                 return RedirectToAction("Welcome");
             }

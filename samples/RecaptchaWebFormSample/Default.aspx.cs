@@ -28,19 +28,20 @@ namespace RecaptchaWebFormSample
             }
             else
             {
-                RecaptchaVerificationResult result = Recaptcha1.Verify();
+                var result = Recaptcha1.Verify();
 
-                if (result == RecaptchaVerificationResult.Success)
+                if (result.Success)
                 {
                     Response.Redirect("Welcome.aspx");
                 }
-                if (result == RecaptchaVerificationResult.IncorrectCaptchaSolution)
-                {
-                    lblMessage.Text = "Incorrect captcha response.";
-                }
                 else
                 {
-                    lblMessage.Text = "Some other problem with captcha.";
+                    lblMessage.Text = "Error(s): ";
+
+                    foreach(var err in result.ErrorCodes)
+                    {
+                        lblMessage.Text = lblMessage.Text + err;
+                    }
                 }
             }
         }
