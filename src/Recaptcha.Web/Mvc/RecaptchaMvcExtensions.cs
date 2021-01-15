@@ -53,7 +53,7 @@ namespace Recaptcha.Web.Mvc
 
       string version = RecaptchaKeyHelper.ParseKey(apiVersion);
 
-      if (version != "2")
+      if (version == "1")
       {
         rHtmlHelper = new RecaptchaHtmlHelper(publicKey, theme, language, tabIndex, useSsl);
       }

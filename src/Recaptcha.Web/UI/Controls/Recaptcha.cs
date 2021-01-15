@@ -305,7 +305,7 @@ namespace Recaptcha.Web.UI.Controls
 
         string apiVersion = RecaptchaKeyHelper.ParseKey(ApiVersion);
 
-        if (apiVersion != "2")
+        if (apiVersion == "1")
         {
           htmlHelper = new RecaptchaHtmlHelper(this.PublicKey, this.Theme, this.Language, this.TabIndex, this.UseSsl);
         }
