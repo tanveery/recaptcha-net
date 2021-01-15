@@ -88,7 +88,6 @@
     <Compile Include="Recaptcha2HtmlHelper.cs" />
     <Compile Include="RecaptchaVerificationResult.cs" />
     <Compile Include="RecaptchaDataSize.cs" />
-    <Compile Include="RecaptchaDataType.cs" />
     <Compile Include="RecaptchaHtmlHelperBase.cs" />
     <Compile Include="RecaptchaKeyHelper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

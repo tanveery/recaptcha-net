@@ -42,7 +42,6 @@ namespace Recaptcha.Web.Mvc
         RecaptchaTheme theme = RecaptchaTheme.Default,
         string language = null,
         int tabIndex = 0,
-        RecaptchaDataType? dataType = null,
         RecaptchaDataSize? dataSize = null,
         SslBehavior useSsl = SslBehavior.SameAsRequestUrl,
         string apiVersion = "{recaptchaApiVersion}",
@@ -55,7 +54,7 @@ namespace Recaptcha.Web.Mvc
 
             if (version == null ||  version == "2")
       {
-        rHtmlHelper = new Recaptcha2HtmlHelper(publicKey, theme, language, tabIndex, dataType, dataSize, useSsl, dataCallback, dataExpiredCallback);
+        rHtmlHelper = new Recaptcha2HtmlHelper(publicKey, theme, language, tabIndex, dataSize, useSsl, dataCallback, dataExpiredCallback);
       }
       else
             {

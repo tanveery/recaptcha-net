@@ -205,28 +205,6 @@ namespace Recaptcha.Web.UI.Controls
     }
 
     /// <summary>
-    /// Gets or sets the data size of the recaptcha control.
-    /// </summary>
-    /// <remarks>This property is only relevant for v2 API. It has no effect if you are using v1 API.</remarks>
-    [Bindable(true)]
-    [Category("Appearance")]
-    [DefaultValue(RecaptchaDataType.Image)]
-    [Localizable(false)]
-    public RecaptchaDataType DataType
-    {
-      get
-      {
-        object t = ViewState["RecaptchaDataType"];
-        return ((t == null) ? RecaptchaDataType.Image : (RecaptchaDataType)t);
-      }
-
-      set
-      {
-        ViewState["RecaptchaDataType"] = value;
-      }
-    }
-
-    /// <summary>
     /// Gets or sets the data-callback of recaptcha control.
     /// </summary>
     /// <remarks>The value of the <see cref="DataCallback"/> property is optional.</remarks>
@@ -307,7 +285,7 @@ namespace Recaptcha.Web.UI.Controls
 
                 if (apiVersion == null || apiVersion == "2")
                 {
-                    htmlHelper = new Recaptcha2HtmlHelper(this.PublicKey, this.Theme, this.Language, this.TabIndex, this.DataType, this.DataSize, this.UseSsl, this.DataCallback, this.DataExpiredCallback);
+                    htmlHelper = new Recaptcha2HtmlHelper(this.PublicKey, this.Theme, this.Language, this.TabIndex, this.DataSize, this.UseSsl, this.DataCallback, this.DataExpiredCallback);
                 }
                 else
                 {
