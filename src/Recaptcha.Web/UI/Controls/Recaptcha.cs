@@ -34,7 +34,7 @@ namespace Recaptcha.Web.UI.Controls
     /// <summary>
     /// Gets or sets the API version of the recaptcha control.
     /// </summary>
-    /// <remarks>The value of the <see cref="ApiVersion"/> property is optional. If the value is not set, version 1 is automatically assumed.</remarks>
+    /// <remarks>The value of the <see cref="ApiVersion"/> property is optional. If the value is not set, version 2 is automatically assumed.</remarks>
     [Bindable(true)]
     [Category("Behavior")]
     [DefaultValue("{recaptchaApiVersion}")]
@@ -101,14 +101,14 @@ namespace Recaptcha.Web.UI.Controls
     /// </summary>
     [Bindable(true)]
     [Category("Appearance")]
-    [DefaultValue(RecaptchaTheme.Red)]
+    [DefaultValue(RecaptchaTheme.Default)]
     [Localizable(false)]
     public RecaptchaTheme Theme
     {
       get
       {
         object t = ViewState["RecaptchaTheme"];
-        return ((t == null) ? RecaptchaTheme.Red : (RecaptchaTheme)t);
+        return ((t == null) ? RecaptchaTheme.Default : (RecaptchaTheme)t);
       }
 
       set
@@ -305,14 +305,14 @@ namespace Recaptcha.Web.UI.Controls
 
         string apiVersion = RecaptchaKeyHelper.ParseKey(ApiVersion);
 
-        if (apiVersion == "1")
-        {
-          htmlHelper = new RecaptchaHtmlHelper(this.PublicKey, this.Theme, this.Language, this.TabIndex, this.UseSsl);
-        }
-        else
-        {
-          htmlHelper = new Recaptcha2HtmlHelper(this.PublicKey, this.Theme, this.Language, this.TabIndex, this.DataType, this.DataSize, this.UseSsl, this.DataCallback, this.DataExpiredCallback);
-        }
+                if (apiVersion == null || apiVersion == "2")
+                {
+                    htmlHelper = new Recaptcha2HtmlHelper(this.PublicKey, this.Theme, this.Language, this.TabIndex, this.DataType, this.DataSize, this.UseSsl, this.DataCallback, this.DataExpiredCallback);
+                }
+                else
+                {
+                    throw new InvalidOperationException("The API version is either invalid or not supported.");
+                }
 
         output.Write(htmlHelper.ToString());
       }

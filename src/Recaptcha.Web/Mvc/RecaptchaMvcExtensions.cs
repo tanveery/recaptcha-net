@@ -39,7 +39,7 @@ namespace Recaptcha.Web.Mvc
     public static IHtmlString Recaptcha(
         this HtmlHelper htmlHelper,
         string publicKey = "{recaptchaPublicKey}",
-        RecaptchaTheme theme = RecaptchaTheme.Red,
+        RecaptchaTheme theme = RecaptchaTheme.Default,
         string language = null,
         int tabIndex = 0,
         RecaptchaDataType? dataType = null,
@@ -53,14 +53,14 @@ namespace Recaptcha.Web.Mvc
 
       string version = RecaptchaKeyHelper.ParseKey(apiVersion);
 
-      if (version == "1")
-      {
-        rHtmlHelper = new RecaptchaHtmlHelper(publicKey, theme, language, tabIndex, useSsl);
-      }
-      else
+            if (version == null ||  version == "2")
       {
         rHtmlHelper = new Recaptcha2HtmlHelper(publicKey, theme, language, tabIndex, dataType, dataSize, useSsl, dataCallback, dataExpiredCallback);
       }
+      else
+            {
+                throw new InvalidOperationException("The API version is either invalid or not supported.");
+            }
 
       var writer = new HtmlTextWriter(new StringWriter());
       writer.Write(rHtmlHelper.ToString());
