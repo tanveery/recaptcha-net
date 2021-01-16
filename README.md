@@ -32,6 +32,13 @@ reCAPTCHA for .NET is one of the most popular and well-documented reCAPTCHA libr
 If you find a bug in the library or you have an idea about a new feature, please try to search in the existing list of <a href="https://github.com/tanveery/recaptcha-net/issues">issues</a>. If the bug or idea is not listed and addressed there, please <a href="https://github.com/tanveery/recaptcha-net/issues/new">open a new issue</a>.
 <h2>reCAPTCHA for .NET Reference</h2>
 <h3>Attributes</h3>
+<p>The attributes are used to control the behavior and appearance of the reCAPTCHA widget. They are specified in one of the three ways:</p>
+<ul>
+    <li>As API parameters (ASP.NET MVC and ASP.NET Core helper methods)</li>
+    <li>As properties of a web control (ASP.NET Web Control)</li>
+    <li>Configuration (web.config / appsettings.json)
+</ul>
+<p>Assigning a value through method or property takes precedence over configuration. Of course, you don't need to set any attribute anywhere unless its requried. The following is the entire list of the attributes:</p>
 <table>
     <tr>
         <th>Attribute</th>
@@ -93,7 +100,7 @@ If you find a bug in the library or you have an idea about a new feature, please
         <td><code>Int32</code></td>
         <td><em>Any integer</em></td>
         <td>0</td>
-        <td><code>RecaptchaSize</td>
+        <td>-</td>
         <td>No</td>
     </tr>     
     <tr>
