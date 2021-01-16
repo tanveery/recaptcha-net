@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2013
-VisualStudioVersion = 12.0.31101.0
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30907.101
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RecaptchaMVCSample", "RecaptchaMVCSample\RecaptchaMVCSample.csproj", "{D5620322-A25B-4FB3-81C6-96AE0371F883}"
 EndProject
@@ -11,7 +11,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Samples", "Samples", "{3808
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Library", "Library", "{3568B079-E2A0-4F82-9C78-63E5088005E8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Recaptcha.Web", "..\src\Recaptcha.Web\Recaptcha.Web.csproj", "{47C0DB18-D553-41BE-98F9-6A5C08FAC0C6}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Recaptcha.Web-net45", "..\src\Recaptcha.Web-net45\Recaptcha.Web-net45.csproj", "{47C0DB18-D553-41BE-98F9-6A5C08FAC0C6}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Recaptcha.Web-netcoreapp3.1", "..\src\Recaptcha.Web-netcoreapp3.1\Recaptcha.Web-netcoreapp3.1.csproj", "{7958D30A-E972-4730-B80E-9DE1FDFB36D5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RecaptchaAspNetCoreSample", "RecaptchaAspNetCoreSample\RecaptchaAspNetCoreSample.csproj", "{34D06C7A-7386-4AF8-A76E-FDAA4FA1C0C8}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -31,6 +35,14 @@ Global
 		{47C0DB18-D553-41BE-98F9-6A5C08FAC0C6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{47C0DB18-D553-41BE-98F9-6A5C08FAC0C6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{47C0DB18-D553-41BE-98F9-6A5C08FAC0C6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7958D30A-E972-4730-B80E-9DE1FDFB36D5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7958D30A-E972-4730-B80E-9DE1FDFB36D5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7958D30A-E972-4730-B80E-9DE1FDFB36D5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7958D30A-E972-4730-B80E-9DE1FDFB36D5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{34D06C7A-7386-4AF8-A76E-FDAA4FA1C0C8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{34D06C7A-7386-4AF8-A76E-FDAA4FA1C0C8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{34D06C7A-7386-4AF8-A76E-FDAA4FA1C0C8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{34D06C7A-7386-4AF8-A76E-FDAA4FA1C0C8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -39,5 +51,10 @@ Global
 		{D5620322-A25B-4FB3-81C6-96AE0371F883} = {38084D50-57FF-465E-A86B-0EED8FCE2650}
 		{CD7EE666-B960-4B26-9AF2-7ADC02A77346} = {38084D50-57FF-465E-A86B-0EED8FCE2650}
 		{47C0DB18-D553-41BE-98F9-6A5C08FAC0C6} = {3568B079-E2A0-4F82-9C78-63E5088005E8}
+		{7958D30A-E972-4730-B80E-9DE1FDFB36D5} = {3568B079-E2A0-4F82-9C78-63E5088005E8}
+		{34D06C7A-7386-4AF8-A76E-FDAA4FA1C0C8} = {38084D50-57FF-465E-A86B-0EED8FCE2650}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {A50E4C30-47D8-4EB9-BA8D-E411A23AEA97}
 	EndGlobalSection
 EndGlobal

@@ -141,16 +141,16 @@
     <Content Include="Views\Home\Welcome.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\src\Recaptcha.Web\Recaptcha.Web.csproj">
-      <Project>{47c0db18-d553-41be-98f9-6a5c08fac0c6}</Project>
-      <Name>Recaptcha.Web</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <Content Include="Views\_ViewStart.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Home\_FormPartial.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\Recaptcha.Web-net45\Recaptcha.Web-net45.csproj">
+      <Project>{47c0db18-d553-41be-98f9-6a5c08fac0c6}</Project>
+      <Name>Recaptcha.Web-net45</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
