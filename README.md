@@ -155,8 +155,8 @@ if (recaptchaResult != RecaptchaVerificationResult.Success)
 <p>As you may have already seen, you can directly assign site and secret keys to the respective properties of Recaptcha ASP.NET control or reCAPTCHA MVC HTML extension. However, a better way is to store these keys in your web.config file. The obvious benefit is that you can change these keys anytime you want without requiring you to modify your code and perhaps most important benefit is that you the keys you define in your web.config are global in your web project.</p>
 <p>In the appSettings section of your web.config file, add the keys as follows:</p>
 <pre><code>&lt;appSettings&gt;
-&lt;add key="recaptcha:sitekey" value="Your site key" /&gt;
-&lt;add key="recaptcha:secretkey" value="Your secret key" /&gt;
+&lt;add key="RecaptchaSitekey" value="Your site key" /&gt;
+&lt;add key="RecaptchaSecretkey" value="Your secret key" /&gt;
 &lt;/appSettings&gt;
 </code></pre>
 <p><strong>Note</strong>: The <strong>appSettings</strong> keys are automatically added to your web.config file if you install reCAPTCHA for .NET through Nuget. However, you would still need to provide your own site and secret keys in the web.config file of your project.</p>
