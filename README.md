@@ -122,18 +122,26 @@ If you find a bug in the library or you have an idea about a new feature, please
         <td>No</td>
     </tr>      
 </table>
-<h3>APIs and Controls</h3>
+<h2>How to Use reCAPTHCA for .NET Library</h2>
 <table>
     <tr>
-        <th>Operation</td>
+        <th>Use Case</th>
+        <th>Description</th>
         <th>ASP.NET Web Form</th>
         <th>ASP.NET MVC 5 and ASP.NET Core</th>
     </tr>
     <tr>
         <td>Render Widget</td>
-        <td>Use RecaptchaWidget web control</td>
-        <td>Call RecpatchaWidget method of the HTML helper class</td>
-            </tr>
+        <td>Render reCAPTCHA widget along with the API script.</td>
+        <td>Use the Recaptcha.Web.UI.RecaptchaWidget web control in your web form.</td>
+        <td>Call RecpatchaWidget method of HTML helper class in your view.</td>
+    </tr>  
+    <tr>
+        <td>Render Widget without API script</td>
+        <td>Render reCAPTCHA widget without the API script. This is useful when you want to render multiple reCAPTCHA widgets or your you want to render the API script in a specific location of your page.</td>
+        <td>Use the Recaptcha.Web.UI.RecaptchaWidget web control in your web form and set its RenderApiScript to false.</td>
+        <td>Call RecpatchaWidget method of HTML helper class in your view and pass renderApiScript argument as false.</td>
+    </tr>    
 </table>
 <h2>Quick Starter</h2>
 <h3>How to Use reCAPTCHA in an ASP.NET Web Forms Application</h3>
