@@ -7,11 +7,13 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace RecaptchaWebFormSample {
-    
-    
-    public partial class Default {
-        
+namespace RecaptchaWebFormSample
+{
+
+
+    public partial class Default
+    {
+
         /// <summary>
         /// form1 control.
         /// </summary>
@@ -20,7 +22,7 @@ namespace RecaptchaWebFormSample {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlForm form1;
-        
+
         /// <summary>
         /// lblMessage control.
         /// </summary>
@@ -29,7 +31,7 @@ namespace RecaptchaWebFormSample {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblMessage;
-        
+
         /// <summary>
         /// txtUsername control.
         /// </summary>
@@ -38,7 +40,7 @@ namespace RecaptchaWebFormSample {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtUsername;
-        
+
         /// <summary>
         /// txtPassword control.
         /// </summary>
@@ -47,7 +49,7 @@ namespace RecaptchaWebFormSample {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtPassword;
-        
+
         /// <summary>
         /// txtFirstName control.
         /// </summary>
@@ -56,7 +58,7 @@ namespace RecaptchaWebFormSample {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtFirstName;
-        
+
         /// <summary>
         /// txtLastName control.
         /// </summary>
@@ -65,7 +67,16 @@ namespace RecaptchaWebFormSample {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtLastName;
-        
+
+        /// <summary>
+        /// RecaptchaApiScript1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Recaptcha.Web.UI.Controls.RecaptchaApiScript RecaptchaApiScript1;
+
         /// <summary>
         /// Recaptcha1 control.
         /// </summary>
@@ -73,8 +84,8 @@ namespace RecaptchaWebFormSample {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Recaptcha.Web.UI.Controls.Recaptcha Recaptcha1;
-        
+        protected global::Recaptcha.Web.UI.Controls.RecaptchaWidget Recaptcha1;
+
         /// <summary>
         /// btnSubmit control.
         /// </summary>

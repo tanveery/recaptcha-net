@@ -1,0 +1,36 @@
+﻿@*
+    * ============================================================================================================================
+    * THIS CODE AND INFORMATION IS PROVIDED "AS IS" WITHOUT WARRANTY OF ANY KIND, EITHER EXPRESSED OR IMPLIED, INCLUDING BUT NOT
+    * LIMITED TO THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE.
+    * ===========================================================================================================================
+*@
+
+@model RecaptchaMVCSample.Models.UserRegistrationModel
+@using Recaptcha.Web.Mvc;
+
+@Html.ValidationSummary()
+<p>
+    <label>Username:</label>
+    @Html.TextBoxFor(m => m.UserName)
+</p>
+<p>
+    <label>Password:</label>
+    @Html.PasswordFor(m => m.Password)
+</p>
+<p>
+    <label>First name:</label>
+    @Html.TextBoxFor(m => m.FirstName)
+</p>
+<p>
+    <label>Last name:</label>
+    @Html.TextBoxFor(m => m.LastName)
+</p>
+
+<!-- Render recaptcha API script. -->
+@Html.RecaptchaApiScript()
+
+<!-- Render recaptcha widget with default properties. -->
+@Html.Recaptcha(renderApiScript: false)
+
+<input type="submit" value="Submit" />
+

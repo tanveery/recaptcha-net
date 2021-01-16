@@ -1,42 +1,19 @@
 ﻿@*
-* ============================================================================================================================
-* THIS CODE AND INFORMATION IS PROVIDED "AS IS" WITHOUT WARRANTY OF ANY KIND, EITHER EXPRESSED OR IMPLIED, INCLUDING BUT NOT
-* LIMITED TO THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE.
-* ===========================================================================================================================
+    * ============================================================================================================================
+    * THIS CODE AND INFORMATION IS PROVIDED "AS IS" WITHOUT WARRANTY OF ANY KIND, EITHER EXPRESSED OR IMPLIED, INCLUDING BUT NOT
+    * LIMITED TO THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE.
+    * ===========================================================================================================================
 *@
 
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-@model RecaptchaMVCSample.Models.UserRegistrationModel
 @using Recaptcha.Web.Mvc;
 
 <h2>User Registration Form</h2>
 
-@using (Html.BeginForm())
+@using (Html.BeginForm("Index", "Home", System.Web.Mvc.FormMethod.Post))
 {
-    @Html.ValidationSummary()
-    <p>
-        <label>Username:</label>
-        @Html.TextBoxFor(m => m.UserName)
-    </p>
-    <p>
-        <label>Password:</label>
-        @Html.PasswordFor(m => m.Password)
-    </p>
-    <p>
-        <label>First name:</label>
-        @Html.TextBoxFor(m => m.FirstName)
-    </p>
-    <p>
-        <label>Last name:</label>
-        @Html.TextBoxFor(m => m.LastName)
-    </p>
-    
-    <!-- Render recaptcha control with default properties. -->
-    @Html.Recaptcha()
-    
-    <input type="submit" value="Submit" />
+    @Html.Partial("_FormPartial", new RecaptchaMVCSample.Models.UserRegistrationModel())
 }
-
