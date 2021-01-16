@@ -201,5 +201,13 @@ if (recaptchaResult != RecaptchaVerificationResult.Success)
         <td>No</td>
     </tr>      
 </table>
+<h2>Samples</h2>
+The repo comes with three working <a href="https://github.com/tanveery/recaptcha-net/tree/master/samples" target="_blank">samples</a> that you can use to quickly understand and test the library:
+<ul>
+    <li>RecaptchaAspNetCoreSample (.NET Core 3.1 + ASP.NET Core)</li>
+    <li>RecaptchaMVCSample (.NET Framework 4.5 + ASP.NET MVC 5)</li>
+    <li>RecaptchaWebFormSample (.NET Framework 4.5 + ASP.NET Web Forms)</li>
+</ul>
+<p><strong>Note:</strong> Before running these samples, please ensure that the site key and secret key are set in the web.config (.NET Framework) or appsettings.json (.NET Core).</p>
 <h2>Issues</h2>
 If you find a bug in the library or you have an idea about a new feature, please try to search in the existing list of <a href="https://github.com/tanveery/recaptcha-net/issues">issues</a>. If the bug or idea is not listed and addressed there, please <a href="https://github.com/tanveery/recaptcha-net/issues/new">open a new issue</a>.
