@@ -1,16 +1,14 @@
 <h1>reCAPTCHA library for .NET</h1>
 reCAPTCHA for .NET is one of the most popular and well-documented reCAPTCHA libraries used by thousands of .NET developers in their ASP.NET web applications. The library is created and maintained by <a href="http://twitter.com/tanveery">@tanveery</a>.
-<h2>Features</h2>
-<p>The primary features of the library are:</p>
+<h2>Highlights</h2>
+<p>The following are the highlights of the library:</p>
 <ul>
-    <li>Render recaptcha control (HTML) with appropriate options to customise the widget.</li>
-    <li>Verify user's answer to recaptcha's challenge.</li>
-    <li>Supports ASP.NET Web Forms, ASP.NET MVC, and ASP.NET Core.</li>
-    <li>Supprts reCAPTCHA version 2.</li>
-    <li>One of the most well-documented reCAPTCHA libraries in the open source community.</li>
+    <li>Renders reCAPTCHA widget and verifies reCAPTCHA response with minimal amount of code</li>
+    <li>Provides reCAPTCHA web control (ASP.NET Web Forms for .NET Framework 4.5 and above</li>
+    <li>Provides HTML helper to quickly render reCAPTCHA widget (ASP.NET MVC 5 / ASP.NET Core 3.1 and above)
+    <li>Supprts reCAPTCHA version 2</li>
+    <li>One of the most well-documented reCAPTCHA libraries in the open source community</li>
 </ul>
-<h2>API Support</h2>
-<p>The library supports Google's reCATPCAH API version 2. The functionality for API version 1 has been dropped since Google no longer supports it.</p>
 <h2>Creating a reCAPTCHA API Key</h2>
 <p>Before you can use reCAPTCHA in your web application, you must first create a reCAPTCHA API key (a pair of site and secret keys). Creating reCAPTCHA API key is very straight-forward. The following are the steps:</p>
 <ol>
@@ -155,8 +153,8 @@ if (recaptchaResult != RecaptchaVerificationResult.Success)
 <p>As you may have already seen, you can directly assign site and secret keys to the respective properties of Recaptcha ASP.NET control or reCAPTCHA MVC HTML extension. However, a better way is to store these keys in your web.config file. The obvious benefit is that you can change these keys anytime you want without requiring you to modify your code and perhaps most important benefit is that you the keys you define in your web.config are global in your web project.</p>
 <p>In the appSettings section of your web.config file, add the keys as follows:</p>
 <pre><code>&lt;appSettings&gt;
-&lt;add key="recaptcha:sitekey" value="Your site key" /&gt;
-&lt;add key="recaptcha:secretkey" value="Your secret key" /&gt;
+&lt;add key="RecaptchaSiteKey" value="Your site key" /&gt;
+&lt;add key="RecaptchaSecretKey" value="Your secret key" /&gt;
 &lt;/appSettings&gt;
 </code></pre>
 <p><strong>Note</strong>: The <strong>appSettings</strong> keys are automatically added to your web.config file if you install reCAPTCHA for .NET through Nuget. However, you would still need to provide your own site and secret keys in the web.config file of your project.</p>
