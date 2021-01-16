@@ -27,6 +27,21 @@ reCAPTCHA for .NET is one of the most popular and well-documented reCAPTCHA libr
 <p>The best and the recommended way to install the latest version of reCAPTCHA for .NET is through Nuget. From the <a href="http://docs.nuget.org/consume/package-manager-console">Nuget's Package Manager Console</a> in your Visual Studio .NET IDE, simply execute the following command:</p>
 <pre><code>PM&gt; Install-Package RecaptchaNet</code></pre>
 <p>You can also download a released build of reCAPTCHA for .NET by going to the <a href="https://github.com/tanveery/recaptcha-net/releases">Releases</a> section of this project. The latest release is <a href="https://github.com/tanveery/recaptcha-net/releases/tag/v2.0">reCAPTCHA for .NET v2.0</a>.</p>
+<h3>Set Configuration</h3>
+<p><strong>ASP.NET Web Forms / ASP.NET MVC 5</strong></p>
+<p>In the appSettings section of your web.config file, add the keys as follows:</p>
+<pre><code>&lt;appSettings&gt;
+&lt;add key="RecaptchaSiteKey" value="Your site key" /&gt;
+&lt;add key="RecaptchaSecretKey" value="Your secret key" /&gt;
+&lt;/appSettings&gt;
+</code></pre>
+<p><strong>ASP.NET Core</strong></p>
+<p>In appsettings.json, add the following JSON properties:</p>
+<pre><code>"RecaptchaSiteKey": "Your site key",
+"RecaptchaSecretKey": "Your secret key",
+</code></pre>
+In the <strong>ConfigureServices</strong> method of the <strong>Startup</strong> class, add the following line of code:
+<pre><code>RecaptchaConfigurationManager.SetConfiguration(Configuration);</pre></code>
 <h3>Render reCAPTCHA Widget</h3>
 <p>You can either use the Recaptcha.Web.UI.Controls.RecaptchaWidget web control (ASP.NET Web Forms) or call the RecaptchaWidget method of HTML helper (ASP.NET MVC 5 / ASP.NET Core) to render reCAPTCHA widget:</p>
 <p><strong>ASP.NET Web Forms</strong></p>
@@ -50,7 +65,6 @@ reCAPTCHA for .NET is one of the most popular and well-documented reCAPTCHA libr
 @Html.RecaptchaWidget(rednderApiScript:false)
 @Html.RecaptchaWidget(rednderApiScript:false)
 </code></pre>
-
 <h3>Attributes</h3>
 <p>The attributes are used to control the behavior and appearance of the reCAPTCHA widget. They are specified in one of the three ways:</p>
 <ul>
@@ -269,6 +283,5 @@ if (recaptchaResult != RecaptchaVerificationResult.Success)
 &lt;add key="RecaptchaSecretKey" value="Your secret key" /&gt;
 &lt;/appSettings&gt;
 </code></pre>
-<p><strong>Note</strong>: The <strong>appSettings</strong> keys are automatically added to your web.config file if you install reCAPTCHA for .NET through Nuget. However, you would still need to provide your own site and secret keys in the web.config file of your project.</p>
 <h2>Issues</h2>
 If you find a bug in the library or you have an idea about a new feature, please try to search in the existing list of <a href="https://github.com/tanveery/recaptcha-net/issues">issues</a>. If the bug or idea is not listed and addressed there, please <a href="https://github.com/tanveery/recaptcha-net/issues/new">open a new issue</a>.
