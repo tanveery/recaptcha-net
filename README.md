@@ -31,12 +31,26 @@ reCAPTCHA for .NET is one of the most popular and well-documented reCAPTCHA libr
 <p>You can either use the Recaptcha.Web.UI.Controls.RecaptchaWidget web control (ASP.NET Web Forms) or call the RecaptchaWidget method of HTML helper (ASP.NET MVC 5 / ASP.NET Core) to render reCAPTCHA widget:</p>
 <p><strong>ASP.NET Web Forms</strong></p>
 <pre><code>&lt;%@ Register Assembly="Recaptcha.Web" Namespace="Recaptcha.Web.UI.Controls" TagPrefix="cc1" %&gt;
-&lt;cc1:Recaptcha ID="Recaptcha1" runat="server" /&gt;
+&lt;cc1:RecaptchaWidget ID="Recaptcha1" runat="server" /&gt;
 </code></pre>
-<p><strong>ASP.NET MVC 5</strong></p>
+<p><strong>ASP.NET MVC 5 / ASP.NET Core</strong></p>
 <pre><code>@using Recaptcha.Web.Mvc;
-@Html.Recaptcha()
+@Html.RecaptchaWidget()
 </code></pre>
+<p>The above code by default renders both the API script as well as the widget. There are times when you want to render the API script and the widget separately such as the need to render multiple widgets on a page. The following is an example of how to achieve this:</p>
+<p><strong>ASP.NET Web Forms</strong></p>
+<pre><code>&lt;%@ Register Assembly="Recaptcha.Web" Namespace="Recaptcha.Web.UI.Controls" TagPrefix="cc1" %&gt;
+&lt;cc1:RecaptchaApiScript ID="RecaptchaApiScript1" runat="server" /&gt;
+&lt;cc1:RecaptchaWidget ID="RecaptchaWidget1" RenderApiScript="false" runat="server" /&gt;
+&lt;cc1:RecaptchaWidget ID="RecaptchaWidget2" RenderApiScript="false" runat="server" /&gt;
+</code></pre>
+<p><strong>ASP.NET MVC 5 / ASP.NET Core</strong></p>
+<pre><code>@using Recaptcha.Web.Mvc;
+@Html.RecaptchaApiScript()
+@Html.RecaptchaWidget(rednderApiScript:false)
+@Html.RecaptchaWidget(rednderApiScript:false)
+</code></pre>
+
 <h3>Attributes</h3>
 <p>The attributes are used to control the behavior and appearance of the reCAPTCHA widget. They are specified in one of the three ways:</p>
 <ul>
