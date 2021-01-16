@@ -41,26 +41,32 @@ reCAPTCHA for .NET is one of the most popular and well-documented reCAPTCHA libr
 "RecaptchaSecretKey": "Your secret key"
 </code></pre>
 <p>In the <strong>ConfigureServices</strong> method of the <strong>Startup</strong> class, add the following line of code:</p>
-<pre><code>RecaptchaConfigurationManager.SetConfiguration(Configuration);</pre></code>
+<pre><code>using Recaptcha.Web.Configuration;
+...
+RecaptchaConfigurationManager.SetConfiguration(Configuration);</pre></code>
 <h3>Render reCAPTCHA Widget</h3>
 <p>You can either use the Recaptcha.Web.UI.Controls.RecaptchaWidget web control (ASP.NET Web Forms) or call the RecaptchaWidget method of HTML helper (ASP.NET MVC 5 / ASP.NET Core) to render reCAPTCHA widget:</p>
 <p><strong>ASP.NET Web Forms</strong></p>
 <pre><code>&lt;%@ Register Assembly="Recaptcha.Web" Namespace="Recaptcha.Web.UI.Controls" TagPrefix="cc1" %&gt;
+...
 &lt;cc1:RecaptchaWidget ID="Recaptcha1" runat="server" /&gt;
 </code></pre>
 <p><strong>ASP.NET MVC 5 / ASP.NET Core</strong></p>
 <pre><code>@using Recaptcha.Web.Mvc;
+...
 @Html.RecaptchaWidget()
 </code></pre>
 <p>The above code by default renders both the API script as well as the widget. There are times when you want to render the API script and the widget separately such as the need to render multiple widgets on a page. The following is an example of how to achieve this:</p>
 <p><strong>ASP.NET Web Forms</strong></p>
 <pre><code>&lt;%@ Register Assembly="Recaptcha.Web" Namespace="Recaptcha.Web.UI.Controls" TagPrefix="cc1" %&gt;
+...
 &lt;cc1:RecaptchaApiScript ID="RecaptchaApiScript1" runat="server" /&gt;
 &lt;cc1:RecaptchaWidget ID="RecaptchaWidget1" RenderApiScript="false" runat="server" /&gt;
 &lt;cc1:RecaptchaWidget ID="RecaptchaWidget2" RenderApiScript="false" runat="server" /&gt;
 </code></pre>
 <p><strong>ASP.NET MVC 5 / ASP.NET Core</strong></p>
 <pre><code>@using Recaptcha.Web.Mvc;
+...
 @Html.RecaptchaApiScript()
 @Html.RecaptchaWidget(rednderApiScript:false)
 @Html.RecaptchaWidget(rednderApiScript:false)
@@ -90,7 +96,9 @@ else
 }
 </code></pre>
 <p><strong>ASP.NET MVC 5 / ASP.NET Core</strong></p>
-<pre><code class="language-cs">RecaptchaVerificationHelper recaptchaHelper = this.GetRecaptchaVerificationHelper();
+<pre><code class="language-cs">using Recaptcha.Web.Mvc;
+...
+RecaptchaVerificationHelper recaptchaHelper = this.GetRecaptchaVerificationHelper();
 if (String.IsNullOrEmpty(recaptchaHelper.Response))
 {
     ModelState.AddModelError("", "Captcha answer cannot be empty.");
