@@ -8,7 +8,7 @@ namespace Recaptcha.Web
     /// <summary>
     /// Represents the size of reCAPTCHA.
     /// </summary>
-    public enum RecaptchaDataSize
+    public enum RecaptchaSize
     {
         /// <summary>
         /// The default size.

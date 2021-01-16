@@ -24,7 +24,7 @@ namespace Recaptcha.Web.Configuration
         public static RecaptchaConfiguration GetConfiguration()
         {
             string siteKey = null, secretKey = null, language=null, apiVersion="2";
-            RecaptchaDataSize size = RecaptchaDataSize.Default;
+            RecaptchaSize size = RecaptchaSize.Default;
             RecaptchaTheme theme = RecaptchaTheme.Default;
             SslBehavior useSsl = SslBehavior.AlwaysUseSsl;
 
@@ -55,7 +55,7 @@ namespace Recaptcha.Web.Configuration
 
             if (ConfigurationManager.AppSettings.AllKeys.Contains("recaptcha:size"))
             {
-                Enum.TryParse<RecaptchaDataSize>(ConfigurationManager.AppSettings["recaptcha:size"], out size);
+                Enum.TryParse<RecaptchaSize>(ConfigurationManager.AppSettings["recaptcha:size"], out size);
             }
 
             if (ConfigurationManager.AppSettings.AllKeys.Contains("recaptcha:usessl"))

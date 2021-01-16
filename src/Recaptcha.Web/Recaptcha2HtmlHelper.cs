@@ -37,12 +37,7 @@ namespace Recaptcha.Web
         /// Creates an instance of the <see cref="Recaptcha2HtmlHelper"/> class.
         /// </summary>
         /// <param name="siteKey">Sets the public key of the recaptcha HTML.</param>
-        /// <param name="theme">Sets the theme of the recaptcha HTML.</param>
-        /// <param name="language">Sets the language of the recaptcha HTML.</param>
-        /// <param name="tabIndex">Sets the tab index of the recaptcha HTML.</param>    
-        /// <param name="dataSize">Sets the size for the recpatcha HTML.</param>
-        /// <param name="useSsl">Determines whether to use SSL in reCAPTCHA API URLs.</param>
-        public Recaptcha2HtmlHelper(string siteKey, RecaptchaTheme theme, string language, int tabIndex, RecaptchaDataSize dataSize, SslBehavior useSsl)
+        public Recaptcha2HtmlHelper(string siteKey)
         {
             if (String.IsNullOrEmpty(siteKey))
             {
@@ -50,12 +45,6 @@ namespace Recaptcha.Web
             }
 
             this.SiteKey = siteKey;
-            this.Theme = theme;
-            this.Language = language;
-            this.TabIndex = tabIndex;
-
-            UseSsl = useSsl;
-            Size = dataSize;
         }
 
         #endregion Constructors
@@ -71,51 +60,6 @@ namespace Recaptcha.Web
             set;
         }
 
-        /// <summary>
-        /// Determines if HTTPS intead of HTTP is to be used in reCAPTCHA API calls.
-        /// </summary>
-        public SslBehavior UseSsl
-        {
-            get;
-            set;
-        }
-
-        /// <summary>
-        /// Gets or sets the theme of the reCAPTCHA HTML.
-        /// </summary>
-        public RecaptchaTheme Theme
-        {
-            get;
-            set;
-        }
-
-        /// <summary>
-        /// Gets or sets the language of the recaptcha HTML.
-        /// </summary>
-        public string Language
-        {
-            get;
-            set;
-        }
-
-        /// <summary>
-        /// Gets or sets the tab index of the recaptcha HTML.
-        /// </summary>
-        public int TabIndex
-        {
-            get;
-            set;
-        }
-
-        /// <summary>
-        /// Gets or sets the size of the reCAPTCHA control.
-        /// </summary>
-        public RecaptchaDataSize Size
-        {
-            get;
-            set;
-        }
-
         #endregion Properties
 
         #region Public Methods
@@ -124,21 +68,61 @@ namespace Recaptcha.Web
         /// Gets the recaptcha's HTML that needs to be rendered in an HTML page.
         /// </summary>
         /// <returns>Returns the HTML as an instance of the <see cref="String"/> type.</returns>
-        public override string ToString()
+        public string CreateWidgetHtml(bool renderApiScript, RecaptchaTheme theme, string language, int tabIndex, RecaptchaSize size, SslBehavior useSsl)
         {
-            var dictAttributes = new Dictionary<string, string>();
-            
+            var dictAttributes = new Dictionary<string, string>();            
+            dictAttributes.Add("data-" + PARAM_SITEKEY, SiteKey);
+
+            if (theme != RecaptchaTheme.Default)
+            {
+                dictAttributes.Add("data-" + PARAM_THEME, theme.ToString().ToLower());
+            }
+
+            if (tabIndex != 0)
+            {
+                dictAttributes.Add("data-" + PARAM_TABINDEX, tabIndex.ToString());
+            }
+
+            if (size != RecaptchaSize.Default)
+            {
+                dictAttributes.Add("data-" + PARAM_SIZE, size.ToString().ToLower());
+            }
+
+            var sbAttributes = new StringBuilder();
+            foreach(var key in dictAttributes.Keys)
+            {
+                sbAttributes.Append($"{key}=\"{dictAttributes[key]}\" ");
+            }
+
+            StringBuilder sbHtml = new StringBuilder();
+
+            if (renderApiScript)
+            {
+                sbHtml.Append(CreateApiScripttHtml(language, useSsl));
+            }
+
+            sbHtml.Append($"<div class=\"g-recaptcha\" {sbAttributes.ToString()}></div>");
+
+            return sbHtml.ToString();
+        }
+
+        /// <summary>
+        /// Gets the recaptcha's HTML that needs to be rendered in an HTML page.
+        /// </summary>
+        /// <returns>Returns the HTML as an instance of the <see cref="String"/> type.</returns>
+        public string CreateApiScripttHtml(string language, SslBehavior useSsl)
+        {
             bool doUseSsl = true;
 
-            if (UseSsl == SslBehavior.DoNotUseSsl)
+            if (useSsl == SslBehavior.DoNotUseSsl)
             {
                 doUseSsl = false;
             }
-            else if (UseSsl == SslBehavior.AlwaysUseSsl)
+            else if (useSsl == SslBehavior.AlwaysUseSsl)
             {
                 doUseSsl = true;
             }
-            else if (UseSsl == SslBehavior.SameAsRequestUrl)
+            else if (useSsl == SslBehavior.SameAsRequestUrl)
             {
                 doUseSsl = HttpContext.Current.Request.IsSecureConnection;
             }
@@ -150,42 +134,6 @@ namespace Recaptcha.Web
                 protocol = "http://";
             }
 
-            dictAttributes.Add("data-" + PARAM_SITEKEY, SiteKey);
-
-            if (Theme != RecaptchaTheme.Default)
-            {
-                dictAttributes.Add("data-" + PARAM_THEME, Theme.ToString().ToLower());
-            }
-
-            if (TabIndex != 0)
-            {
-                dictAttributes.Add("data-" + PARAM_TABINDEX, TabIndex.ToString());
-            }
-
-            if (Size != RecaptchaDataSize.Default)
-            {
-                dictAttributes.Add("data-" + PARAM_SIZE, Size.ToString().ToLower());
-            }
-
-            var sbAttributes = new StringBuilder();
-            foreach(var key in dictAttributes.Keys)
-            {
-                sbAttributes.Append($"{key}=\"{dictAttributes[key]}\" ");
-            }
-
-            StringBuilder sbHtml = new StringBuilder();
-            sbHtml.Append(CreateRecaptchaScript(protocol, Language));            
-            sbHtml.Append($"<div class=\"g-recaptcha\" {sbAttributes.ToString()}></div>");
-
-            return sbHtml.ToString();
-        }
-
-        #endregion Public Methods
-
-        #region Private Methods
-
-        private string CreateRecaptchaScript(string protocol, string language)
-        {
             var dictQS = new Dictionary<string, string>();
             var url = $"{protocol}www.google.com/recaptcha/api.js";
 
@@ -211,6 +159,6 @@ namespace Recaptcha.Web
             return $"<script src=\"{url}{qs.ToString()}\" async defer></script>";
         }
 
-        #endregion Private Methods
+        #endregion Public Methods
     }
 }

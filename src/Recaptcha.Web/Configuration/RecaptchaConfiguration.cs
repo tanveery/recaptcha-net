@@ -21,7 +21,7 @@ namespace Recaptcha.Web.Configuration
         /// <param name="defaultSize">The size of the widget.</param>
         /// <param name="useSsl">Determines if HTTPS is to be used in reCAPTCHA URLs.</param>
         /// 
-        public RecaptchaConfiguration(string siteKey, string secretKey, string apiVersion, string defaultLanguage = null, RecaptchaTheme defaultTheme = RecaptchaTheme.Default, RecaptchaDataSize defaultSize= RecaptchaDataSize.Default, SslBehavior useSsl = SslBehavior.AlwaysUseSsl)
+        public RecaptchaConfiguration(string siteKey, string secretKey, string apiVersion, string defaultLanguage = null, RecaptchaTheme defaultTheme = RecaptchaTheme.Default, RecaptchaSize defaultSize= RecaptchaSize.Default, SslBehavior useSsl = SslBehavior.AlwaysUseSsl)
         {
             SiteKey = siteKey;
             SecretKey = secretKey;
@@ -89,7 +89,7 @@ namespace Recaptcha.Web.Configuration
         /// <summary>
         /// The size of the widget.
         /// </summary>
-        public RecaptchaDataSize DefaultSize
+        public RecaptchaSize DefaultSize
         {
             get;
             private set;
