@@ -3,7 +3,7 @@ reCAPTCHA for .NET is one of the most popular and well-documented reCAPTCHA libr
 <h2>Highlights</h2>
 <p>The following are the highlights of the library:</p>
 <ul>
-    <li>Renders reCAPTCHA widget and verifies with minimal amount of code</li>
+    <li>Renders reCAPTCHA widget and verifies reCAPTCHA response with minimal amount of code</li>
     <li>Provides reCAPTCHA web control (ASP.NET Web Forms for .NET Framework 4.5 and above</li>
     <li>Provides HTML helper to quickly render reCAPTCHA widget (ASP.NET MVC 5 / ASP.NET Core 3.1 and above)
     <li>Supprts reCAPTCHA version 2</li>
