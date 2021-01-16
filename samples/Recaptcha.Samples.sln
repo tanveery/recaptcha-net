@@ -15,7 +15,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Recaptcha.Web-net45", "..\s
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Recaptcha.Web-netcoreapp3.1", "..\src\Recaptcha.Web-netcoreapp3.1\Recaptcha.Web-netcoreapp3.1.csproj", "{7958D30A-E972-4730-B80E-9DE1FDFB36D5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RecaptchaAspNetCoreSample", "RecaptchaAspNetCoreSample\RecaptchaAspNetCoreSample.csproj", "{34D06C7A-7386-4AF8-A76E-FDAA4FA1C0C8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RecaptchaAspNetCoreSample", "RecaptchaAspNetCoreSample\RecaptchaAspNetCoreSample.csproj", "{34D06C7A-7386-4AF8-A76E-FDAA4FA1C0C8}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -25,12 +25,12 @@ Global
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{D5620322-A25B-4FB3-81C6-96AE0371F883}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{D5620322-A25B-4FB3-81C6-96AE0371F883}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{D5620322-A25B-4FB3-81C6-96AE0371F883}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{D5620322-A25B-4FB3-81C6-96AE0371F883}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D5620322-A25B-4FB3-81C6-96AE0371F883}.Release|Any CPU.ActiveCfg = Debug|Any CPU
+		{D5620322-A25B-4FB3-81C6-96AE0371F883}.Release|Any CPU.Build.0 = Debug|Any CPU
 		{CD7EE666-B960-4B26-9AF2-7ADC02A77346}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{CD7EE666-B960-4B26-9AF2-7ADC02A77346}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{CD7EE666-B960-4B26-9AF2-7ADC02A77346}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{CD7EE666-B960-4B26-9AF2-7ADC02A77346}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CD7EE666-B960-4B26-9AF2-7ADC02A77346}.Release|Any CPU.ActiveCfg = Debug|Any CPU
+		{CD7EE666-B960-4B26-9AF2-7ADC02A77346}.Release|Any CPU.Build.0 = Debug|Any CPU
 		{47C0DB18-D553-41BE-98F9-6A5C08FAC0C6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{47C0DB18-D553-41BE-98F9-6A5C08FAC0C6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{47C0DB18-D553-41BE-98F9-6A5C08FAC0C6}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -41,8 +41,8 @@ Global
 		{7958D30A-E972-4730-B80E-9DE1FDFB36D5}.Release|Any CPU.Build.0 = Release|Any CPU
 		{34D06C7A-7386-4AF8-A76E-FDAA4FA1C0C8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{34D06C7A-7386-4AF8-A76E-FDAA4FA1C0C8}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{34D06C7A-7386-4AF8-A76E-FDAA4FA1C0C8}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{34D06C7A-7386-4AF8-A76E-FDAA4FA1C0C8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{34D06C7A-7386-4AF8-A76E-FDAA4FA1C0C8}.Release|Any CPU.ActiveCfg = Debug|Any CPU
+		{34D06C7A-7386-4AF8-A76E-FDAA4FA1C0C8}.Release|Any CPU.Build.0 = Debug|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
