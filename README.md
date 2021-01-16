@@ -1,16 +1,14 @@
 <h1>reCAPTCHA library for .NET</h1>
 reCAPTCHA for .NET is one of the most popular and well-documented reCAPTCHA libraries used by thousands of .NET developers in their ASP.NET web applications. The library is created and maintained by <a href="http://twitter.com/tanveery">@tanveery</a>.
-<h2>Features</h2>
-<p>The primary features of the library are:</p>
+<h2>Highlights</h2>
+<p>The following are the highlights of the library:</p>
 <ul>
-    <li>Render recaptcha control (HTML) with appropriate options to customise the widget.</li>
-    <li>Verify user's answer to recaptcha's challenge.</li>
-    <li>Supports ASP.NET Web Forms, ASP.NET MVC, and ASP.NET Core.</li>
-    <li>Supprts reCAPTCHA version 2.</li>
-    <li>One of the most well-documented reCAPTCHA libraries in the open source community.</li>
+    <li>Renders reCAPTCHA widget and verifies with minimal amount of code</li>
+    <li>Provides reCAPTCHA web control (ASP.NET Web Forms for .NET Framework 4.5 and above</li>
+    <li>Provides HTML helper to quickly render reCAPTCHA widget (ASP.NET MVC 5 / ASP.NET Core 3.1 and above)
+    <li>Supprts reCAPTCHA version 2</li>
+    <li>One of the most well-documented reCAPTCHA libraries in the open source community</li>
 </ul>
-<h2>API Support</h2>
-<p>The library supports Google's reCATPCAH API version 2. The functionality for API version 1 has been dropped since Google no longer supports it.</p>
 <h2>Creating a reCAPTCHA API Key</h2>
 <p>Before you can use reCAPTCHA in your web application, you must first create a reCAPTCHA API key (a pair of site and secret keys). Creating reCAPTCHA API key is very straight-forward. The following are the steps:</p>
 <ol>
