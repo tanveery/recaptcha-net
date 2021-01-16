@@ -16,6 +16,8 @@
     <title>Recaptcha for .NET - ASP.NET Web Forms Sample</title>
 </head>
 <body>
+    <h2>User Registration Form</h2>
+    <hr />
     <form id="form1" runat="server">
         <div>
             <table>

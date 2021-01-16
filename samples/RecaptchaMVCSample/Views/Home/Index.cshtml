@@ -12,7 +12,7 @@
 @using Recaptcha.Web.Mvc;
 
 <h2>User Registration Form</h2>
-
+<hr />
 @using (Html.BeginForm("Index", "Home", System.Web.Mvc.FormMethod.Post))
 {
     @Html.Partial("_FormPartial", new RecaptchaMVCSample.Models.UserRegistrationModel())
