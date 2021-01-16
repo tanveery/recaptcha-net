@@ -38,25 +38,81 @@ If you find a bug in the library or you have an idea about a new feature, please
         <th>Description</th>
         <th>Type</th>
         <th>Values</th>
+        <th>Default Value</th>
         <th>Configuration Key</th>
         <th>Required</th>
-    </tr>
+    </tr>    
     <tr>
         <td><strong>Site Key</strong></td>
-        <td>Site key for the reCAPTCHA widget.</td>
-        <td>String</td>
-        <td>The key associated with the site you register in <a href="https://www.google.com/recaptcha/admin">Google reCAPTCHA Admin Console</a>.</td>
+        <td>Site key for reCAPTCHA. It is required for rendering the widget.</td>
+        <td>String</td>        
+        <td>The site key associated with the site you register in <a href="https://www.google.com/recaptcha/admin">Google reCAPTCHA Admin Console</a>.</td>
+        <td><em>No default value. Must be provided.</em</td>
         <td>RecaptchaSiteKey</td>
         <td>Yes</td>
     </tr>    
+    <tr>
+        <td><strong>Secret Key</strong></td>
+        <td>Secret key for the reCAPTCHA. It is required for verifying reCAPTCHA response.</td>
+        <td>String</td>
+        <td>The secret key associated with the site you register in <a href="https://www.google.com/recaptcha/admin">Google reCAPTCHA Admin Console</a>.</td>
+        <td>RecaptchaSecretKey</td>
+        <td>Yes</td>
+    </tr>      
+    <tr>
+        <td><strong>APIVersion</strong></td>
+        <td>Determines the version of the reCAPTCHA API.</td>
+        <td>String</td>
+        <td>-</td>
+        <td>2</td>
+        <td>RecaptchaApiVersion</td>
+        <td>No</td>
+    </tr>      
     <tr>
         <td><strong>Language</strong></td>
         <td>Forces the reCAPTCHA widget to render in a specific language. By default, the user's language is used.</td>
         <td>String</td>
         <td>One of the values from the <a href="https://developers.google.com/recaptcha/docs/language">Language Codes</a> list.</td>
+        <td><em>User's language</em>
         <td>RecaptchaLanguage</td>
         <td>No</td>
+    </tr>    
+    <tr>
+        <td><strong>Size</strong></td>
+        <td>The size of the reCAPTCHA widget.</td>
+        <td>RecaptchaSize enum</td>
+        <td>Default, Normal, Compact</td>
+        <td><em>Default</em></td>
+        <td>RecaptchaSize</td>
+        <td>No</td>
+    </tr>   
+    <tr>
+        <td><strong>TabIndex</strong></td>
+        <td>The tabindex of the reCAPTCHA widget.</td>
+        <td>Int/td>
+        <td>Any integer</td>
+        <td>0</td>
+        <td>RecaptchaSize</td>
+        <td>No</td>
+    </tr>     
+    <tr>
+        <td><strong>Theme</strong></td>
+        <td>The ccolor theme of the reCAPTCHA widget.</td>
+        <td>RecaptchaTheme enum</td>
+        <td>Default, Light, Dark</td>
+        <td>Default</td>
+        <td>RecaptchaTheme</td>
+        <td>No</td>
     </tr>
+    <tr>
+        <td><strong>Use SSL</strong></td>
+        <td>Determines if SSL is to be used in Google reCAPTCHA API calls.</td>
+        <td>RecaptchaSslBehavior enum</td>
+        <td>AlwaysUseSsl, SameAsRequestUrl, DoNotUseSsl</td>
+        <td>AlwaysUseSsl</td>
+        <td>RecaptchaUseSsl</td>
+        <td>No</td>
+    </tr>      
 </table>
 <h2>Quick Starter</h2>
 <h3>How to Use reCAPTCHA in an ASP.NET Web Forms Application</h3>
