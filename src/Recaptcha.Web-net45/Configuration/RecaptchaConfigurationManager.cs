@@ -26,7 +26,7 @@ namespace Recaptcha.Web.Configuration
             string siteKey = null, secretKey = null, language=null, apiVersion="2";
             RecaptchaSize size = RecaptchaSize.Default;
             RecaptchaTheme theme = RecaptchaTheme.Default;
-            SslBehavior useSsl = SslBehavior.AlwaysUseSsl;
+            RecaptchaSslBehavior useSsl = RecaptchaSslBehavior.AlwaysUseSsl;
 
             if(ConfigurationManager.AppSettings.AllKeys.Contains("RecaptchaSiteKey"))
             {
@@ -60,7 +60,7 @@ namespace Recaptcha.Web.Configuration
 
             if (ConfigurationManager.AppSettings.AllKeys.Contains("RecaptchaUseSsl"))
             {
-                Enum.TryParse<SslBehavior>(ConfigurationManager.AppSettings["RecaptchaUseSsl"], out useSsl);
+                Enum.TryParse<RecaptchaSslBehavior>(ConfigurationManager.AppSettings["RecaptchaUseSsl"], out useSsl);
             }
 
             return new RecaptchaConfiguration(siteKey, secretKey, apiVersion, language, theme, size, useSsl);

@@ -8,7 +8,7 @@ namespace Recaptcha.Web
     /// <summary>
     /// Determines whether to use SSL in reCATPCHA API URLs.
     /// </summary>
-    public enum SslBehavior
+    public enum RecaptchaSslBehavior
     {
         /// <summary>
         /// Always use SSL.

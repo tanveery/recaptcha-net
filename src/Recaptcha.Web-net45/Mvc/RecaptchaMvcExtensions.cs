@@ -40,7 +40,7 @@ namespace Recaptcha.Web.Mvc
             string language = null,
             int? tabIndex = null,
             RecaptchaSize? size = null,
-            SslBehavior? useSsl = null,
+            RecaptchaSslBehavior? useSsl = null,
             string apiVersion = null)
         {
             var config = RecaptchaConfigurationManager.GetConfiguration();
@@ -58,7 +58,7 @@ namespace Recaptcha.Web.Mvc
             {
                 var rHtmlHelper = new Recaptcha2HtmlHelper(siteKey ?? config.SiteKey);
                 var writer = new HtmlTextWriter(new StringWriter());
-                writer.Write(rHtmlHelper.CreateWidgetHtml(renderApiScript, theme != null ? (RecaptchaTheme)theme : config.Theme, language ?? config.Language, tabIndex != null ? (int)tabIndex : 0, size != null ? (RecaptchaSize)size : config.Size, useSsl != null ? (SslBehavior)useSsl : config.UseSsl));
+                writer.Write(rHtmlHelper.CreateWidgetHtml(renderApiScript, theme != null ? (RecaptchaTheme)theme : config.Theme, language ?? config.Language, tabIndex != null ? (int)tabIndex : 0, size != null ? (RecaptchaSize)size : config.Size, useSsl != null ? (RecaptchaSslBehavior)useSsl : config.UseSsl));
 
                 return htmlHelper.Raw(writer.InnerWriter.ToString());
             }
@@ -81,7 +81,7 @@ namespace Recaptcha.Web.Mvc
             this HtmlHelper htmlHelper,
             string siteKey = null,
             string language = null,
-            SslBehavior? useSsl = null,
+            RecaptchaSslBehavior? useSsl = null,
             string apiVersion = null)
         {
             var config = RecaptchaConfigurationManager.GetConfiguration();
@@ -99,7 +99,7 @@ namespace Recaptcha.Web.Mvc
             {
                 var rHtmlHelper = new Recaptcha2HtmlHelper(siteKey ?? config.SiteKey);
                 var writer = new HtmlTextWriter(new StringWriter());
-                writer.Write(rHtmlHelper.CreateApiScripttHtml(language ?? config.Language, useSsl != null ? (SslBehavior)useSsl : config.UseSsl));
+                writer.Write(rHtmlHelper.CreateApiScripttHtml(language ?? config.Language, useSsl != null ? (RecaptchaSslBehavior)useSsl : config.UseSsl));
 
                 return htmlHelper.Raw(writer.InnerWriter.ToString());
             }

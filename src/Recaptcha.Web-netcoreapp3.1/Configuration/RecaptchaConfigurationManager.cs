@@ -36,7 +36,7 @@ namespace Recaptcha.Web.Configuration
             string apiVersion = _configuration["RecaptchaApiVersion"] ?? "2";
             RecaptchaSize size = _configuration["RecaptchaSize"] == null ? RecaptchaSize.Default : Enum.Parse<RecaptchaSize>(_configuration["RecaptchaSize"]);
             RecaptchaTheme theme = _configuration["RecaptchaTheme"] == null ? RecaptchaTheme.Default : Enum.Parse<RecaptchaTheme>(_configuration["RecaptchaTheme"]);
-            SslBehavior useSsl = _configuration["RecaptchaUseSsl"] == null ? SslBehavior.AlwaysUseSsl : Enum.Parse<SslBehavior>(_configuration["RecaptchaUseSsl"]);
+            RecaptchaSslBehavior useSsl = _configuration["RecaptchaUseSsl"] == null ? RecaptchaSslBehavior.AlwaysUseSsl : Enum.Parse<RecaptchaSslBehavior>(_configuration["RecaptchaUseSsl"]);
 
             return new RecaptchaConfiguration(siteKey, secretKey, apiVersion, language, theme, size, useSsl);
         }

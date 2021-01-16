@@ -41,7 +41,7 @@ namespace Recaptcha.Web.Mvc
             string language = null,
             int? tabIndex = null,
             RecaptchaSize? size = null,
-            SslBehavior? useSsl = null,
+            RecaptchaSslBehavior? useSsl = null,
             string apiVersion = null)
         {
             var config = RecaptchaConfigurationManager.GetConfiguration();
@@ -58,7 +58,7 @@ namespace Recaptcha.Web.Mvc
             if (ver == null || ver == "2")
             {
                 var rHtmlHelper = new Recaptcha2HtmlHelper(siteKey ?? config.SiteKey);
-                return new HtmlString(rHtmlHelper.CreateWidgetHtml(renderApiScript, theme != null ? (RecaptchaTheme)theme : config.Theme, language ?? config.Language, tabIndex != null ? (int)tabIndex : 0, size != null ? (RecaptchaSize)size : config.Size, useSsl != null ? (SslBehavior)useSsl : config.UseSsl));
+                return new HtmlString(rHtmlHelper.CreateWidgetHtml(renderApiScript, theme != null ? (RecaptchaTheme)theme : config.Theme, language ?? config.Language, tabIndex != null ? (int)tabIndex : 0, size != null ? (RecaptchaSize)size : config.Size, useSsl != null ? (RecaptchaSslBehavior)useSsl : config.UseSsl));
             }
             else
             {
@@ -79,7 +79,7 @@ namespace Recaptcha.Web.Mvc
             this IHtmlHelper htmlHelper,
             string siteKey = null,
             string language = null,
-            SslBehavior? useSsl = null,
+            RecaptchaSslBehavior? useSsl = null,
             string apiVersion = null)
         {
             var config = RecaptchaConfigurationManager.GetConfiguration();
@@ -96,7 +96,7 @@ namespace Recaptcha.Web.Mvc
             if (ver == null || ver == "2")
             {
                 var rHtmlHelper = new Recaptcha2HtmlHelper(siteKey ?? config.SiteKey);
-                return new HtmlString(rHtmlHelper.CreateApiScripttHtml(language ?? config.Language, useSsl != null ? (SslBehavior)useSsl : config.UseSsl));
+                return new HtmlString(rHtmlHelper.CreateApiScripttHtml(language ?? config.Language, useSsl != null ? (RecaptchaSslBehavior)useSsl : config.UseSsl));
             }
             else
             {

@@ -69,7 +69,7 @@ namespace Recaptcha.Web
         /// <param name="size">The size of the reCAPTCHA widget.</param>
         /// <param name="useSsl">Determines if SSL is to be used in Google reCAPTCHA API calls.</param>
         /// <returns>Returns the reCAPTCHA HTML as an instance of the <see cref="string"/> type.</returns>
-        public string CreateWidgetHtml(bool renderApiScript, RecaptchaTheme theme, string language, int tabIndex, RecaptchaSize size, SslBehavior useSsl)
+        public string CreateWidgetHtml(bool renderApiScript, RecaptchaTheme theme, string language, int tabIndex, RecaptchaSize size, RecaptchaSslBehavior useSsl)
         {
             var dictAttributes = new Dictionary<string, string>
             {
@@ -115,19 +115,19 @@ namespace Recaptcha.Web
         /// <param name="language">Forces the reCAPTCHA widget to render in a specific language. By default, the user's language is used.</param>
         /// <param name="useSsl">Determines if SSL is to be used in Google reCAPTCHA API calls.</param>
         /// <returns>Returns the HTML as an instance of the <see cref="string"/> type.</returns>
-        public string CreateApiScripttHtml(string language, SslBehavior useSsl)
+        public string CreateApiScripttHtml(string language, RecaptchaSslBehavior useSsl)
         {
             bool doUseSsl = true;
 
-            if (useSsl == SslBehavior.DoNotUseSsl)
+            if (useSsl == RecaptchaSslBehavior.DoNotUseSsl)
             {
                 doUseSsl = false;
             }
-            else if (useSsl == SslBehavior.AlwaysUseSsl)
+            else if (useSsl == RecaptchaSslBehavior.AlwaysUseSsl)
             {
                 doUseSsl = true;
             }
-            else if (useSsl == SslBehavior.SameAsRequestUrl)
+            else if (useSsl == RecaptchaSslBehavior.SameAsRequestUrl)
             {
                 doUseSsl = HttpContext.Current.Request.IsSecureConnection;
             }

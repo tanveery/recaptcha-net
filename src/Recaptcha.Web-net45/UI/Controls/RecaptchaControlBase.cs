@@ -102,12 +102,12 @@ namespace Recaptcha.Web.UI.Controls
         /// <summary>
         /// Determines if SSL is to be used in Google reCAPTCHA API calls.
         /// </summary>
-        /// <remarks>The default value is <see cref="SslBehavior.AlwaysUseSsl"/>.</remarks>
+        /// <remarks>The default value is <see cref="RecaptchaSslBehavior.AlwaysUseSsl"/>.</remarks>
         [Bindable(true)]
         [Category("Behavior")]
-        [DefaultValue(SslBehavior.AlwaysUseSsl)]
+        [DefaultValue(RecaptchaSslBehavior.AlwaysUseSsl)]
         [Localizable(false)]
-        public SslBehavior UseSsl
+        public RecaptchaSslBehavior UseSsl
         {
             get
             {
@@ -117,7 +117,7 @@ namespace Recaptcha.Web.UI.Controls
                     ViewState["RecaptchaUseSsl"] = config.UseSsl;
                 }
 
-                return (SslBehavior)ViewState["RecaptchaUseSsl"];
+                return (RecaptchaSslBehavior)ViewState["RecaptchaUseSsl"];
             }
 
             set

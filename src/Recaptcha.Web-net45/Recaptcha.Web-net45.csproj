@@ -90,7 +90,7 @@
     <Compile Include="RecaptchaSize.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RecaptchaVerificationHelper.cs" />
-    <Compile Include="SslBehavior.cs" />
+    <Compile Include="RecaptchaSslBehavior.cs" />
     <Compile Include="UI\Controls\RecaptchaApiScript.cs" />
     <Compile Include="UI\Controls\RecaptchaControlBase.cs" />
     <Compile Include="UI\Controls\RecaptchaWidget.cs" />
