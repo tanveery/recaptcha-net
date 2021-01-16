@@ -46,7 +46,7 @@ If you find a bug in the library or you have an idea about a new feature, please
         <td><strong>Site Key</strong></td>
         <td>Site key for reCAPTCHA. It is required for rendering the widget.</td>
         <td>String</td>        
-        <td>The site key associated with the site you register in <a href="https://www.google.com/recaptcha/admin">Google reCAPTCHA Admin Console</a>.</td>
+        <td><em>The site key associated with the site you register in <a href="https://www.google.com/recaptcha/admin">Google reCAPTCHA Admin Console</a>.</em></td>
         <td><em>No default value. Must be provided.</em</td>
         <td>RecaptchaSiteKey</td>
         <td>Yes</td>
@@ -55,7 +55,7 @@ If you find a bug in the library or you have an idea about a new feature, please
         <td><strong>Secret Key</strong></td>
         <td>Secret key for the reCAPTCHA. It is required for verifying reCAPTCHA response.</td>
         <td>String</td>
-        <td>The secret key associated with the site you register in <a href="https://www.google.com/recaptcha/admin">Google reCAPTCHA Admin Console</a>.</td>
+        <td><em>The secret key associated with the site you register in <a href="https://www.google.com/recaptcha/admin">Google reCAPTCHA Admin Console</a>.</em></td>
         <td><em>No default value. Must be provided.</em</td>
         <td>RecaptchaSecretKey</td>
         <td>Yes</td>
@@ -73,7 +73,7 @@ If you find a bug in the library or you have an idea about a new feature, please
         <td><strong>Language</strong></td>
         <td>Forces the reCAPTCHA widget to render in a specific language. By default, the user's language is used.</td>
         <td>String</td>
-        <td>One of the values from the <a href="https://developers.google.com/recaptcha/docs/language">Language Codes</a> list.</td>
+        <td><em>One of the values from the <a href="https://developers.google.com/recaptcha/docs/language">Language Codes</a> list.</em></td>
         <td><em>User's language</em>
         <td>RecaptchaLanguage</td>
         <td>No</td>
@@ -91,7 +91,7 @@ If you find a bug in the library or you have an idea about a new feature, please
         <td><strong>TabIndex</strong></td>
         <td>The tabindex of the reCAPTCHA widget.</td>
         <td>Int/td>
-        <td>Any integer</td>
+        <td><em>Any integer</em></td>
         <td>0</td>
         <td>RecaptchaSize</td>
         <td>No</td>
