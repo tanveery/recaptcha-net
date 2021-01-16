@@ -1,0 +1,22 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Include="..\Recaptcha.Web-net45\Configuration\RecaptchaConfiguration.cs" Link="Configuration\RecaptchaConfiguration.cs" />
+    <Compile Include="..\Recaptcha.Web-net45\RecaptchaSize.cs" Link="RecaptchaSize.cs" />
+    <Compile Include="..\Recaptcha.Web-net45\RecaptchaTheme.cs" Link="RecaptchaTheme.cs" />
+    <Compile Include="..\Recaptcha.Web-net45\RecaptchaVerificationResult.cs" Link="RecaptchaVerificationResult.cs" />
+    <Compile Include="..\Recaptcha.Web-net45\SslBehavior.cs" Link="SslBehavior.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Html.Abstractions" Version="2.2.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Http.Abstractions" Version="2.2.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.ViewFeatures" Version="2.2.0" />
+    <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
+  </ItemGroup>
+
+</Project>

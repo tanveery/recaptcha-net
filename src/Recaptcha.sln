@@ -5,7 +5,11 @@ VisualStudioVersion = 16.0.30907.101
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".NET 4.5", ".NET 4.5", "{6D1C1413-7257-4DC4-895F-EE1ACBB443F4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Recaptcha.Web", "Recaptcha.Web\Recaptcha.Web.csproj", "{47C0DB18-D553-41BE-98F9-6A5C08FAC0C6}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".NET Core 3.1", ".NET Core 3.1", "{8BF28D3C-8158-4C5E-AED8-C0844B9C4B86}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Recaptcha.Web-net45", "Recaptcha.Web-net45\Recaptcha.Web-net45.csproj", "{47C0DB18-D553-41BE-98F9-6A5C08FAC0C6}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Recaptcha.Web-netcoreapp3.1", "Recaptcha.Web-netcoreapp3.1\Recaptcha.Web-netcoreapp3.1.csproj", "{E2D79ECD-B729-4880-B737-EF7FF7650C40}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -17,12 +21,17 @@ Global
 		{47C0DB18-D553-41BE-98F9-6A5C08FAC0C6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{47C0DB18-D553-41BE-98F9-6A5C08FAC0C6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{47C0DB18-D553-41BE-98F9-6A5C08FAC0C6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E2D79ECD-B729-4880-B737-EF7FF7650C40}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E2D79ECD-B729-4880-B737-EF7FF7650C40}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E2D79ECD-B729-4880-B737-EF7FF7650C40}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E2D79ECD-B729-4880-B737-EF7FF7650C40}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{47C0DB18-D553-41BE-98F9-6A5C08FAC0C6} = {6D1C1413-7257-4DC4-895F-EE1ACBB443F4}
+		{E2D79ECD-B729-4880-B737-EF7FF7650C40} = {8BF28D3C-8158-4C5E-AED8-C0844B9C4B86}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {9B9AE75F-631B-4D58-865F-011EFBC50D48}
