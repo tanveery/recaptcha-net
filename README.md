@@ -74,7 +74,7 @@ If you find a bug in the library or you have an idea about a new feature, please
         <td>Forces the reCAPTCHA widget to render in a specific language. By default, the user's language is used.</td>
         <td>String</td>
         <td><em>One of the values from the <a href="https://developers.google.com/recaptcha/docs/language">Language Codes</a> list.</em></td>
-        <td><em>User's language</em>
+        <td><em>User's language</em></td>
         <td>RecaptchaLanguage</td>
         <td>No</td>
     </tr>    
@@ -90,7 +90,7 @@ If you find a bug in the library or you have an idea about a new feature, please
     <tr>
         <td><strong>TabIndex</strong></td>
         <td>The tabindex of the reCAPTCHA widget.</td>
-        <td>Int/td>
+        <td><pre>Int</pre></td>
         <td><em>Any integer</em></td>
         <td>0</td>
         <td>RecaptchaSize</td>
