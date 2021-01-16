@@ -41,7 +41,7 @@ reCAPTCHA for .NET is one of the most popular and well-documented reCAPTCHA libr
 "RecaptchaSecretKey": "Your secret key"
 </code></pre>
 <p>In the <strong>ConfigureServices</strong> method of the <strong>Startup</strong> class, add the following line of code:</p>
-<pre><code>using Recaptcha.Web.Configuration;
+<pre><code class="language-cs">using Recaptcha.Web.Configuration;
 ...
 RecaptchaConfigurationManager.SetConfiguration(Configuration);</pre></code>
 <h3>Render reCAPTCHA Widget</h3>
@@ -202,7 +202,7 @@ if (recaptchaResult != RecaptchaVerificationResult.Success)
     </tr>      
 </table>
 <h2>Samples</h2>
-<p>The repo comes with three working <a href="https://github.com/tanveery/recaptcha-net/tree/master/samples" target="_blank">samples</a> that you can use to quickly understand and test the library:</p>
+<p>The repo comes with three working <a href="https://github.com/tanveery/recaptcha-net/tree/master/samples">samples</a> that you can use to quickly understand and test the library:</p>
 <ul>
     <li><strong>RecaptchaAspNetCoreSample</strong> (.NET Core 3.1 + ASP.NET Core)</li>
     <li><strong>RecaptchaMVCSample</strong> (.NET Framework 4.5 + ASP.NET MVC 5)</li>
@@ -210,6 +210,6 @@ if (recaptchaResult != RecaptchaVerificationResult.Success)
 </ul>
 <p><strong>Note:</strong> Before running these samples, please ensure that the site key and secret key are set in the web.config (.NET Framework) or appsettings.json (.NET Core) file.</p>
 <h2>Tooling</h2>
-<p>The current version of the repo is created using <a href="https://visualstudio.microsoft.com/vs/community/" target="_blank">Microsoft Visual Studio 2019 Community Edition</a> with <a href="https://dotnet.microsoft.com/download/dotnet-framework/net45" target="_blank">.NET Framework 4.5</a> and <a href="https://dotnet.microsoft.com/download/dotnet-core/3.1" target="_blank">.NET Core 3.1</a> as compilation targets.
+<p>The current version of the repo is created using <a href="https://visualstudio.microsoft.com/vs/community/">Microsoft Visual Studio 2019 Community Edition</a> with <a href="https://dotnet.microsoft.com/download/dotnet-framework/net45" target="_blank">.NET Framework 4.5</a> and <a href="https://dotnet.microsoft.com/download/dotnet-core/3.1">.NET Core 3.1</a> as compilation targets.
 <h2>Issues</h2>
 If you find a bug in the library or you have an idea about a new feature, please try to search in the existing list of <a href="https://github.com/tanveery/recaptcha-net/issues">issues</a>. If the bug or idea is not listed and addressed there, please <a href="https://github.com/tanveery/recaptcha-net/issues/new">open a new issue</a>.
