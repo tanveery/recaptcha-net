@@ -133,7 +133,15 @@ If you find a bug in the library or you have an idea about a new feature, please
     <tr>
         <td><strong>Render reCAPTCHA widget</strong></td>
         <td>Render reCAPTCHA widget along with the API script.</td>
-        <td>Use the Recaptcha.Web.UI.RecaptchaWidget web control in your web form.</td>
+        <td>
+            <p>Use the Recaptcha.Web.UI.RecaptchaWidget web control in your web form.</p>
+            <p><strong>Example</strong></p>
+            <pre><code>&lt;%@ Register Assembly="Recaptcha.Web" Namespace="Recaptcha.Web.UI.Controls"
+TagPrefix="cc1" %&gt;
+</code></pre>
+            <pre><code>&lt;cc1:Recaptcha ID="Recaptcha1" runat="server" /&gt;
+</code></pre>
+        </td>
         <td>Call RecpatchaWidget method of HTML helper class in your view.</td>
     </tr>  
     <tr>
