@@ -125,10 +125,10 @@ If you find a bug in the library or you have an idea about a new feature, please
 <h2>How to Use reCAPTHCA for .NET Library</h2>
 <table>
     <tr>
-        <th width="25%">Use Case</th>
-        <th width="25%">Description</th>
-        <th width="25%">ASP.NET Web Form</th>
-        <th width="25%">ASP.NET MVC 5 and ASP.NET Core</th>
+        <th style="width:20%">Use Case</th>
+        <th style="width:20%">Description</th>
+        <th style="width:30%">ASP.NET Web Form</th>
+        <th style="width:30%">ASP.NET MVC 5 and ASP.NET Core</th>
     </tr>
     <tr>
         <td><strong>Render reCAPTCHA widget</strong></td>
