@@ -29,18 +29,18 @@ reCAPTCHA for .NET is one of the most popular and well-documented reCAPTCHA libr
 <p>You can also download a released build of reCAPTCHA for .NET by going to the <a href="https://github.com/tanveery/recaptcha-net/releases">Releases</a> section of this project. The latest release is <a href="https://github.com/tanveery/recaptcha-net/releases/tag/v2.0">reCAPTCHA for .NET v2.0</a>.</p>
 <h3>Set Configuration</h3>
 <p><strong>ASP.NET Web Forms / ASP.NET MVC 5</strong></p>
-<p>In the appSettings section of your web.config file, add the keys as follows:</p>
+<p>In the <strong>appSettings</strong> section of your <strong>web.config</strong> file, add the following keys:</p>
 <pre><code>&lt;appSettings&gt;
 &lt;add key="RecaptchaSiteKey" value="Your site key" /&gt;
 &lt;add key="RecaptchaSecretKey" value="Your secret key" /&gt;
 &lt;/appSettings&gt;
 </code></pre>
 <p><strong>ASP.NET Core</strong></p>
-<p>In appsettings.json, add the following JSON properties:</p>
+<p>In <strong>appsettings.json</strong>, add the following JSON properties:</p>
 <pre><code>"RecaptchaSiteKey": "Your site key",
-"RecaptchaSecretKey": "Your secret key",
+"RecaptchaSecretKey": "Your secret key"
 </code></pre>
-In the <strong>ConfigureServices</strong> method of the <strong>Startup</strong> class, add the following line of code:
+<p>In the <strong>ConfigureServices</strong> method of the <strong>Startup</strong> class, add the following line of code:</p>
 <pre><code>RecaptchaConfigurationManager.SetConfiguration(Configuration);</pre></code>
 <h3>Render reCAPTCHA Widget</h3>
 <p>You can either use the Recaptcha.Web.UI.Controls.RecaptchaWidget web control (ASP.NET Web Forms) or call the RecaptchaWidget method of HTML helper (ASP.NET MVC 5 / ASP.NET Core) to render reCAPTCHA widget:</p>
