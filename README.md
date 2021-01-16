@@ -9,7 +9,8 @@ reCAPTCHA for .NET is one of the most popular and well-documented reCAPTCHA libr
     <li>Supprts reCAPTCHA version 2</li>
     <li>One of the most well-documented reCAPTCHA libraries in the open source community</li>
 </ul>
-<h2>Creating a reCAPTCHA API Key</h2>
+<h2>How to Use reCAPTCHA for .NET: Step-by-Step</h2>
+<h3>Creating a reCAPTCHA API Key</h3>
 <p>Before you can use reCAPTCHA in your web application, you must first create a reCAPTCHA API key (a pair of site and secret keys). Creating reCAPTCHA API key is very straight-forward. The following are the steps:</p>
 <ol>
     <li>Go to the Google's <a href="https://www.google.com/recaptcha" target="_blank">reCAPTCHA</a> site.</li>
@@ -22,17 +23,24 @@ reCAPTCHA for .NET is one of the most popular and well-documented reCAPTCHA libr
     <li>Click on the <strong>Submit</strong> button.
     <li>Copy your <strong>Site Key</strong> and <strong>Secret Key</strong> which you would need to specify in your application's web.config file.</li>
 </ol>
-<h2>Installation</h2>
-<h3>reCAPTCHA Nuget Package</h3>
+<h3>Installation</h3>
+<h4>reCAPTCHA Nuget Package</h4>
 <p>The best and the recommended way to install the latest version of reCAPTCHA for .NET is through Nuget. From the <a href="http://docs.nuget.org/consume/package-manager-console">Nuget's Package Manager Console</a> in your Visual Studio .NET IDE, simply execute the following command:</p>
 <pre><code>PM&gt; Install-Package RecaptchaNet</code></pre>
-<h3>Latest Release</h3>
+<h4>Latest Release</h4>
 <p>You can also download a released build of reCAPTCHA for .NET by going to the <a href="https://github.com/tanveery/recaptcha-net/releases">Releases</a> section of this project. The latest release is <a href="https://github.com/tanveery/recaptcha-net/releases/tag/v2.0">reCAPTCHA for .NET v2.0</a>.</p>
-<h2>Issues</h2>
-If you find a bug in the library or you have an idea about a new feature, please try to search in the existing list of <a href="https://github.com/tanveery/recaptcha-net/issues">issues</a>. If the bug or idea is not listed and addressed there, please <a href="https://github.com/tanveery/recaptcha-net/issues/new">open a new issue</a>.
-<h2>How to Use reCAPTHCA for .NET</h2>
 <h3>Render reCAPTCHA Widget</h3>
-
+<p>You can either use the Recaptcha.Web.UI.Controls.RecaptchaWidget web control (ASP.NET Web Forms) or call the RecaptchaWidget method of HTML helper (ASP.NET MVC 5 / ASP.NET Core) to render reCAPTCHA widget:</p>
+<p><strong>ASP.NET Web Forms</strong></p>
+<pre><code>
+&lt;%@ Register Assembly="Recaptcha.Web" Namespace="Recaptcha.Web.UI.Controls" TagPrefix="cc1" %&gt;
+&lt;cc1:Recaptcha ID="Recaptcha1" runat="server" /&gt;
+</code></pre>
+<p><strong>ASP.NET MVC 5</strong></p>
+<pre><code>
+@using Recaptcha.Web.Mvc;
+@Html.Recaptcha()
+</code></pre>
 <h3>Attributes</h3>
 <p>The attributes are used to control the behavior and appearance of the reCAPTCHA widget. They are specified in one of the three ways:</p>
 <ul>
@@ -252,3 +260,5 @@ if (recaptchaResult != RecaptchaVerificationResult.Success)
 &lt;/appSettings&gt;
 </code></pre>
 <p><strong>Note</strong>: The <strong>appSettings</strong> keys are automatically added to your web.config file if you install reCAPTCHA for .NET through Nuget. However, you would still need to provide your own site and secret keys in the web.config file of your project.</p>
+<h2>Issues</h2>
+If you find a bug in the library or you have an idea about a new feature, please try to search in the existing list of <a href="https://github.com/tanveery/recaptcha-net/issues">issues</a>. If the bug or idea is not listed and addressed there, please <a href="https://github.com/tanveery/recaptcha-net/issues/new">open a new issue</a>.
