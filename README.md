@@ -90,7 +90,7 @@ If you find a bug in the library or you have an idea about a new feature, please
     <tr>
         <td><strong>TabIndex</strong></td>
         <td>The tabindex of the reCAPTCHA widget.</td>
-        <td><pre>Int</pre></td>
+        <td><code>Int</code></td>
         <td><em>Any integer</em></td>
         <td>0</td>
         <td>RecaptchaSize</td>
