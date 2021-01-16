@@ -28,39 +28,39 @@ namespace Recaptcha.Web.Configuration
             RecaptchaTheme theme = RecaptchaTheme.Default;
             SslBehavior useSsl = SslBehavior.AlwaysUseSsl;
 
-            if(ConfigurationManager.AppSettings.AllKeys.Contains("recaptcha:sitekey"))
+            if(ConfigurationManager.AppSettings.AllKeys.Contains("RecaptchaSiteKey"))
             {
-                siteKey = ConfigurationManager.AppSettings["recaptcha:sitekey"];
+                siteKey = ConfigurationManager.AppSettings["RecaptchaSiteKey"];
             }
 
-            if (ConfigurationManager.AppSettings.AllKeys.Contains("recaptcha:secretkey"))
+            if (ConfigurationManager.AppSettings.AllKeys.Contains("RecaptchaSecretKey"))
             {
-                secretKey = ConfigurationManager.AppSettings["recaptcha:secretkey"];
+                secretKey = ConfigurationManager.AppSettings["RecaptchaSecretKey"];
             }
 
-            if (ConfigurationManager.AppSettings.AllKeys.Contains("recaptcha:apiversion"))
+            if (ConfigurationManager.AppSettings.AllKeys.Contains("RecaptchaApiVersion"))
             {
-                apiVersion = ConfigurationManager.AppSettings["recaptcha:apiversion"];
+                apiVersion = ConfigurationManager.AppSettings["RecaptchaApiVersion"];
             }
 
-            if (ConfigurationManager.AppSettings.AllKeys.Contains("recaptcha:language"))
+            if (ConfigurationManager.AppSettings.AllKeys.Contains("RecaptchaLanguage"))
             {
-                language = ConfigurationManager.AppSettings["recaptcha:language"];
+                language = ConfigurationManager.AppSettings["RecaptchaLanguage"];
             }
 
-            if (ConfigurationManager.AppSettings.AllKeys.Contains("recaptcha:theme"))
+            if (ConfigurationManager.AppSettings.AllKeys.Contains("RecaptchaTheme"))
             {
-                Enum.TryParse<RecaptchaTheme>(ConfigurationManager.AppSettings["recaptcha:theme"], out theme);
+                Enum.TryParse<RecaptchaTheme>(ConfigurationManager.AppSettings["RecaptchaTheme"], out theme);
             }
 
-            if (ConfigurationManager.AppSettings.AllKeys.Contains("recaptcha:size"))
+            if (ConfigurationManager.AppSettings.AllKeys.Contains("RecaptchaSize"))
             {
-                Enum.TryParse<RecaptchaSize>(ConfigurationManager.AppSettings["recaptcha:size"], out size);
+                Enum.TryParse<RecaptchaSize>(ConfigurationManager.AppSettings["RecaptchaSize"], out size);
             }
 
-            if (ConfigurationManager.AppSettings.AllKeys.Contains("recaptcha:usessl"))
+            if (ConfigurationManager.AppSettings.AllKeys.Contains("RecaptchaUseSsl"))
             {
-                Enum.TryParse<SslBehavior>(ConfigurationManager.AppSettings["recaptcha:usessl"], out useSsl);
+                Enum.TryParse<SslBehavior>(ConfigurationManager.AppSettings["RecaptchaUseSsl"], out useSsl);
             }
 
             return new RecaptchaConfiguration(siteKey, secretKey, apiVersion, language, theme, size, useSsl);

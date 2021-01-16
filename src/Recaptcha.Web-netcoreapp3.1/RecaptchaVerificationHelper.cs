@@ -19,8 +19,6 @@ namespace Recaptcha.Web
     /// </summary>
     public class RecaptchaVerificationHelper
     {
-        private HttpContext _httpContext = null;
-
         #region Constructors
 
         private RecaptchaVerificationHelper()
@@ -42,7 +40,7 @@ namespace Recaptcha.Web
                 throw new ArgumentNullException(nameof(httpContext));
             }
 
-            var request = _httpContext.Request;
+            var request = httpContext.Request;
 
             this.UseSsl = request.IsHttps;
 
