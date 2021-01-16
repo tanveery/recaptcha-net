@@ -56,6 +56,7 @@ If you find a bug in the library or you have an idea about a new feature, please
         <td>Secret key for the reCAPTCHA. It is required for verifying reCAPTCHA response.</td>
         <td>String</td>
         <td>The secret key associated with the site you register in <a href="https://www.google.com/recaptcha/admin">Google reCAPTCHA Admin Console</a>.</td>
+        <td><em>No default value. Must be provided.</em</td>
         <td>RecaptchaSecretKey</td>
         <td>Yes</td>
     </tr>      
@@ -82,7 +83,7 @@ If you find a bug in the library or you have an idea about a new feature, please
         <td>The size of the reCAPTCHA widget.</td>
         <td>RecaptchaSize enum</td>
         <td>Default, Normal, Compact</td>
-        <td><em>Default</em></td>
+        <td>Default</td>
         <td>RecaptchaSize</td>
         <td>No</td>
     </tr>   
