@@ -57,8 +57,8 @@ namespace Recaptcha.Web.Mvc
 
             if (ver == null || ver == "2")
             {
-                var rHtmlHelper = new Recaptcha2HtmlHelper(siteKey != null ? siteKey : config.SiteKey);
-                return new HtmlString(rHtmlHelper.CreateWidgetHtml(renderApiScript, theme != null ? (RecaptchaTheme)theme : config.DefaultTheme, language != null ? language : config.DefaultLanguage, tabIndex != null ? (int)tabIndex : 0, size != null ? (RecaptchaSize)size : config.DefaultSize, useSsl != null ? (SslBehavior)useSsl : config.UseSsl));
+                var rHtmlHelper = new Recaptcha2HtmlHelper(siteKey ?? config.SiteKey);
+                return new HtmlString(rHtmlHelper.CreateWidgetHtml(renderApiScript, theme != null ? (RecaptchaTheme)theme : config.Theme, language ?? config.Language, tabIndex != null ? (int)tabIndex : 0, size != null ? (RecaptchaSize)size : config.Size, useSsl != null ? (SslBehavior)useSsl : config.UseSsl));
             }
             else
             {
@@ -95,8 +95,8 @@ namespace Recaptcha.Web.Mvc
 
             if (ver == null || ver == "2")
             {
-                var rHtmlHelper = new Recaptcha2HtmlHelper(siteKey != null ? siteKey : config.SiteKey);
-                return new HtmlString(rHtmlHelper.CreateApiScripttHtml(language != null ? language : config.DefaultLanguage, useSsl != null ? (SslBehavior)useSsl : config.UseSsl));
+                var rHtmlHelper = new Recaptcha2HtmlHelper(siteKey ?? config.SiteKey);
+                return new HtmlString(rHtmlHelper.CreateApiScripttHtml(language ?? config.Language, useSsl != null ? (SslBehavior)useSsl : config.UseSsl));
             }
             else
             {

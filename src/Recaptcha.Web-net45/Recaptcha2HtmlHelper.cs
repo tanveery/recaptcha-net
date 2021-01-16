@@ -17,17 +17,12 @@ namespace Recaptcha.Web
     {
         #region Fields
 
-        private const string PARAM_ONLOAD = "onload";
-        private const string PARAM_RENDER = "render";
         private const string PARAM_HL = "hl";
 
         private const string PARAM_SITEKEY = "sitekey";
         private const string PARAM_THEME = "theme";
         private const string PARAM_SIZE = "size";
         private const string PARAM_TABINDEX = "tabindex";
-        private const string PARAM_CALLBACK = "callback";
-        private const string PARAM_EXPIRED_CALLBACK = "expired-callback";
-        private const string PARAM_ERROR_CALLBACK = "error-callback";
 
         #endregion Fields
 
@@ -36,7 +31,7 @@ namespace Recaptcha.Web
         /// <summary>
         /// Creates an instance of the <see cref="Recaptcha2HtmlHelper"/> class.
         /// </summary>
-        /// <param name="siteKey">Sets the public key of the recaptcha HTML.</param>
+        /// <param name="siteKey">Sets the site key for the reCAPTCHA widget.</param>
         public Recaptcha2HtmlHelper(string siteKey)
         {
             if (String.IsNullOrEmpty(siteKey))
@@ -52,7 +47,7 @@ namespace Recaptcha.Web
         #region Properties
 
         /// <summary>
-        /// Gets the site key of the recaptcha HTML.
+        /// Gets or sets the site key for the reCAPTCHA widget.
         /// </summary>
         public string SiteKey
         {
@@ -65,13 +60,21 @@ namespace Recaptcha.Web
         #region Public Methods
 
         /// <summary>
-        /// Gets the recaptcha's HTML that needs to be rendered in an HTML page.
+        /// Creates the reCAPTCHA HTML that needs to be rendered.
         /// </summary>
-        /// <returns>Returns the HTML as an instance of the <see cref="String"/> type.</returns>
+        /// <param name="renderApiScript">Determines if the API script is to be rendered.</param>
+        /// <param name="theme">The color theme of the widget.</param>
+        /// <param name="language">Forces the reCAPTCHA widget to render in a specific language. By default, the user's language is used.</param>
+        /// <param name="tabIndex">The tabindex of the reCAPTCHA widget.</param>
+        /// <param name="size">The size of the reCAPTCHA widget.</param>
+        /// <param name="useSsl">Determines if SSL is to be used in Google reCAPTCHA API calls.</param>
+        /// <returns>Returns the reCAPTCHA HTML as an instance of the <see cref="string"/> type.</returns>
         public string CreateWidgetHtml(bool renderApiScript, RecaptchaTheme theme, string language, int tabIndex, RecaptchaSize size, SslBehavior useSsl)
         {
-            var dictAttributes = new Dictionary<string, string>();            
-            dictAttributes.Add("data-" + PARAM_SITEKEY, SiteKey);
+            var dictAttributes = new Dictionary<string, string>
+            {
+                { "data-" + PARAM_SITEKEY, SiteKey }
+            };
 
             if (theme != RecaptchaTheme.Default)
             {
@@ -107,9 +110,11 @@ namespace Recaptcha.Web
         }
 
         /// <summary>
-        /// Gets the recaptcha's HTML that needs to be rendered in an HTML page.
+        /// Creates the HTML that can be used to render reCAPTCHA API script..
         /// </summary>
-        /// <returns>Returns the HTML as an instance of the <see cref="String"/> type.</returns>
+        /// <param name="language">Forces the reCAPTCHA widget to render in a specific language. By default, the user's language is used.</param>
+        /// <param name="useSsl">Determines if SSL is to be used in Google reCAPTCHA API calls.</param>
+        /// <returns>Returns the HTML as an instance of the <see cref="string"/> type.</returns>
         public string CreateApiScripttHtml(string language, SslBehavior useSsl)
         {
             bool doUseSsl = true;

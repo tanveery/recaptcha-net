@@ -11,16 +11,16 @@ namespace Recaptcha.Web
     public enum SslBehavior
     {
         /// <summary>
-        /// Use SSL if the HttpContext.Current.Request.IsSecureConnection is True.
+        /// Always use SSL.
+        /// </summary>
+        AlwaysUseSsl = 0,
+        /// <summary>
+        /// Use SSL if HTTP request itself uses SSL.
         /// </summary>
         SameAsRequestUrl = 1,
         /// <summary>
         /// Do not use SSL.
         /// </summary>
-        DoNotUseSsl = 2,
-        /// <summary>
-        /// Always use SSL.
-        /// </summary>
-        AlwaysUseSsl = 0
+        DoNotUseSsl = 2
     }
 }

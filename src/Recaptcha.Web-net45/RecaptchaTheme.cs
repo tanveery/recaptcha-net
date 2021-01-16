@@ -6,21 +6,21 @@
 namespace Recaptcha.Web
 {
     /// <summary>
-    /// Represents the theme of an ASP.NET Recaptcha control.
+    /// Represents the theme of the reCAPTCHA widget.
     /// </summary>
     public enum RecaptchaTheme
     {
         /// <summary>
-        /// Default theme. No theme will be specified in the rendered HTML / JavaScript of the reCAPTCHA control.
+        /// Default theme. No theme is specified in the generated HTML.
         /// </summary>
         Default = 0,
         /// <summary>
-        /// Light theme. Applicable for reCAPTCHA v2.
+        /// Light theme.
         /// </summary>
-        Light = 50,
+        Light = 1,
         /// <summary>
-        /// Dark theme. Applicable for reCAPTCHA v2.
+        /// Dark theme.
         /// </summary>
-        Dark = 51
+        Dark = 2
     }
 }

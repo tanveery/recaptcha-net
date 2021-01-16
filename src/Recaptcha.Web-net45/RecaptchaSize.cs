@@ -6,12 +6,12 @@
 namespace Recaptcha.Web
 {
     /// <summary>
-    /// Represents the size of reCAPTCHA.
+    /// Represents the size of reCAPTCHA widget.
     /// </summary>
     public enum RecaptchaSize
     {
         /// <summary>
-        /// The default size.
+        /// The default size. No size is specified in the generated HTML.
         /// </summary>
         Default = 0,
         /// <summary>

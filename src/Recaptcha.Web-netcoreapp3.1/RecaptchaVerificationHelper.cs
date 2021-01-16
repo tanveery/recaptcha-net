@@ -27,10 +27,10 @@ namespace Recaptcha.Web
         /// <summary>
         /// Creates an instance of the <see cref="RecaptchaVerificationHelper"/> class.
         /// </summary>
-        /// <param name="privateKey">Sets the private key of the recaptcha verification request.</param>
-        internal RecaptchaVerificationHelper(HttpContext httpContext, string privateKey)
+        /// <param name="secretKey">Sets the secret key of the reCAPTCHA verification request.</param>
+        internal RecaptchaVerificationHelper(HttpContext httpContext, string secretKey)
         {
-            if (String.IsNullOrEmpty(privateKey))
+            if (String.IsNullOrEmpty(secretKey))
             {
                 throw new InvalidOperationException("Private key cannot be null or empty.");
             }
@@ -44,7 +44,7 @@ namespace Recaptcha.Web
 
             this.UseSsl = request.IsHttps;
 
-            this.SecretKey = privateKey;
+            this.SecretKey = secretKey;
             this.UserHostAddress = request.Path.Value;
 
             Response = request.Form["g-recaptcha-response"];
@@ -55,7 +55,7 @@ namespace Recaptcha.Web
         #region Properties
 
         /// <summary>
-        /// Determines if HTTPS intead of HTTP is to be used in Recaptcha verification API calls.
+        /// Determines if HTTPS intead of HTTP is to be used in reCAPTCHA verification API calls.
         /// </summary>
         public bool UseSsl
         {
@@ -142,11 +142,11 @@ namespace Recaptcha.Web
 
         #region Private Methods
 
-        private Task<RecaptchaVerificationResult> VerifyRecpatcha2ResponseTaskAsync(string privateKey)
+        private Task<RecaptchaVerificationResult> VerifyRecpatcha2ResponseTaskAsync(string secretKey)
         {
             Task<RecaptchaVerificationResult> taskResult = Task<RecaptchaVerificationResult>.Factory.StartNew(() =>
             {
-                string postData = String.Format("secret={0}&response={1}&remoteip={2}", privateKey, this.Response, this.UserHostAddress);
+                string postData = String.Format("secret={0}&response={1}&remoteip={2}", secretKey, this.Response, this.UserHostAddress);
 
                 byte[] postDataBuffer = System.Text.Encoding.ASCII.GetBytes(postData);
 
@@ -191,16 +191,12 @@ namespace Recaptcha.Web
             return taskResult;
         }
 
-        private RecaptchaVerificationResult VerifyRecpatcha2Response(string privateKey)
+        private RecaptchaVerificationResult VerifyRecpatcha2Response(string secretKey)
         {
-            string postData = String.Format("secret={0}&response={1}&remoteip={2}", privateKey, this.Response, this.UserHostAddress);
+            string postData = String.Format("secret={0}&response={1}&remoteip={2}", secretKey, this.Response, this.UserHostAddress);
 
             byte[] postDataBuffer = System.Text.Encoding.ASCII.GetBytes(postData);
-
-            Uri verifyUri = null;
-
-            verifyUri = new Uri("https://www.google.com/recaptcha/api/siteverify", UriKind.Absolute);
-
+            Uri verifyUri = new Uri("https://www.google.com/recaptcha/api/siteverify", UriKind.Absolute);
             try
             {
                 var webRequest = (HttpWebRequest)WebRequest.Create(verifyUri);

@@ -24,12 +24,12 @@ namespace Recaptcha.Web.Mvc
         /// </summary>
         /// <param name="htmlHelper">The <see cref="System.Web.Mvc.HtmlHelper"/> object to which the extension is added.</param>
         /// <param name="siteKey">Sets the site key of recaptcha.</param>
-        /// <param name="renderApiScript">Determines if the API script call is to be rendered.</param>
-        /// <param name="theme">Sets the theme of recaptcha.</param>
-        /// <param name="language">Sets the language of recaptcha. If no language is specified, the language of the current UI culture will be used.</param>
-        /// <param name="tabIndex">Sets the tab index of recaptcha.</param>
-        /// <param name="size">Sets the size of recaptcha.</param>
-        /// <param name="useSsl">Sets the value to the UseSsl property.</param>
+        /// <param name="renderApiScript">Determines if the API script is to be rendered.</param>
+        /// <param name="theme">The color theme of the widget.</param>
+        /// <param name="language">Forces the reCAPTCHA widget to render in a specific language. By default, the user's language is used.</param>
+        /// <param name="tabIndex">The tabindex of the reCAPTCHA widget.</param>
+        /// <param name="size">The size of the reCAPTCHA widget.</param>
+        /// <param name="useSsl">Determines if SSL is to be used in Google reCAPTCHA API calls.</param>
         /// <param name="apiVersion">Determines the version of the reCAPTCHA API.</param>
         /// <returns>Returns an instance of the IHtmlString type.</returns>
         public static IHtmlString Recaptcha(
@@ -56,9 +56,9 @@ namespace Recaptcha.Web.Mvc
 
             if (ver == null || ver == "2")
             {
-                var rHtmlHelper = new Recaptcha2HtmlHelper(siteKey != null ? siteKey : config.SiteKey);
+                var rHtmlHelper = new Recaptcha2HtmlHelper(siteKey ?? config.SiteKey);
                 var writer = new HtmlTextWriter(new StringWriter());
-                writer.Write(rHtmlHelper.CreateWidgetHtml(renderApiScript, theme != null ? (RecaptchaTheme)theme : config.DefaultTheme, language != null ? language : config.DefaultLanguage, tabIndex != null ? (int)tabIndex : 0, size != null ? (RecaptchaSize)size : config.DefaultSize, useSsl != null ? (SslBehavior)useSsl : config.UseSsl));
+                writer.Write(rHtmlHelper.CreateWidgetHtml(renderApiScript, theme != null ? (RecaptchaTheme)theme : config.Theme, language ?? config.Language, tabIndex != null ? (int)tabIndex : 0, size != null ? (RecaptchaSize)size : config.Size, useSsl != null ? (SslBehavior)useSsl : config.UseSsl));
 
                 return htmlHelper.Raw(writer.InnerWriter.ToString());
             }
@@ -73,8 +73,8 @@ namespace Recaptcha.Web.Mvc
         /// </summary>
         /// <param name="htmlHelper">The <see cref="System.Web.Mvc.HtmlHelper"/> object to which the extension is added.</param>
         /// <param name="siteKey">Sets the site key of recaptcha.</param>
-        /// <param name="language">Sets the language of recaptcha. If no language is specified, the language of the current UI culture will be used.</param>
-        /// <param name="useSsl">Sets the value to the UseSsl property.</param>
+        /// <param name="language">Forces the reCAPTCHA widget to render in a specific language. By default, the user's language is used.</param>
+        /// <param name="useSsl">Determines if SSL is to be used in Google reCAPTCHA API calls.</param>
         /// <param name="apiVersion">Determines the version of the reCAPTCHA API.</param>
         /// <returns>Returns an instance of the IHtmlString type.</returns>
         public static IHtmlString RecaptchaApiScript(
@@ -97,9 +97,9 @@ namespace Recaptcha.Web.Mvc
 
             if (ver == null || ver == "2")
             {
-                var rHtmlHelper = new Recaptcha2HtmlHelper(siteKey != null ? siteKey : config.SiteKey);
+                var rHtmlHelper = new Recaptcha2HtmlHelper(siteKey ?? config.SiteKey);
                 var writer = new HtmlTextWriter(new StringWriter());
-                writer.Write(rHtmlHelper.CreateApiScripttHtml(language != null ? language : config.DefaultLanguage, useSsl != null ? (SslBehavior)useSsl : config.UseSsl));
+                writer.Write(rHtmlHelper.CreateApiScripttHtml(language ?? config.Language, useSsl != null ? (SslBehavior)useSsl : config.UseSsl));
 
                 return htmlHelper.Raw(writer.InnerWriter.ToString());
             }

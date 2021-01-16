@@ -9,20 +9,19 @@ using System;
 namespace Recaptcha.Web.Configuration
 {
     /// <summary>
-    /// Represents a class that manages recaptcha configuration.
+    /// Represents a class that manages reCAPTCHA configuration.
     /// </summary>
     public static class RecaptchaConfigurationManager
     {
         private static IConfiguration _configuration = null;
 
+        /// <summary>
+        /// Initializes the configuration context.
+        /// </summary>
+        /// <param name="configuration">The configuration context of the application.</param>
         public static void SetConfiguration(IConfiguration configuration)
         {
-            if (configuration == null)
-            {
-                throw new ArgumentNullException(nameof(configuration));
-            }
-
-            _configuration = configuration;
+            _configuration = configuration ?? throw new ArgumentNullException(nameof(configuration));
         }
 
         /// <summary>
@@ -34,7 +33,7 @@ namespace Recaptcha.Web.Configuration
             string siteKey = _configuration["RecaptchaSiteKey"];
             string secretKey = _configuration["RecaptchaSecretKey"];
             string language = _configuration["RecaptchaLanguage"];
-            string apiVersion = _configuration["RecaptchaApiVersion"] == null ? "2" : _configuration["RecaptchaApiVersion"];
+            string apiVersion = _configuration["RecaptchaApiVersion"] ?? "2";
             RecaptchaSize size = _configuration["RecaptchaSize"] == null ? RecaptchaSize.Default : Enum.Parse<RecaptchaSize>(_configuration["RecaptchaSize"]);
             RecaptchaTheme theme = _configuration["RecaptchaTheme"] == null ? RecaptchaTheme.Default : Enum.Parse<RecaptchaTheme>(_configuration["RecaptchaTheme"]);
             SslBehavior useSsl = _configuration["RecaptchaUseSsl"] == null ? SslBehavior.AlwaysUseSsl : Enum.Parse<SslBehavior>(_configuration["RecaptchaUseSsl"]);

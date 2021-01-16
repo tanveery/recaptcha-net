@@ -16,19 +16,19 @@ namespace Recaptcha.Web.Configuration
         /// <param name="siteKey">The site key.</param>
         /// <param name="secretKey">The secret key.</param>
         /// <param name="apiVersion">The API version of reCAPTCHA to be used.</param>
-        /// <param name="defaultLanguage">Forces the widget to render in a specific language. Auto-detects the user's language if unspecified.</param>
-        /// <param name="defaultTheme">The color theme of the widget.</param>
-        /// <param name="defaultSize">The size of the widget.</param>
-        /// <param name="useSsl">Determines if HTTPS is to be used in reCAPTCHA URLs.</param>
+        /// <param name="theme">The color theme of the widget.</param>
+        /// <param name="language">Forces the reCAPTCHA widget to render in a specific language. By default, the user's language is used.</param>
+        /// <param name="size">The size of the reCAPTCHA widget.</param>
+        /// <param name="useSsl">Determines if SSL is to be used in Google reCAPTCHA API calls.</param>
         /// 
-        public RecaptchaConfiguration(string siteKey, string secretKey, string apiVersion, string defaultLanguage = null, RecaptchaTheme defaultTheme = RecaptchaTheme.Default, RecaptchaSize defaultSize= RecaptchaSize.Default, SslBehavior useSsl = SslBehavior.AlwaysUseSsl)
+        public RecaptchaConfiguration(string siteKey, string secretKey, string apiVersion, string language = null, RecaptchaTheme theme = RecaptchaTheme.Default, RecaptchaSize size= RecaptchaSize.Default, SslBehavior useSsl = SslBehavior.AlwaysUseSsl)
         {
             SiteKey = siteKey;
             SecretKey = secretKey;
             ApiVersion = apiVersion;
-            DefaultLanguage = defaultLanguage;
-            DefaultTheme = defaultTheme;
-            DefaultSize = defaultSize;
+            Language = language;
+            Theme = theme;
+            Size = size;
             UseSsl = useSsl;
         }
 
@@ -60,7 +60,7 @@ namespace Recaptcha.Web.Configuration
         }
 
         /// <summary>
-        /// Use SSL
+        /// Determines if SSL is to be used in Google reCAPTCHA API calls.
         /// </summary>
         public SslBehavior UseSsl
         {
@@ -69,9 +69,9 @@ namespace Recaptcha.Web.Configuration
         }
 
         /// <summary>
-        /// Forces the widget to render in a specific language. Auto-detects the user's language if unspecified.
+        /// Forces the reCAPTCHA widget to render in a specific language. By default, the user's language is used.
         /// </summary>
-        public string DefaultLanguage
+        public string Language
         {
             get;
             private set;
@@ -80,7 +80,7 @@ namespace Recaptcha.Web.Configuration
         /// <summary>
         /// The color theme of the widget.
         /// </summary>
-        public RecaptchaTheme DefaultTheme
+        public RecaptchaTheme Theme
         {
             get;
             private set;
@@ -89,7 +89,7 @@ namespace Recaptcha.Web.Configuration
         /// <summary>
         /// The size of the widget.
         /// </summary>
-        public RecaptchaSize DefaultSize
+        public RecaptchaSize Size
         {
             get;
             private set;

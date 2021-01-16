@@ -73,7 +73,7 @@ namespace Recaptcha.Web.UI.Controls
         }
 
         /// <summary>
-        /// Gets or sets the language of the recaptcha control.
+        /// Forces the reCAPTCHA widget to render in a specific language. By default, the user's language is used.
         /// </summary>
         /// <remarks>If the property is not set then the user's language is used. This property is used when the API script is rendered.</remarks>
         [Bindable(true)]
@@ -87,7 +87,7 @@ namespace Recaptcha.Web.UI.Controls
                 if (ViewState["RecaptchaLanguage"] == null)
                 {
                     var config = RecaptchaConfigurationManager.GetConfiguration();
-                    ViewState["RecaptchaLanguage"] = config.DefaultLanguage;
+                    ViewState["RecaptchaLanguage"] = config.Language;
                 }
 
                 return (String)ViewState["RecaptchaLanguage"];
@@ -100,7 +100,7 @@ namespace Recaptcha.Web.UI.Controls
         }
 
         /// <summary>
-        /// Determines whether to use SSL in reCAPTCHA URLs.
+        /// Determines if SSL is to be used in Google reCAPTCHA API calls.
         /// </summary>
         /// <remarks>The default value is <see cref="SslBehavior.AlwaysUseSsl"/>.</remarks>
         [Bindable(true)]

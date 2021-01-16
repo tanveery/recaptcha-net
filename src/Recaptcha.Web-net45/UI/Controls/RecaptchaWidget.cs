@@ -67,7 +67,7 @@ namespace Recaptcha.Web.UI.Controls
                 if (ViewState["RecaptchaTheme"] == null)
                 {
                     var config = RecaptchaConfigurationManager.GetConfiguration();
-                    ViewState["RecaptchaTheme"] = config.DefaultTheme;
+                    ViewState["RecaptchaTheme"] = config.Theme;
                 }
 
                 return (RecaptchaTheme)ViewState["RecaptchaTheme"];
@@ -125,7 +125,7 @@ namespace Recaptcha.Web.UI.Controls
         }
 
         /// <summary>
-        /// Gets or sets the data size of the recaptcha control.
+        /// Gets or sets the size of the recaptcha control.
         /// </summary>
         /// <remarks>This property is only relevant for v2 API. It has no effect if you are using v1 API.</remarks>
         [Bindable(true)]
@@ -139,7 +139,7 @@ namespace Recaptcha.Web.UI.Controls
                 if (ViewState["RecaptchaSize"] == null)
                 {
                     var config = RecaptchaConfigurationManager.GetConfiguration();
-                    ViewState["RecaptchaSize"] = config.DefaultSize;
+                    ViewState["RecaptchaSize"] = config.Size;
                 }
 
                 return (RecaptchaSize)ViewState["RecaptchaSize"];
