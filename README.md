@@ -30,6 +30,34 @@ reCAPTCHA for .NET is one of the most popular and well-documented reCAPTCHA libr
 <p>You can also download a released build of reCAPTCHA for .NET by going to the <a href="https://github.com/tanveery/recaptcha-net/releases">Releases</a> section of this project. The latest release is <a href="https://github.com/tanveery/recaptcha-net/releases/tag/v2.0">reCAPTCHA for .NET v2.0</a>.</p>
 <h2>Issues</h2>
 If you find a bug in the library or you have an idea about a new feature, please try to search in the existing list of <a href="https://github.com/tanveery/recaptcha-net/issues">issues</a>. If the bug or idea is not listed and addressed there, please <a href="https://github.com/tanveery/recaptcha-net/issues/new">open a new issue</a>.
+<h2>reCAPTCHA for .NET Reference</h2>
+<h3>Attributes</h3>
+<table>
+    <tr>
+        <th>Attribute</th>
+        <th>Description</th>
+        <th>Type</th>
+        <th>Values</th>
+        <th>Configuration Key</th>
+        <th>Required</th>
+    </tr>
+    <tr>
+        <td><strong>Site Key</strong></td>
+        <td>Site key for the reCAPTCHA widget.</td>
+        <td>String</td>
+        <td>The key associated with the site you register in <a href="https://www.google.com/recaptcha/admin">Google reCAPTCHA Admin Console</a>.</td>
+        <td>RecaptchaSiteKey</td>
+        <td>Yes</td>
+    </tr>    
+    <tr>
+        <td><strong>Language</strong></td>
+        <td>Forces the reCAPTCHA widget to render in a specific language. By default, the user's language is used.</td>
+        <td>String</td>
+        <td>One of the values from the <a href="https://developers.google.com/recaptcha/docs/language">Language Codes</a> list.</td>
+        <td>RecaptchaLanguage</td>
+        <td>No</td>
+    </tr>
+</table>
 <h2>Quick Starter</h2>
 <h3>How to Use reCAPTCHA in an ASP.NET Web Forms Application</h3>
 <p>Add the following line just under the Page directive in your .aspx or .ascx file:</p>
