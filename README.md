@@ -26,7 +26,7 @@ reCAPTCHA for .NET is one of the most popular and well-documented reCAPTCHA libr
 <h3>Installation</h3>
 <p>The best and the recommended way to install the latest version of reCAPTCHA for .NET is through Nuget. From the <a href="http://docs.nuget.org/consume/package-manager-console">Nuget's Package Manager Console</a> in your Visual Studio .NET IDE, simply execute the following command:</p>
 <pre><code>PM&gt; Install-Package RecaptchaNet</code></pre>
-<p>You can also download a released build of reCAPTCHA for .NET by going to the <a href="https://github.com/tanveery/recaptcha-net/releases">Releases</a> section of this project. The latest release is <a href="https://github.com/tanveery/recaptcha-net/releases/tag/v2.0">reCAPTCHA for .NET v2.0</a>.</p>
+<p>You can also download a released build of reCAPTCHA for .NET by going to the <a href="https://github.com/tanveery/recaptcha-net/releases">Releases</a> section of this project.
 <h3>Set Configuration</h3>
 <p><strong>ASP.NET Web Forms / ASP.NET MVC 5</strong></p>
 <p>In the <strong>appSettings</strong> section of your <strong>web.config</strong> file, add the following keys:</p>
