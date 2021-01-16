@@ -10,7 +10,7 @@ reCAPTCHA for .NET is one of the most popular and well-documented reCAPTCHA libr
     <li>One of the most well-documented reCAPTCHA libraries in the open source community.</li>
 </ul>
 <h2>API Support</h2>
-<p>The library supports Google's reCATPCAH API version 2. The support for API version has been removed since Google no longer supports it.</p>
+<p>The library supports Google's reCATPCAH API version 2. The functionality for API version 1 has been dropped since Google no longer supports it.</p>
 <h2>Creating a reCAPTCHA API Key</h2>
 <p>Before you can use reCAPTCHA in your web application, you must first create a reCAPTCHA API key (a pair of site and secret keys). Creating reCAPTCHA API key is very straight-forward. The following are the steps:</p>
 <ol>
