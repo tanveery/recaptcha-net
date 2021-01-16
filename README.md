@@ -45,73 +45,73 @@ If you find a bug in the library or you have an idea about a new feature, please
     <tr>
         <td><strong>Site Key</strong></td>
         <td>Site key for reCAPTCHA. It is required for rendering the widget.</td>
-        <td>String</td>        
+        <td><code>String</code></td>        
         <td><em>The site key associated with the site you register in <a href="https://www.google.com/recaptcha/admin">Google reCAPTCHA Admin Console</a>.</em></td>
         <td><em>No default value. Must be provided.</em</td>
-        <td>RecaptchaSiteKey</td>
+        <td><code>RecaptchaSiteKey</td>
         <td>Yes</td>
     </tr>    
     <tr>
         <td><strong>Secret Key</strong></td>
         <td>Secret key for the reCAPTCHA. It is required for verifying reCAPTCHA response.</td>
-        <td>String</td>
+        <td><code>String</code></td>
         <td><em>The secret key associated with the site you register in <a href="https://www.google.com/recaptcha/admin">Google reCAPTCHA Admin Console</a>.</em></td>
         <td><em>No default value. Must be provided.</em</td>
-        <td>RecaptchaSecretKey</td>
+        <td><code>RecaptchaSecretKey</td>
         <td>Yes</td>
     </tr>      
     <tr>
         <td><strong>APIVersion</strong></td>
         <td>Determines the version of the reCAPTCHA API.</td>
-        <td>String</td>
+        <td><code>String</code></td>
         <td>-</td>
         <td>2</td>
-        <td>RecaptchaApiVersion</td>
+        <td><code>RecaptchaApiVersion</td>
         <td>No</td>
     </tr>      
     <tr>
         <td><strong>Language</strong></td>
         <td>Forces the reCAPTCHA widget to render in a specific language. By default, the user's language is used.</td>
-        <td>String</td>
+        <td><code>String</code></td>
         <td><em>One of the values from the <a href="https://developers.google.com/recaptcha/docs/language">Language Codes</a> list.</em></td>
         <td><em>User's language</em></td>
-        <td>RecaptchaLanguage</td>
+        <td><code>RecaptchaLanguage</code></td>
         <td>No</td>
     </tr>    
     <tr>
         <td><strong>Size</strong></td>
         <td>The size of the reCAPTCHA widget.</td>
-        <td>RecaptchaSize enum</td>
+        <td><code>RecaptchaSize</code> enum</td>
         <td>Default, Normal, Compact</td>
         <td>Default</td>
-        <td>RecaptchaSize</td>
+        <td><code>RecaptchaSize</code></td>
         <td>No</td>
     </tr>   
     <tr>
         <td><strong>TabIndex</strong></td>
         <td>The tabindex of the reCAPTCHA widget.</td>
-        <td><code>Int</code></td>
+        <td><code>Int32</code></td>
         <td><em>Any integer</em></td>
         <td>0</td>
-        <td>RecaptchaSize</td>
+        <td><code>RecaptchaSize</td>
         <td>No</td>
     </tr>     
     <tr>
         <td><strong>Theme</strong></td>
         <td>The ccolor theme of the reCAPTCHA widget.</td>
-        <td>RecaptchaTheme enum</td>
+        <td><code>RecaptchaTheme</code> enum</td>
         <td>Default, Light, Dark</td>
         <td>Default</td>
-        <td>RecaptchaTheme</td>
+        <td><code>RecaptchaTheme</code></td>
         <td>No</td>
     </tr>
     <tr>
         <td><strong>Use SSL</strong></td>
         <td>Determines if SSL is to be used in Google reCAPTCHA API calls.</td>
-        <td>RecaptchaSslBehavior enum</td>
+        <td><code>RecaptchaSslBehavior</code> enum</td>
         <td>AlwaysUseSsl, SameAsRequestUrl, DoNotUseSsl</td>
         <td>AlwaysUseSsl</td>
-        <td>RecaptchaUseSsl</td>
+        <td><code>RecaptchaUseSsl</code></td>
         <td>No</td>
     </tr>      
 </table>
