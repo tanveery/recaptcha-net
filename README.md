@@ -82,8 +82,8 @@ If you find a bug in the library or you have an idea about a new feature, please
         <td><strong>Size</strong></td>
         <td>The size of the reCAPTCHA widget.</td>
         <td><code>RecaptchaSize</code> enum</td>
-        <td>Default, Normal, Compact</td>
-        <td>Default</td>
+        <td><code>Default</code>, <code>Normal</code>, <code>Compact</code></td>
+        <td><code>Default</code></td>
         <td><code>RecaptchaSize</code></td>
         <td>No</td>
     </tr>   
@@ -100,8 +100,8 @@ If you find a bug in the library or you have an idea about a new feature, please
         <td><strong>Theme</strong></td>
         <td>The ccolor theme of the reCAPTCHA widget.</td>
         <td><code>RecaptchaTheme</code> enum</td>
-        <td>Default, Light, Dark</td>
-        <td>Default</td>
+        <td><code>Default</code>, <code>Light</code>, <code>Dark</code></td>
+        <td><code>Default</code></td>
         <td><code>RecaptchaTheme</code></td>
         <td>No</td>
     </tr>
@@ -109,8 +109,8 @@ If you find a bug in the library or you have an idea about a new feature, please
         <td><strong>Use SSL</strong></td>
         <td>Determines if SSL is to be used in Google reCAPTCHA API calls.</td>
         <td><code>RecaptchaSslBehavior</code> enum</td>
-        <td>AlwaysUseSsl, SameAsRequestUrl, DoNotUseSsl</td>
-        <td>AlwaysUseSsl</td>
+        <td><code>AlwaysUseSsl</code>, <code>SameAsRequestUrl</code>, <code>DoNotUseSsl</code></td>
+        <td><code>AlwaysUseSsl</code></td>
         <td><code>RecaptchaUseSsl</code></td>
         <td>No</td>
     </tr>      
