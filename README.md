@@ -122,6 +122,19 @@ If you find a bug in the library or you have an idea about a new feature, please
         <td>No</td>
     </tr>      
 </table>
+<h3>APIs and Controls</h3>
+<table>
+    <tr>
+        <th>Operation</td>
+        <th>ASP.NET Web Form</th>
+        <th>ASP.NET MVC 5 and ASP.NET Core</th>
+    </tr>
+    <tr>
+        <td>Render Widget</td>
+        <td>Use RecaptchaWidget web control</td>
+        <td>Call RecpatchaWidget method of the HTML helper class</td>
+            </tr>
+</table>
 <h2>Quick Starter</h2>
 <h3>How to Use reCAPTCHA in an ASP.NET Web Forms Application</h3>
 <p>Add the following line just under the Page directive in your .aspx or .ascx file:</p>
