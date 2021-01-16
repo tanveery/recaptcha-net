@@ -10,15 +10,19 @@ reCAPTCHA for .NET is one of the most popular and well-documented reCAPTCHA libr
     <li>One of the most well-documented reCAPTCHA libraries in the open source community.</li>
 </ul>
 <h2>API Support</h2>
-<p>The library supports Google's reCATPCAH API version 2. The support for API version has been removed since Google no longer supports it.</p>
+<p>The library supports Google's reCATPCAH API version 2. The functionality for API version 1 has been dropped since Google no longer supports it.</p>
 <h2>Creating a reCAPTCHA API Key</h2>
 <p>Before you can use reCAPTCHA in your web application, you must first create a reCAPTCHA API key (a pair of site and secret keys). Creating reCAPTCHA API key is very straight-forward. The following are the steps:</p>
 <ol>
     <li>Go to the Google's <a href="https://www.google.com/recaptcha" target="_blank">reCAPTCHA</a> site.</li>
-    <li>Click on the <strong>Get reCAPTCHA</strong> button. You will be required to login with your Google account.</li>
-    <li>Under the <strong>Register a new site</strong> section, enter a label and the domain of your web application. You can enter more than one domain if you want to. Optionally, you can add one more owners of this new reCAPTCHA API key.</li>
-    <li>Click on the <strong>Register</strong> button.
-    <li>Under the <strong>Adding reCAPTCHA to your site</strong> section, take note of your <strong>Site Key</strong> and <strong>Secret Key</strong> which you would need to specify in your application's web.config file.</li>
+    <li>Click on the <strong>Admin Console</strong> menu option. You will be required to login with your Google account.</li>
+    <li>In the <strong>Admin Console</strong> page, click on the <strong>Create</strong> button.</li>
+    <li>Enter a label for your web application.</li>
+    <li>Select <strong>reCAPTCHA v2</strong> option and then <strong>"I'm not a robot" Checkbox</strong> sub-option from the <strong>reCAPTCHA Type</strong> list.</li>
+    <li>Enter the domain of your web application, e.g. example.com. If you are creating this key for your localhost, just enter localhost. You can enter more than one domain which is useful if you want the key to work across different hosts.</li>
+    <li>Accept the reCAPTCHA terms of service.
+    <li>Click on the <strong>Submit</strong> button.
+    <li>Copy your <strong>Site Key</strong> and <strong>Secret Key</strong> which you would need to specify in your application's web.config file.</li>
 </ol>
 <h2>Installation</h2>
 <h3>reCAPTCHA Nuget Package</h3>
@@ -61,18 +65,18 @@ PrivateKey="Your secret key" runat="server" /&gt;
 }
 else
 {
-    RecaptchaVerificationResult result = Recaptcha1.Verify();
-    if (result == RecaptchaVerificationResult.Success)
+    var result = Recaptcha1.Verify();
+    if (result.Success)
     {
         Response.Redirect("Welcome.aspx");
     }
-    if (result == RecaptchaVerificationResult.IncorrectCaptchaSolution)
-    {
-        lblMessage.Text = "Incorrect captcha response.";
-    }
     else
     {
-        lblMessage.Text = "Some other problem with captcha.";
+        lblMessage.Text = "Error(s): ";
+        foreach(var err in result.ErrorCodes)
+        {
+            lblMessage.Text = lblMessage.Text + err;
+        }
     }
 }
 </code></pre>
@@ -83,18 +87,18 @@ else
 }
 else
 {
-    RecaptchaVerificationResult result = await Recaptcha1.VerifyTaskAsync();
-    if (result == RecaptchaVerificationResult.Success)
+    var result = await Recaptcha1.VerifyTaskAsync();
+    if (result.Success)
     {
         Response.Redirect("Welcome.aspx");
     }
-    if (result == RecaptchaVerificationResult.IncorrectCaptchaSolution)
-    {
-        lblMessage.Text = "Incorrect captcha response.";
-    }
     else
     {
-        lblMessage.Text = "Some other problem with captcha.";
+        lblMessage.Text = "Error(s): ";
+        foreach(var err in result.ErrorCodes)
+        {
+            lblMessage.Text = lblMessage.Text + err;
+        }
     }
 }
 </code></pre>
