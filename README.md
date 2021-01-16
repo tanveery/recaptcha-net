@@ -141,12 +141,20 @@ TagPrefix="cc1" %&gt;
 &lt;cc1:Recaptcha ID="Recaptcha1" runat="server" /&gt;
 </code></pre></p>
         </td>
-        <td>Call RecpatchaWidget method of HTML helper class in your view.</td>
+        <td><p>Call RecpatchaWidget method of HTML helper class in your view.</p>
+          <p>
+                <strong>Example</strong><br>
+<pre><code>@using Recaptcha.Web.Mvc;
+@Html.Recaptcha()</code></pre>
+            </p>
+        </td>
     </tr>  
     <tr>
         <td><strong>Render widget without API script</strong></td>
         <td>Render reCAPTCHA widget without the API script. This is useful when you want to render multiple reCAPTCHA widgets or your you want to render the API script in a specific location of your page.</td>
-        <td>Use the Recaptcha.Web.UI.RecaptchaWidget web control in your web form and set its RenderApiScript to false.</td>
+        <td>
+            Use the Recaptcha.Web.UI.RecaptchaWidget web control in your web form and set its RenderApiScript to false.    
+        </td>
         <td>Call RecpatchaWidget method of HTML helper class in your view and pass renderApiScript argument as false.</td>
     </tr>    
 </table>
