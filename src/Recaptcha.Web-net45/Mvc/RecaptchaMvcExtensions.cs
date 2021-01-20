@@ -32,7 +32,35 @@ namespace Recaptcha.Web.Mvc
         /// <param name="useSsl">Determines if SSL is to be used in Google reCAPTCHA API calls.</param>
         /// <param name="apiVersion">Determines the version of the reCAPTCHA API.</param>
         /// <returns>Returns an instance of the IHtmlString type.</returns>
+        [Obsolete("This method is obsolete and will be removed in future. Please use RecaptchaWidget method instead.")]
         public static IHtmlString Recaptcha(
+            this HtmlHelper htmlHelper,
+            string siteKey = null,
+            bool renderApiScript = true,
+            RecaptchaTheme? theme = null,
+            string language = null,
+            int? tabIndex = null,
+            RecaptchaSize? size = null,
+            RecaptchaSslBehavior? useSsl = null,
+            string apiVersion = null)
+        {
+            return RecaptchaWidget(htmlHelper, siteKey, renderApiScript, theme, language, tabIndex, size, useSsl, apiVersion);
+        }
+
+        /// <summary>
+        /// Renders the recaptcha HTML in an MVC view. It is an extension method to the <see cref="System.Web.Mvc.HtmlHelper"/> class.
+        /// </summary>
+        /// <param name="htmlHelper">The <see cref="System.Web.Mvc.HtmlHelper"/> object to which the extension is added.</param>
+        /// <param name="siteKey">Sets the site key of recaptcha.</param>
+        /// <param name="renderApiScript">Determines if the API script is to be rendered.</param>
+        /// <param name="theme">The color theme of the widget.</param>
+        /// <param name="language">Forces the reCAPTCHA widget to render in a specific language. By default, the user's language is used.</param>
+        /// <param name="tabIndex">The tabindex of the reCAPTCHA widget.</param>
+        /// <param name="size">The size of the reCAPTCHA widget.</param>
+        /// <param name="useSsl">Determines if SSL is to be used in Google reCAPTCHA API calls.</param>
+        /// <param name="apiVersion">Determines the version of the reCAPTCHA API.</param>
+        /// <returns>Returns an instance of the IHtmlString type.</returns>
+        public static IHtmlString RecaptchaWidget(
             this HtmlHelper htmlHelper,
             string siteKey = null,
             bool renderApiScript = true,

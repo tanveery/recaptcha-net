@@ -4,8 +4,8 @@
     <TargetFramework>netcoreapp3.1</TargetFramework>
     <AssemblyName>Recaptcha.Web</AssemblyName>
     <RootNamespace>Recaptcha.Web</RootNamespace>
-    <Version>3.0.0</Version>
-    <Company>tanveery</Company>
+    <Version>3.1.0</Version>
+    <Company></Company>
     <Authors>tanveery</Authors>
     <PackageId>RecaptchaNet</PackageId>
     <Product>Recaptcha for .NET</Product>
