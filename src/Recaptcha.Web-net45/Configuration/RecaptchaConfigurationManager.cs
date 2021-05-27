@@ -23,12 +23,12 @@ namespace Recaptcha.Web.Configuration
         /// <returns>Returns configuration as an instance of the <see cref="RecaptchaConfiguration"/> class.</returns>
         public static RecaptchaConfiguration GetConfiguration()
         {
-            string siteKey = null, secretKey = null, language=null, apiVersion="2";
+            string siteKey = null, secretKey = null, language = null, apiVersion = "2", apiSource = null;
             RecaptchaSize size = RecaptchaSize.Default;
             RecaptchaTheme theme = RecaptchaTheme.Default;
             RecaptchaSslBehavior useSsl = RecaptchaSslBehavior.AlwaysUseSsl;
 
-            if(ConfigurationManager.AppSettings.AllKeys.Contains("RecaptchaSiteKey"))
+            if (ConfigurationManager.AppSettings.AllKeys.Contains("RecaptchaSiteKey"))
             {
                 siteKey = ConfigurationManager.AppSettings["RecaptchaSiteKey"];
             }
@@ -63,7 +63,12 @@ namespace Recaptcha.Web.Configuration
                 Enum.TryParse<RecaptchaSslBehavior>(ConfigurationManager.AppSettings["RecaptchaUseSsl"], out useSsl);
             }
 
-            return new RecaptchaConfiguration(siteKey, secretKey, apiVersion, language, theme, size, useSsl);
+            if (ConfigurationManager.AppSettings.AllKeys.Contains("RecaptchaApiSource"))
+            {
+                apiSource = ConfigurationManager.AppSettings["RecaptchaApiSource"];
+            }
+
+            return new RecaptchaConfiguration(siteKey, secretKey, apiVersion, language, theme, size, useSsl, apiSource);
         }
     }
 }
