@@ -101,7 +101,7 @@ namespace Recaptcha.Web
         {
             if (string.IsNullOrEmpty(Response))
             {
-                throw new InvalidOperationException("Reponse is emptry.");
+                throw new InvalidOperationException("Reponse is empty.");
             }
 
             string secretKey = SecretKey;
@@ -123,7 +123,7 @@ namespace Recaptcha.Web
         {
             if (string.IsNullOrEmpty(Response))
             {
-                throw new InvalidOperationException("Reponse is emptry.");
+                throw new InvalidOperationException("Reponse is empty.");
             }
 
             string secretKey = SecretKey;
