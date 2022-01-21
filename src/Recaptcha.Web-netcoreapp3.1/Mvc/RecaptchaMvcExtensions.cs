@@ -137,10 +137,11 @@ namespace Recaptcha.Web.Mvc
         /// </summary>
         /// <param name="controller">The <see cref="System.Web.Mvc.Controller"/> object to which the extension method is added to.</param>
         /// <param name="secretKey">The private key required for making the recaptcha verification request.</param>
+        /// <param name="response">The recaptcha response. If not specified, it will be taken from the Request.Form</param>
         /// <returns>Returns an instance of the <see cref="RecaptchaVerificationHelper"/> class.</returns>
-        public static RecaptchaVerificationHelper GetRecaptchaVerificationHelper(this Controller controller, string secretKey)
+        public static RecaptchaVerificationHelper GetRecaptchaVerificationHelper(this Controller controller, string secretKey, string response = null)
         {
-            return new RecaptchaVerificationHelper(controller.HttpContext, secretKey);
+            return new RecaptchaVerificationHelper(controller.HttpContext, secretKey, response);
         }
 
         /// <summary>

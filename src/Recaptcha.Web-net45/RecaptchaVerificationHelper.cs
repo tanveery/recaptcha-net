@@ -27,7 +27,8 @@ namespace Recaptcha.Web
         /// Creates an instance of the <see cref="RecaptchaVerificationHelper"/> class.
         /// </summary>
         /// <param name="secretKey">Sets the secret key for the recaptcha verification request.</param>
-        internal RecaptchaVerificationHelper(string secretKey)
+        /// <param name="response">The recaptcha response. If not specified, it will be taken from the Request.Form</param>
+        internal RecaptchaVerificationHelper(string secretKey, string response = null)
         {
             if (String.IsNullOrEmpty(secretKey))
             {
@@ -46,7 +47,10 @@ namespace Recaptcha.Web
             this.SecretKey = secretKey;
             this.UserHostAddress = request.UserHostAddress;
 
-            Response = request.Form["g-recaptcha-response"];
+            if (response == null)
+                response = request.Form["g-recaptcha-response"];
+
+            Response = response;
         }
 
         #endregion Constructors
