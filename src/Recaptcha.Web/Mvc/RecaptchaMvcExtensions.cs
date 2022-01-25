@@ -3,13 +3,20 @@
  * LIMITED TO THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE.
  * =========================================================================================================================== */
 
-using Microsoft.AspNetCore.Html;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
 using Recaptcha.Web.Configuration;
 using System;
 using System.IO;
-using System.Text;
+
+#if NETCOREAPP
+using Microsoft.AspNetCore.Html;
+using Microsoft.AspNetCore.Mvc;
+using IHtmlString = Microsoft.AspNetCore.Html.IHtmlContent;
+using HtmlHelper = Microsoft.AspNetCore.Mvc.Rendering.IHtmlHelper;
+#else
+using System.Web;
+using System.Web.Mvc;
+using System.Web.UI;
+#endif
 
 namespace Recaptcha.Web.Mvc
 {
@@ -34,8 +41,8 @@ namespace Recaptcha.Web.Mvc
         /// <param name="apiVersion">Determines the version of the reCAPTCHA API.</param>
         /// <returns>Returns an instance of the IHtmlString type.</returns>
         [Obsolete("This method is obsolete and will be removed in future. Please use RecaptchaWidget method instead.")]
-        public static IHtmlContent Recaptcha(
-            this IHtmlHelper htmlHelper,
+        public static IHtmlString Recaptcha(
+            this HtmlHelper htmlHelper,
             string siteKey = null,
             bool renderApiScript = true,
             RecaptchaTheme? theme = null,
@@ -61,8 +68,8 @@ namespace Recaptcha.Web.Mvc
         /// <param name="useSsl">Sets the value to the UseSsl property.</param>
         /// <param name="apiVersion">Determines the version of the reCAPTCHA API.</param>
         /// <returns>Returns an instance of the IHtmlString type.</returns>
-        public static IHtmlContent RecaptchaWidget(
-            this IHtmlHelper htmlHelper,
+        public static IHtmlString RecaptchaWidget(
+            this HtmlHelper htmlHelper,
             string siteKey = null,
             bool renderApiScript = true,
             RecaptchaTheme? theme = null,
@@ -86,7 +93,14 @@ namespace Recaptcha.Web.Mvc
             if (ver == null || ver == "2")
             {
                 var rHtmlHelper = new Recaptcha2HtmlHelper(siteKey ?? config.SiteKey);
+#if NETCOREAPP
                 return new HtmlString(rHtmlHelper.CreateWidgetHtml(renderApiScript, theme != null ? (RecaptchaTheme)theme : config.Theme, language ?? config.Language, tabIndex != null ? (int)tabIndex : 0, size != null ? (RecaptchaSize)size : config.Size, useSsl != null ? (RecaptchaSslBehavior)useSsl : config.UseSsl));
+#else
+                var writer = new HtmlTextWriter(new StringWriter());
+                writer.Write(rHtmlHelper.CreateWidgetHtml(renderApiScript, theme != null ? (RecaptchaTheme)theme : config.Theme, language ?? config.Language, tabIndex != null ? (int)tabIndex : 0, size != null ? (RecaptchaSize)size : config.Size, useSsl != null ? (RecaptchaSslBehavior)useSsl : config.UseSsl));
+
+                return htmlHelper.Raw(writer.InnerWriter.ToString());
+#endif
             }
             else
             {
@@ -103,8 +117,8 @@ namespace Recaptcha.Web.Mvc
         /// <param name="useSsl">Sets the value to the UseSsl property.</param>
         /// <param name="apiVersion">Determines the version of the reCAPTCHA API.</param>
         /// <returns>Returns an instance of the IHtmlString type.</returns>
-        public static IHtmlContent RecaptchaApiScript(
-            this IHtmlHelper htmlHelper,
+        public static IHtmlString RecaptchaApiScript(
+            this HtmlHelper htmlHelper,
             string siteKey = null,
             string language = null,
             RecaptchaSslBehavior? useSsl = null,
@@ -124,7 +138,14 @@ namespace Recaptcha.Web.Mvc
             if (ver == null || ver == "2")
             {
                 var rHtmlHelper = new Recaptcha2HtmlHelper(siteKey ?? config.SiteKey);
+#if NETCOREAPP
                 return new HtmlString(rHtmlHelper.CreateApiScripttHtml(language ?? config.Language, useSsl != null ? (RecaptchaSslBehavior)useSsl : config.UseSsl));
+#else
+                var writer = new HtmlTextWriter(new StringWriter());
+                writer.Write(rHtmlHelper.CreateApiScripttHtml(language ?? config.Language, useSsl != null ? (RecaptchaSslBehavior)useSsl : config.UseSsl));
+
+                return htmlHelper.Raw(writer.InnerWriter.ToString());
+#endif
             }
             else
             {
@@ -141,7 +162,11 @@ namespace Recaptcha.Web.Mvc
         /// <returns>Returns an instance of the <see cref="RecaptchaVerificationHelper"/> class.</returns>
         public static RecaptchaVerificationHelper GetRecaptchaVerificationHelper(this Controller controller, string secretKey, string response = null)
         {
-            return new RecaptchaVerificationHelper(controller.HttpContext, secretKey, response);
+            return new RecaptchaVerificationHelper(
+#if NETCOREAPP
+                controller.HttpContext,
+#endif
+                secretKey, response);
         }
 
         /// <summary>
@@ -152,9 +177,13 @@ namespace Recaptcha.Web.Mvc
         public static RecaptchaVerificationHelper GetRecaptchaVerificationHelper(this Controller controller)
         {
             var config = RecaptchaConfigurationManager.GetConfiguration();
-            return new RecaptchaVerificationHelper(controller.HttpContext, config.SecretKey);
+            return new RecaptchaVerificationHelper(
+#if NETCOREAPP
+                controller.HttpContext,
+#endif
+                config.SecretKey);
         }
 
-        #endregion Public Methods
+#endregion Public Methods
     }
 }

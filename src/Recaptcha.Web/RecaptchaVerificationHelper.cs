@@ -10,6 +10,9 @@ using System.IO;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
 using Recaptcha.Web.Configuration;
+#if NETCOREAPP
+using Microsoft.AspNetCore.Http;
+#endif
 
 namespace Recaptcha.Web
 {
@@ -26,26 +29,49 @@ namespace Recaptcha.Web
         /// <summary>
         /// Creates an instance of the <see cref="RecaptchaVerificationHelper"/> class.
         /// </summary>
-        /// <param name="secretKey">Sets the secret key for the recaptcha verification request.</param>
+        /// <param name="secretKey">Sets the secret key of the reCAPTCHA verification request.</param>
         /// <param name="response">The recaptcha response. If not specified, it will be taken from the Request.Form</param>
-        internal RecaptchaVerificationHelper(string secretKey, string response = null)
+        internal RecaptchaVerificationHelper(
+#if NETCOREAPP
+            HttpContext httpContext,
+#endif
+            string secretKey, string response = null)
         {
             if (String.IsNullOrEmpty(secretKey))
             {
-                throw new InvalidOperationException("Secret key cannot be null or empty.");
+                throw new InvalidOperationException("Private key cannot be null or empty.");
             }
 
+#if NETCOREAPP
+            if (httpContext == null)
+            {
+                throw new ArgumentNullException(nameof(httpContext));
+            }
+#else
             if (HttpContext.Current == null || HttpContext.Current.Request == null)
             {
                 throw new InvalidOperationException("Http request context does not exist.");
             }
+#endif
 
+#if NETCOREAPP
+            var request = httpContext.Request;
+#else
             HttpRequest request = HttpContext.Current.Request;
+#endif
 
+#if NETCOREAPP
+            this.UseSsl = request.IsHttps;
+#else
             this.UseSsl = request.IsSecureConnection;
+#endif
 
             this.SecretKey = secretKey;
+#if NETCOREAPP
+            this.UserHostAddress = request.Path.Value;
+#else
             this.UserHostAddress = request.UserHostAddress;
+#endif
 
             if (response == null)
                 response = request.Form["g-recaptcha-response"];
@@ -53,9 +79,9 @@ namespace Recaptcha.Web
             Response = response;
         }
 
-        #endregion Constructors
+#endregion Constructors
 
-        #region Properties
+#region Properties
 
         /// <summary>
         /// Determines if HTTPS intead of HTTP is to be used in reCAPTCHA verification API calls.
@@ -67,7 +93,7 @@ namespace Recaptcha.Web
         }
 
         /// <summary>
-        /// Gets the secret key for the recaptcha verification request.
+        /// Gets the privae key of the recaptcha verification request.
         /// </summary>
         public string SecretKey
         {
@@ -76,7 +102,7 @@ namespace Recaptcha.Web
         }
 
         /// <summary>
-        /// Gets the user's host address for the reCAPTCHA verification request.
+        /// Gets the user's host address of the recaptcha verification request.
         /// </summary>
         public string UserHostAddress
         {
@@ -93,9 +119,9 @@ namespace Recaptcha.Web
             private set;
         }
 
-        #endregion Properties
+#endregion Properties
 
-        #region Public Methods
+#region Public Methods
 
         /// <summary>
         /// Verifies whether the user's response to the recaptcha request is correct.
@@ -141,9 +167,9 @@ namespace Recaptcha.Web
             return VerifyRecpatcha2ResponseTaskAsync(secretKey);
         }
 
-        #endregion Public Methods
+#endregion Public Methods
 
-        #region Private Methods
+#region Private Methods
 
         private Task<RecaptchaVerificationResult> VerifyRecpatcha2ResponseTaskAsync(string secretKey)
         {
@@ -234,6 +260,6 @@ namespace Recaptcha.Web
             }
         }
 
-        #endregion Private Methods
+#endregion Private Methods
     }
 }
