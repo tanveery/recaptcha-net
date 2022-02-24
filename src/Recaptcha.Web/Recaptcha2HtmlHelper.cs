@@ -6,7 +6,12 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+
+#if NETFRAMEWORK
 using System.Web;
+#else
+using Microsoft.AspNetCore.Http;
+#endif
 
 namespace Recaptcha.Web
 {
@@ -15,7 +20,7 @@ namespace Recaptcha.Web
     /// </summary>
     public class Recaptcha2HtmlHelper
     {
-        #region Fields
+#region Fields
 
         private const string PARAM_HL = "hl";
 
@@ -23,8 +28,11 @@ namespace Recaptcha.Web
         private const string PARAM_THEME = "theme";
         private const string PARAM_SIZE = "size";
         private const string PARAM_TABINDEX = "tabindex";
+#if NETCOREAPP
+        private readonly HttpContext _httpContext = null;
+#endif
 
-        #endregion Fields
+#endregion Fields
 
         #region Constructors
 
@@ -42,12 +50,29 @@ namespace Recaptcha.Web
             this.SiteKey = siteKey;
         }
 
+#if NETCOREAPP
+        /// <summary>
+        /// Creates an instance of the <see cref="Recaptcha2HtmlHelper"/> class.
+        /// </summary>
+        /// <param name="siteKey">Sets the site key for the reCAPTCHA widget.</param>
+        public Recaptcha2HtmlHelper(HttpContext httpContext, string siteKey)
+        {
+            if (String.IsNullOrEmpty(siteKey))
+            {
+                throw new InvalidOperationException("Site key cannot be null or empty.");
+            }
+
+            this._httpContext = httpContext ?? throw new ArgumentNullException(nameof(httpContext));
+            this.SiteKey = siteKey;
+        }
+#endif
+
         #endregion Constructors
 
         #region Properties
 
         /// <summary>
-        /// Gets or sets the site key for the reCAPTCHA widget.
+        /// Gets the site key of the reCAPTCHA widget.
         /// </summary>
         public string SiteKey
         {
@@ -55,9 +80,9 @@ namespace Recaptcha.Web
             set;
         }
 
-        #endregion Properties
+#endregion Properties
 
-        #region Public Methods
+#region Public Methods
 
         /// <summary>
         /// Creates the reCAPTCHA HTML that needs to be rendered.
@@ -129,7 +154,11 @@ namespace Recaptcha.Web
             }
             else if (useSsl == RecaptchaSslBehavior.SameAsRequestUrl)
             {
+#if NETCOREAPP
+                doUseSsl = _httpContext.Request.IsHttps;
+#else
                 doUseSsl = HttpContext.Current.Request.IsSecureConnection;
+#endif
             }
 
             var protocol = "https://";
@@ -164,6 +193,6 @@ namespace Recaptcha.Web
             return $"<script src=\"{url}{qs.ToString()}\" async defer></script>";
         }
 
-        #endregion Public Methods
+#endregion Public Methods
     }
 }

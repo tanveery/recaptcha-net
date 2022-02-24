@@ -6,9 +6,17 @@
 using Recaptcha.Web.Configuration;
 using System;
 using System.IO;
+
+#if NETCOREAPP
+using Microsoft.AspNetCore.Html;
+using Microsoft.AspNetCore.Mvc;
+using IHtmlString = Microsoft.AspNetCore.Html.IHtmlContent;
+using HtmlHelper = Microsoft.AspNetCore.Mvc.Rendering.IHtmlHelper;
+#else
 using System.Web;
 using System.Web.Mvc;
 using System.Web.UI;
+#endif
 
 namespace Recaptcha.Web.Mvc
 {
@@ -24,12 +32,12 @@ namespace Recaptcha.Web.Mvc
         /// </summary>
         /// <param name="htmlHelper">The <see cref="System.Web.Mvc.HtmlHelper"/> object to which the extension is added.</param>
         /// <param name="siteKey">Sets the site key of recaptcha.</param>
-        /// <param name="renderApiScript">Determines if the API script is to be rendered.</param>
-        /// <param name="theme">The color theme of the widget.</param>
-        /// <param name="language">Forces the reCAPTCHA widget to render in a specific language. By default, the user's language is used.</param>
-        /// <param name="tabIndex">The tabindex of the reCAPTCHA widget.</param>
-        /// <param name="size">The size of the reCAPTCHA widget.</param>
-        /// <param name="useSsl">Determines if SSL is to be used in Google reCAPTCHA API calls.</param>
+        /// <param name="renderApiScript">Determines if the API script call is to be rendered.</param>
+        /// <param name="theme">Sets the theme of recaptcha.</param>
+        /// <param name="language">Sets the language of recaptcha. If no language is specified, the language of the current UI culture will be used.</param>
+        /// <param name="tabIndex">Sets the tab index of recaptcha.</param>
+        /// <param name="size">Sets the size of recaptcha.</param>
+        /// <param name="useSsl">Sets the value to the UseSsl property.</param>
         /// <param name="apiVersion">Determines the version of the reCAPTCHA API.</param>
         /// <returns>Returns an instance of the IHtmlString type.</returns>
         [Obsolete("This method is obsolete and will be removed in future. Please use RecaptchaWidget method instead.")]
@@ -52,12 +60,12 @@ namespace Recaptcha.Web.Mvc
         /// </summary>
         /// <param name="htmlHelper">The <see cref="System.Web.Mvc.HtmlHelper"/> object to which the extension is added.</param>
         /// <param name="siteKey">Sets the site key of recaptcha.</param>
-        /// <param name="renderApiScript">Determines if the API script is to be rendered.</param>
-        /// <param name="theme">The color theme of the widget.</param>
-        /// <param name="language">Forces the reCAPTCHA widget to render in a specific language. By default, the user's language is used.</param>
-        /// <param name="tabIndex">The tabindex of the reCAPTCHA widget.</param>
-        /// <param name="size">The size of the reCAPTCHA widget.</param>
-        /// <param name="useSsl">Determines if SSL is to be used in Google reCAPTCHA API calls.</param>
+        /// <param name="renderApiScript">Determines if the API script call is to be rendered.</param>
+        /// <param name="theme">Sets the theme of recaptcha.</param>
+        /// <param name="language">Sets the language of recaptcha. If no language is specified, the language of the current UI culture will be used.</param>
+        /// <param name="tabIndex">Sets the tab index of recaptcha.</param>
+        /// <param name="size">Sets the size of recaptcha.</param>
+        /// <param name="useSsl">Sets the value to the UseSsl property.</param>
         /// <param name="apiVersion">Determines the version of the reCAPTCHA API.</param>
         /// <returns>Returns an instance of the IHtmlString type.</returns>
         public static IHtmlString RecaptchaWidget(
@@ -85,10 +93,14 @@ namespace Recaptcha.Web.Mvc
             if (ver == null || ver == "2")
             {
                 var rHtmlHelper = new Recaptcha2HtmlHelper(siteKey ?? config.SiteKey);
+#if NETCOREAPP
+                return new HtmlString(rHtmlHelper.CreateWidgetHtml(renderApiScript, theme != null ? (RecaptchaTheme)theme : config.Theme, language ?? config.Language, tabIndex != null ? (int)tabIndex : 0, size != null ? (RecaptchaSize)size : config.Size, useSsl != null ? (RecaptchaSslBehavior)useSsl : config.UseSsl));
+#else
                 var writer = new HtmlTextWriter(new StringWriter());
                 writer.Write(rHtmlHelper.CreateWidgetHtml(renderApiScript, theme != null ? (RecaptchaTheme)theme : config.Theme, language ?? config.Language, tabIndex != null ? (int)tabIndex : 0, size != null ? (RecaptchaSize)size : config.Size, useSsl != null ? (RecaptchaSslBehavior)useSsl : config.UseSsl));
 
                 return htmlHelper.Raw(writer.InnerWriter.ToString());
+#endif
             }
             else
             {
@@ -101,8 +113,8 @@ namespace Recaptcha.Web.Mvc
         /// </summary>
         /// <param name="htmlHelper">The <see cref="System.Web.Mvc.HtmlHelper"/> object to which the extension is added.</param>
         /// <param name="siteKey">Sets the site key of recaptcha.</param>
-        /// <param name="language">Forces the reCAPTCHA widget to render in a specific language. By default, the user's language is used.</param>
-        /// <param name="useSsl">Determines if SSL is to be used in Google reCAPTCHA API calls.</param>
+        /// <param name="language">Sets the language of recaptcha. If no language is specified, the language of the current UI culture will be used.</param>
+        /// <param name="useSsl">Sets the value to the UseSsl property.</param>
         /// <param name="apiVersion">Determines the version of the reCAPTCHA API.</param>
         /// <returns>Returns an instance of the IHtmlString type.</returns>
         public static IHtmlString RecaptchaApiScript(
@@ -126,10 +138,14 @@ namespace Recaptcha.Web.Mvc
             if (ver == null || ver == "2")
             {
                 var rHtmlHelper = new Recaptcha2HtmlHelper(siteKey ?? config.SiteKey);
+#if NETCOREAPP
+                return new HtmlString(rHtmlHelper.CreateApiScripttHtml(language ?? config.Language, useSsl != null ? (RecaptchaSslBehavior)useSsl : config.UseSsl));
+#else
                 var writer = new HtmlTextWriter(new StringWriter());
                 writer.Write(rHtmlHelper.CreateApiScripttHtml(language ?? config.Language, useSsl != null ? (RecaptchaSslBehavior)useSsl : config.UseSsl));
 
                 return htmlHelper.Raw(writer.InnerWriter.ToString());
+#endif
             }
             else
             {
@@ -142,10 +158,15 @@ namespace Recaptcha.Web.Mvc
         /// </summary>
         /// <param name="controller">The <see cref="System.Web.Mvc.Controller"/> object to which the extension method is added to.</param>
         /// <param name="secretKey">The private key required for making the recaptcha verification request.</param>
+        /// <param name="response">The recaptcha response. If not specified, it will be taken from the Request.Form</param>
         /// <returns>Returns an instance of the <see cref="RecaptchaVerificationHelper"/> class.</returns>
-        public static RecaptchaVerificationHelper GetRecaptchaVerificationHelper(this System.Web.Mvc.Controller controller, string secretKey)
+        public static RecaptchaVerificationHelper GetRecaptchaVerificationHelper(this Controller controller, string secretKey, string response = null)
         {
-            return new RecaptchaVerificationHelper(secretKey);
+            return new RecaptchaVerificationHelper(
+#if NETCOREAPP
+                controller.HttpContext,
+#endif
+                secretKey, response);
         }
 
         /// <summary>
@@ -153,12 +174,16 @@ namespace Recaptcha.Web.Mvc
         /// </summary>
         /// <param name="controller">The <see cref="System.Web.Mvc.Controller"/> object to which the extension method is added to.</param>
         /// <returns>Returns an instance of the <see cref="RecaptchaVerificationHelper"/> class.</returns>
-        public static RecaptchaVerificationHelper GetRecaptchaVerificationHelper(this System.Web.Mvc.Controller controller)
+        public static RecaptchaVerificationHelper GetRecaptchaVerificationHelper(this Controller controller)
         {
             var config = RecaptchaConfigurationManager.GetConfiguration();
-            return new RecaptchaVerificationHelper(config.SecretKey);
+            return new RecaptchaVerificationHelper(
+#if NETCOREAPP
+                controller.HttpContext,
+#endif
+                config.SecretKey);
         }
 
-        #endregion Public Methods
+#endregion Public Methods
     }
 }

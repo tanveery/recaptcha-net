@@ -1,0 +1,40 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFrameworks>netcoreapp3.1;net45</TargetFrameworks>
+    <AssemblyName>Recaptcha.Web</AssemblyName>
+    <RootNamespace>Recaptcha.Web</RootNamespace>
+    <Version>3.1.0</Version>
+    <Company></Company>
+    <Authors>tanveery</Authors>
+    <PackageId>RecaptchaNet</PackageId>
+    <Product>Recaptcha for .NET</Product>
+    <RepositoryUrl>https://github.com/tanveery/recaptcha-net</RepositoryUrl>
+    <RepositoryType>Git</RepositoryType>
+    <SignAssembly>false</SignAssembly>
+    <AssemblyOriginatorKeyFile>Recaptcha.Web.pfx</AssemblyOriginatorKeyFile>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
+  </ItemGroup>
+
+	<ItemGroup Condition="$(TargetFramework.StartsWith('netcoreapp'))">
+		<PackageReference Include="Microsoft.AspNetCore.Html.Abstractions" Version="2.2.0" />
+		<PackageReference Include="Microsoft.AspNetCore.Http.Abstractions" Version="2.2.0" />
+		<PackageReference Include="Microsoft.AspNetCore.Mvc.ViewFeatures" Version="2.2.0" />
+	</ItemGroup>
+
+	<ItemGroup Condition="$(TargetFramework.StartsWith('net4'))">
+		<PackageReference Include="Microsoft.AspNet.Mvc" Version="5.2.7" />
+		<PackageReference Include="Microsoft.AspNet.Razor" Version="3.2.7" />
+		<PackageReference Include="Microsoft.AspNet.WebPages" Version="3.2.7" />
+		<PackageReference Include="Microsoft.Web.Infrastructure" Version="1.0.0.0" />
+	</ItemGroup>
+
+	<ItemGroup Condition="$(TargetFramework.StartsWith('net4'))">
+	  <Reference Include="System.Configuration" />
+      <Reference Include="System.Web" />
+	</ItemGroup>
+
+</Project>
