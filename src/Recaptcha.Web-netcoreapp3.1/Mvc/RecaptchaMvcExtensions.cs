@@ -5,6 +5,7 @@
 
 using Microsoft.AspNetCore.Html;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Recaptcha.Web.Configuration;
 using System;
@@ -152,6 +153,28 @@ namespace Recaptcha.Web.Mvc
         {
             var config = RecaptchaConfigurationManager.GetConfiguration();
             return new RecaptchaVerificationHelper(controller.HttpContext, config.SecretKey);
+        }
+
+        /// <summary>
+        /// Gets an instance of the <see cref="RecaptchaVerificationHelper"/> class that can be used to verify user's response to the recaptcha's challenge. 
+        /// </summary>
+        /// <param name="pageModel">The <see cref="Microsoft.AspNetCore.Mvc.RazorPages.PageModel"/> object to which the extension method is added to.</param>
+        /// <param name="secretKey">The private key required for making the recaptcha verification request.</param>
+        /// <returns>Returns an instance of the <see cref="RecaptchaVerificationHelper"/> class.</returns>
+        public static RecaptchaVerificationHelper GetRecaptchaVerificationHelper(this PageModel pageModel, string secretKey)
+        {
+            return new RecaptchaVerificationHelper(pageModel.HttpContext, secretKey);
+        }
+
+        /// <summary>
+        /// Gets an instance of the <see cref="RecaptchaVerificationHelper"/> class that can be used to verify user's response to the recaptcha's challenge. 
+        /// </summary>
+        /// <param name="pageModel">The <see cref="Microsoft.AspNetCore.Mvc.RazorPages.PageModel"/> object to which the extension method is added to.</param>
+        /// <returns>Returns an instance of the <see cref="RecaptchaVerificationHelper"/> class.</returns>
+        public static RecaptchaVerificationHelper GetRecaptchaVerificationHelper(this PageModel pageModel)
+        {
+            var config = RecaptchaConfigurationManager.GetConfiguration();
+            return new RecaptchaVerificationHelper(pageModel.HttpContext, config.SecretKey);
         }
 
         #endregion Public Methods
