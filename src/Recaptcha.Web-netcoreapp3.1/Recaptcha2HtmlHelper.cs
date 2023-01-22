@@ -4,6 +4,7 @@
  * =========================================================================================================================== */
 
 using Microsoft.AspNetCore.Http;
+using Recaptcha.Web.Configuration;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -157,7 +158,7 @@ namespace Recaptcha.Web
             }
 
             var dictQS = new Dictionary<string, string>();
-            var url = $"{protocol}www.google.com/recaptcha/api.js";
+            var url = $"{protocol}{RecaptchaConfigurationManager.GetConfiguration().ApiSource}/api.js";
 
             if (!string.IsNullOrEmpty(language))
             {

@@ -3,6 +3,7 @@
  * LIMITED TO THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE.
  * =========================================================================================================================== */
 
+using Recaptcha.Web.Configuration;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -92,7 +93,7 @@ namespace Recaptcha.Web
             }
 
             var sbAttributes = new StringBuilder();
-            foreach(var key in dictAttributes.Keys)
+            foreach (var key in dictAttributes.Keys)
             {
                 sbAttributes.Append($"{key}=\"{dictAttributes[key]}\" ");
             }
@@ -140,7 +141,7 @@ namespace Recaptcha.Web
             }
 
             var dictQS = new Dictionary<string, string>();
-            var url = $"{protocol}www.google.com/recaptcha/api.js";
+            var url = $"{protocol}{RecaptchaConfigurationManager.GetConfiguration().ApiSource}/api.js";
 
             if (!string.IsNullOrEmpty(language))
             {

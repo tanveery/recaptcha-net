@@ -155,7 +155,7 @@ namespace Recaptcha.Web
 
                 Uri verifyUri = null;
 
-                verifyUri = new Uri("https://www.google.com/recaptcha/api/siteverify", UriKind.Absolute);
+                verifyUri = new Uri($"https://{RecaptchaConfigurationManager.GetConfiguration().ApiSource}/siteverify", UriKind.Absolute);
 
                 try
                 {
@@ -199,7 +199,7 @@ namespace Recaptcha.Web
             string postData = String.Format("secret={0}&response={1}&remoteip={2}", secretKey, this.Response, this.UserHostAddress);
 
             byte[] postDataBuffer = System.Text.Encoding.ASCII.GetBytes(postData);
-            Uri verifyUri = new Uri("https://www.google.com/recaptcha/api/siteverify", UriKind.Absolute);
+            Uri verifyUri = new Uri($"https://{RecaptchaConfigurationManager.GetConfiguration().ApiSource}/siteverify", UriKind.Absolute);
             try
             {
                 var webRequest = (HttpWebRequest)WebRequest.Create(verifyUri);
