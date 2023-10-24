@@ -68,8 +68,8 @@ RecaptchaConfigurationManager.SetConfiguration(Configuration);</pre></code>
 <pre><code>@using Recaptcha.Web.Mvc;
 ...
 @Html.RecaptchaApiScript()
-@Html.RecaptchaWidget(rednderApiScript:false)
-@Html.RecaptchaWidget(rednderApiScript:false)
+@Html.RecaptchaWidget(renderApiScript:false)
+@Html.RecaptchaWidget(renderApiScript:false)
 </code></pre>
 <h3>Verify reCAPTCHA Response</h3>
 <p>When your end-user submits the form that contains the reCAPTCHA widget, you can easily verify reCAPTCHA response with few lines of code:</p>
